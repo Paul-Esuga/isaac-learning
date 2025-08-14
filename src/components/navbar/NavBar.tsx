@@ -13,7 +13,6 @@ const NavBar = () => {
     const { pathname } = useLocation();
 
     const [currentPath, setCurrentPath] = useState(pathname);
-    const [showBackButton, setShowBackButton] = useState(false);
 
 
     useEffect(() => {
