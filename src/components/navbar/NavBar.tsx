@@ -27,7 +27,7 @@ const NavBar = () => {
     // const showBackButton = false;
 
     return (
-        <nav className="z-[1000] flex justify-between items-center bg-[#fff] shadow-md fixed right-0 left-[280px] px-[24px] pt-[32px] pb-[20px]">
+        <nav className="flex justify-between items-center bg-[#ffffff] shadow-md fixed right-0 left-[280px] px-[24px] pt-[32px] pb-[20px]">
             <div>
                 {currentPath.includes("personal-details") || currentPath.includes("notification-settings") || currentPath.includes("privacy") || currentPath.includes("help") || currentPath.includes("account-management") ? 
                 <BackButton /> 
@@ -38,7 +38,7 @@ const NavBar = () => {
 
                 <div className="flex gap-[8px] border-[1px] border-[#999999] px-[16px] py-[12px] rounded-[100px] w-[300px]">
                     <img src={SearchIcon} alt="search icon" />
-                    <input type='search' placeholder="search here" className="text-[#99999]" />
+                    <input type='search' placeholder="search here" className="text-[#99999] border-none outline-none" />
                 </div>
 
                 <div className="flex flex-col gap-[4px]">

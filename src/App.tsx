@@ -26,7 +26,10 @@ import Bookmarks from './pages/profile/Bookmarks';
 import Settings from './pages/profile/settings/Settings';
 import PersonalDetails from './pages/profile/settings/PersonalDetails';
 import NotificationSettings from './pages/profile/settings/NotificationSettings';
+
 import Privacy from './pages/profile/settings/Privacy';
+import CommentBoundaries from './pages/comment-boundaries/CommentBoundaries';
+
 import Help from './pages/profile/settings/Help';
 import AccountManagement from './pages/profile/settings/AccountManagement';
 
@@ -70,7 +73,11 @@ function App() {
               <Route path='settings' element={<Settings />} >
                 <Route path='personal-details' element={<PersonalDetails />} />
                 <Route path='notification-settings' element={<NotificationSettings />} />
-                <Route path='privacy' element={<Privacy />} />
+
+                <Route path='privacy' element={<Privacy />}>
+                  <Route path='comment-boundaries' element={<CommentBoundaries/>}/>
+                </Route>
+
                 <Route path='help' element={<Help />} />
                 <Route path='account-management' element={<AccountManagement />} />
               </Route>
