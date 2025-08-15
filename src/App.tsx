@@ -37,6 +37,7 @@ import PricePlan from './pages/payment/PricePlan';
 // Components
 import ScrollToTop from './components/ScrollToTop';
 import IndividualPayment from './pages/payment/IndividualPayment';
+import ViewComment from './pages/community/ViewComment';
 
 function App() {
   return (
@@ -46,7 +47,6 @@ function App() {
         <Routes>
           {/* Keep both versions' routes */}
           <Route path="/create-account" element={<CreateAccountPage />} />
-          <Route path="/" element={<CourseSelection />} />
 
           {/* Dashboard page and all its sub pages */}
           <Route path="dashboard" element={<Dashboard />}>
@@ -55,7 +55,9 @@ function App() {
             <Route path="modules" element={<Modules />} />
             <Route path="quiz" element={<Quiz />} />
             <Route path="mock-exam" element={<MockExam />} />
-            <Route path="community" element={<Community />} />
+            <Route path="community" element={<Community />}>
+              <Route path="view-comment/:id" element={<ViewComment />} />
+            </Route>
             <Route path="notification" element={<Notification />} />
 
             {/* Profile page and its sub pages */}
@@ -70,7 +72,7 @@ function App() {
                 <Route path='notification-settings' element={<NotificationSettings />} />
 
                 <Route path='privacy' element={<Privacy />}>
-                  <Route path='comment-boundaries' element={<CommentBoundaries/>}/>
+                  <Route path='comment-boundaries' element={<CommentBoundaries />} />
                 </Route>
 
                 <Route path='help' element={<Help />} />

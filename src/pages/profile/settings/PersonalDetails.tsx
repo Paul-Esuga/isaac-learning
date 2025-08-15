@@ -1,8 +1,7 @@
 const PersonalDetails = () => {
 
     return (
-        // <div className={`bg-[#f8fcfc] h-screen  z-[1000]  absolute ${hasMounted ? "absolute top-0 left-[0] right-[0] pt-[30px] " : ""}`}>
-        <div className={`bg-[#f8fcfc] h-screen  z-[1000]  absolute absolute top-0 left-[0] right-[0] pt-[30px]`}>
+        <div className={`bg-[#f8fcfc] h-screen  z-[1000] absolute top-0 left-[0] right-[0] pt-[30px]`}>
 
             <div className='bg-[#fff] w-[90%] m-[auto] rounded-[16px] px-[40px] py-[24px] shadow-2xl'>
 
@@ -29,9 +28,9 @@ const PersonalDetails = () => {
 
                     <div className=' flex flex-col'>
                         <label className='text-[#999999]'>Bio</label>
-                        <textarea 
-                         value="Aspiring HR professional, passionate about people, learning, and workplace impact. Exploring the future of HR one course at a time"
-                         className='border-[1px] rounded-[10px] px-[16px] py-[13px] w-[100%] resize-none text-[24px]'/>
+                        <textarea
+                            value="Aspiring HR professional, passionate about people, learning, and workplace impact. Exploring the future of HR one course at a time"
+                            className='border-[1px] rounded-[10px] px-[16px] py-[13px] w-[100%] resize-none text-[24px]' />
                     </div>
                 </form>
 
