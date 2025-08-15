@@ -6,6 +6,7 @@ import { useEffect, useState, useCallback } from 'react';
 
 // Componenets
 import EditBioPopup from './popup/EditBioPopup';
+import UploadPhotoPopup from './popup/UploadPhotoPopup';
 
 
 // Assets
@@ -19,6 +20,7 @@ const Profile = () => {
     const [indexPath, setIndexPath] = useState(pathname);
 
     const [showEditBio, setShowEditBio] = useState(false);
+    const [showUploadPhoto, setShowUploadPhoto] = useState(false);
 
     useEffect(() => {
         setIndexPath(pathname);
@@ -28,6 +30,10 @@ const Profile = () => {
         setShowEditBio(false);
     }, [] )
 
+    const removeUploadPhoto = useCallback( () => {
+        setShowUploadPhoto(false)
+    }, [])
+
 
 
     document.title = "profile - Isaac Learning";
@@ -35,7 +41,7 @@ const Profile = () => {
     const name = "John Adekola";
 
     return (
-        <section className="h-screen w-[100%]">
+        <section className="h-screen w-[100%] bg-[#f8fcfc]">
 
             <p className="font-[700] mb-[15px] text-[20px]">My Profile</p>
 
@@ -46,7 +52,7 @@ const Profile = () => {
 
                     <div className='relative'>
                         <img src={Pfp} className='mb-20 w-[130px] h-[130px]' alt='profile image cursor-pointer' />
-                        <img src={ProfileIcon} className='w-[30px] h-[30px] absolute right-[-10px] top-[60px]' alt='pick profile image icon cursor-pointer' />
+                        <img src={ProfileIcon} className='w-[30px] h-[30px] absolute right-[-10px] top-[60px] cursor-pointer' alt='pick profile image icon cursor-pointer' onClick={() => setShowUploadPhoto(true)}/>
                     </div>
 
                     <div>
@@ -87,7 +93,8 @@ const Profile = () => {
             </nav>
 
             { showEditBio ? <EditBioPopup setShowEditBio={removeEditBio}/> : "" }
-            
+            { showUploadPhoto ? <UploadPhotoPopup setShowUploadPhoto={removeUploadPhoto}/> : ""}
+            {/* <UploadPhotoPopup setShowUploadPhoto={removeUploadPhoto}/> */}
 
             <div className='pt-[24px]'>
                 <Outlet />
