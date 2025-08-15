@@ -2,19 +2,30 @@ import like from '../../assets/images/profile-images/like.png';
 import comment from '../../assets/images/profile-images/comment.png';
 import bookmarked from '../../assets/images/profile-images/bookmark-icon.png';
 
-
-type BookmarkProps = {
+export type CommentProps = {
+    id: string
     img: string,
     name: string
-    time:string,
+    time: string,
+    body: string,
+    like_count: string,
+}
+
+export type BookmarkProps = {
+    id: string
+    img: string,
+    name: string
+    time: string,
     title: string,
     body: string,
     like_count: string,
     comment_count: string
+    isBookmarked?: boolean
+    comments?: CommentProps[]
 }
 
 
-const Bookmark = ( { img, name, time, title, body, like_count, comment_count }: BookmarkProps ) => {
+const Bookmark = ({ img, name, time, title, body, like_count, comment_count }: BookmarkProps) => {
     return (
         <div className='shadow-md px-[10px] py-[20px] rounded-[10px] mb-[20px]'>
 
