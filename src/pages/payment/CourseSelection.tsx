@@ -1,73 +1,10 @@
-import CIPM from '../../assets/images/payment-images/cipm-logo.png'
-import ICAN from '../../assets/images/payment-images/ican-logo.png'
-import MDCN from '../../assets/images/payment-images/mdcn-logo.png'
-import COREN from '../../assets/images/payment-images/coren-logo.png'
-import BAR from '../../assets/images/payment-images/bar-logo.png'
-import WAEC from '../../assets/images/payment-images/waec-logo.png'
+import courses from '../../static-data/CoursesData'
+import { usePayment } from '../../context/PaymentContext';
+import { useNavigate } from 'react-router-dom';
 
 function CourseSelection() {
-  const courses = [
-    {
-      image: CIPM,
-      title: 'CIPM HR EXAM',
-      description: 'Ace CIPM exam by taking quizzes and mock exam, buidling networks in the community and pro tips from mentors',
-    },
-    {
-      image: ICAN,
-      title: 'ICAN EXAM',
-      description: 'Excel in ICAN exam  by taking quizzes and mock exam, buidling networks in the community and pro tips from mentors',
-    },
-    {
-      image: MDCN,
-      title: 'MDCN LICENSING EXAM',
-      description: 'Pass the MDCN exam  by taking quizzes and mock exam, buidling networks in the community and pro tips from mentors',
-    },
-    {
-      image: COREN,
-      title: 'COREN ENGINEERING EXAM',
-      description: 'Ace COREN exam  by taking quizzes and mock exam, buidling networks in the community and pro tips from mentors',
-    },
-    {
-      image: BAR,
-      title: 'BAR EXAM',
-      description: 'Excel in ICAN exam  by taking quizzes and mock exam, buidling networks in the community and pro tips from mentors',
-    },
-    {
-      image: WAEC,
-      title: 'WAEC',
-      description: 'Pass WAEC exam  by taking quizzes and mock exam, buidling networks in the community and pro tips from mentors',
-    },
-    {
-      image: CIPM,
-      title: 'CIPM HR EXAM',
-      description: 'Ace CIPM exam by taking quizzes and mock exam, buidling networks in the community and pro tips from mentors',
-    },
-    {
-      image: ICAN,
-      title: 'ICAN EXAM',
-      description: 'Excel in ICAN exam  by taking quizzes and mock exam, buidling networks in the community and pro tips from mentors',
-    },
-    {
-      image: MDCN,
-      title: 'MDCN LICENSING EXAM',
-      description: 'Pass the MDCN exam  by taking quizzes and mock exam, buidling networks in the community and pro tips from mentors',
-    },
-    {
-      image: COREN,
-      title: 'COREN ENGINEERING EXAM',
-      description: 'Ace COREN exam  by taking quizzes and mock exam, buidling networks in the community and pro tips from mentors',
-    },
-    {
-      image: BAR,
-      title: 'BAR EXAM',
-      description: 'Excel in ICAN exam  by taking quizzes and mock exam, buidling networks in the community and pro tips from mentors',
-    },
-    {
-      image: WAEC,
-      title: 'WAEC',
-      description: 'Pass WAEC exam  by taking quizzes and mock exam, buidling networks in the community and pro tips from mentors',
-    }
-  ]
+  const { setSelectedCourse } = usePayment()
+  const navigate = useNavigate()
 
   return (
     <div className='py-24 lg:px-32 sm:px-8 text-center'>
@@ -83,11 +20,26 @@ function CourseSelection() {
                 <img src={course.image} className='self-center justify-self-center ' />
                 <h1 className='text-2xl! font-extrabold text-black mt-6 '>{course.title}</h1>
                 <p className='text-[#7F8C8D] text-base mt-4 '>{course.description}</p>
-                <div className='justify-items-end '><button className='bg-[#00A36C] p-6 rounded-xl!  w-full bottom-0 text-white text-base mt-4 self-end'>Select Course</button></div>
+                <div className='justify-items-end '>
+                  <button className='bg-[#00A36C] p-6 rounded-xl! w-full bottom-0 text-white text-base mt-4 self-end cursor-pointer'
+                    onClick={() => {
+                      setSelectedCourse(prev => {
+                        return {
+                          ...prev,
+                          image: course.image,
+                          title: course.title,
+                          description: course.description
+                        }
+                      })
+                      navigate('/price')
+                    }}
+                  >Select Course</button>
+                </div>
               </div>
             </div>)}
         </div>
       </div>
+
     </div>
   )
 }

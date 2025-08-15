@@ -9,6 +9,10 @@
   --color-brand-purple: #7e5bef;
 }
 
+
+div::-webkit-scrollbar{
+  display: none;
+}
 /* #root { */
 /* max-width: 1800px;
   margin: 0 2rem; */

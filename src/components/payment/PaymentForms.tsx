@@ -1,26 +1,46 @@
-import { useState } from "react"
-import Modal from "./CompletionModal"
-import { ModalDetails } from "./ModalDetails"
+import { useEffect, useState } from "react"
+import Modal from "../Modal/CompletionModal"
+import { ModalDetails } from "../Modal/ModalDetails"
 
-export const IndividualForm = ({ isFamily, setIsFamily }: { isFamily: boolean, setIsFamily: React.Dispatch<React.SetStateAction<boolean>> }) => {
+export const IndividualForm = ({ canSubmit }:
+  {
+    canSubmit: boolean
+  }) => {
+  const [isFamily, setIsFamily] = useState(false)
   return (
     <div>
-      <button className='bg-[#00A36C] p-[10px] rounded-[10px]! cursor-pointer w-full bottom-0 text-white text-[18px] font-bold mt-6 self-end lg:w-[50%] self-center m-auto'
-        onClick={() => setIsFamily(!isFamily)}
+      <button className='bg-[#00A36C] p-[10px] rounded-[10px]! cursor-pointer w-full bottom-0 text-white text-[18px] font-bold mt-6 lg:w-[50%] self-center m-auto'
+        disabled={canSubmit}
+        onClick={() => setIsFamily(true)}
       >Pay ₦20,000</button>
-      <Modal isFamily={isFamily} onClose={() => setIsFamily(false)}>
+      <Modal isFamily={isFamily} >
         <ModalDetails setIsFamily={setIsFamily} />
       </Modal>
     </div>
   )
 }
 
-export const FamilyForm = ({ isFamily, setIsFamily }: { isFamily: boolean, setIsFamily: React.Dispatch<React.SetStateAction<boolean>> }) => {
+export const FamilyForm = ({ canSubmit }:
+  {
+    canSubmit: boolean
+  }) => {
+  const emailValid = /(^(\w+)(@([a-z]|[0-9])+)(\.([a-z]|[0-9])+)(\.([a-z]|[0-9])+)?$)/i
 
   const [emailInput, setEmailInput] = useState(new Array(4).fill(""))
+  const [isEmailValid, setIsEmailValid] = useState(new Array(4).fill(true))
+  const isValid = (isEmailValid.every(el => el == true) && canSubmit)
+  useEffect(() => {
+    const updated = emailInput.map((email) => {
+      return email ? emailValid.test(email) : true
+    })
+    setIsEmailValid(updated)
+    console.log("Updated isEmailValids:", updated);
+  }, [emailInput])
+  const [isFamily, setIsFamily] = useState(false)
+
 
   return (
-    <div >
+    <main >
       <div className="lg:w-[50%] self-center m-auto mb-8 ">
         <h1 className="text-2xl text-slate-gray font-bold mt-8">Add other users</h1>
         <p className="text-sub-gray text-[18px]">Enter the email address of the users you want to add on the family plan (You can add up to 4)</p>
@@ -41,10 +61,14 @@ export const FamilyForm = ({ isFamily, setIsFamily }: { isFamily: boolean, setIs
             />
           </div>
         )}
+        <button className={`bg-[#00A36C] p-[10px] rounded-[10px]! cursor-pointer w-full bottom-0 text-white  text-[18px] font-bold mt-6 lg:w-[50%] self-center m-auto ${isValid ? '' : 'opacity-50'}`}
+          disabled={isValid}
+          onClick={() => { console.log(isFamily); setIsFamily(true) }}
+        >Pay ₦90,000</button>
       </div>
-      <button className='bg-[#00A36C] p-[10px] rounded-[10px]! cursor-pointer w-full bottom-0 text-white  text-[18px] font-bold mt-6 self-end lg:w-[50%] self-center m-auto'
-        onClick={() => setIsFamily(!isFamily)}
-      >Pay ₦90,000</button>
-    </div>
+      <Modal isFamily={isFamily} >
+        <ModalDetails setIsFamily={setIsFamily} />
+      </Modal>
+    </main>
   )
 }
