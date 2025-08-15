@@ -18,6 +18,10 @@ input::-webkit-search-cancel-button{
 button{
   cursor: pointer;
 }
+.none{
+  display: none;
+  pointer-events: none;
+}
 
 
 /* #root { */

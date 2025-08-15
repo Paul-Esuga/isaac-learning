@@ -75,7 +75,7 @@ function App() {
 
                 <Route path='help' element={<Help />} />
                 <Route path='account-management' element={<AccountManagement />} />
->>>>>>>>> Temporary merge branch 2
+
               </Route>
             </Route>
           </Route>
