@@ -1,17 +1,26 @@
-// React Hooks
-import { useState, useEffect } from 'react';
+// React Router Hooks
+import { Outlet } from 'react-router-dom';
+
+// Componets
+import SettingsCard from '../../../components/settings-card/SettingsCard';
+import NotificationSettingsCard from '../../../components/notification-settings-card/NotificationSettingsCard';
 
 const Privacy = () => {
 
-    const [hasMounted, setHasMounted] = useState(false);
 
-    useEffect(() => {
-        setHasMounted(true)
-    },[])
+    return (
+        <div className={`bg-[#f8fcfc] h-screen z-[1000] px-[80px] absolute top-0 left-[0] right-[0] pt-[30px]`}>
+        
+            <h1 className=' text-[32px] font-[700] mb-[24px]'>Privacy Settings</h1>
 
-    return(
-        <div className={`bg-yellow-200 h-screen w-screen z-[1000] absolute ${hasMounted ? "absolute top-0 left-0 pt-[24px]" : ""}`}>
-            <h1 className='text-center text-[32px] font-[700]'>Privacy</h1>
+            <div className='bg-[#fff] px-[20px] rounded-[10px]'>
+                <SettingsCard title='Who can see my comment post' route='comment-boundaries' gotoLabel='Everyone' />
+                <NotificationSettingsCard title='Allow comments on my post' body='' />
+            </div>
+
+            <div className='h-screen w-screen z-[1000]'>
+                <Outlet />
+            </div>
         </div>
     )
 }

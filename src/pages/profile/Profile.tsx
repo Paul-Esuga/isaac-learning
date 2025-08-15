@@ -2,7 +2,10 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 // React Hooks
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+
+// Componenets
+import EditBioPopup from './popup/EditBioPopup';
 
 
 // Assets
@@ -15,9 +18,15 @@ const Profile = () => {
     const { pathname } = useLocation();
     const [indexPath, setIndexPath] = useState(pathname);
 
+    const [showEditBio, setShowEditBio] = useState(false);
+
     useEffect(() => {
         setIndexPath(pathname);
     },[pathname]);
+
+    const removeEditBio = useCallback( () => {
+        setShowEditBio(false);
+    }, [] )
 
 
 
@@ -51,9 +60,9 @@ const Profile = () => {
 
                 </div>
 
-                <button className='flex align-center justify-center gap-[8px] bg-[#fcfcfc]  h-[50px] w-[137px] py-[15px] rounded-[10px] cursor-pointer'>
+                <button className='flex align-center justify-center gap-[8px] bg-[#fcfcfc]  h-[50px] w-[137px] py-[15px] rounded-[10px] cursor-pointer' onClick={() => setShowEditBio(true)}>
                     <p className='text-[#00a36cff] font-bold'>Edit bio</p>
-                    <img src={EditIcon} className='w-[25px] h-[25px]' alt='edit icon' />
+                    <img src={EditIcon} className='w-[25px] h-[25px]' alt='edit icon'/>
                 </button>
 
             </div>
@@ -76,6 +85,9 @@ const Profile = () => {
                     Settings
                 </NavLink>
             </nav>
+
+            { showEditBio ? <EditBioPopup setShowEditBio={removeEditBio}/> : "" }
+            
 
             <div className='pt-[24px]'>
                 <Outlet />
