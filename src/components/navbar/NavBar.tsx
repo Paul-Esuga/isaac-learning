@@ -28,9 +28,9 @@ const NavBar = () => {
     return (
         <nav className="flex justify-between items-center bg-[#ffffff] shadow-md fixed right-0 left-[280px] px-[24px] pt-[32px] pb-[20px]">
             <div>
-                {currentPath.includes("personal-details") || currentPath.includes("notification-settings") || currentPath.includes("privacy") || currentPath.includes("help") || currentPath.includes("account-management") ? 
-                <BackButton /> 
-                : <h1 className="font-bold text-[20px]">Welcome back, {username}</h1>}
+                {currentPath.includes("personal-details") || currentPath.includes("notification-settings") || currentPath.includes("privacy") || currentPath.includes("help") || currentPath.includes("account-management") ?
+                    <BackButton />
+                    : <h1 className="font-bold text-[20px]">Welcome back, {username}</h1>}
             </div>
 
             <div className="flex align-center gap-[20px]">
