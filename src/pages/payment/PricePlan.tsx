@@ -14,8 +14,8 @@ function PricePlan() {
   const { selectedPayment, setSelectedPayment } = usePayment()
 
   useEffect(() => {
-    localStorage.setItem("paymentPlan", selectedPayment.type)
-    console.log(localStorage.getItem('paymentPlan'))
+    sessionStorage.setItem("paymentPlan", selectedPayment.type)
+    sessionStorage.setItem('paymentPrice', selectedPayment.price)
   }, [selectedPayment])
 
 
@@ -78,7 +78,6 @@ function PricePlan() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
