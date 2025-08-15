@@ -61,6 +61,7 @@ function App() {
             {/* Profile page and its sub pages */}
             <Route path="profile" element={<Profile />}>
               <Route index element={<ProgressSummary />} />
+
               <Route path='progress-summary' element={<ProgressSummary />} />
               <Route path='activity' element={<Activity />} />
               <Route path='bookmarks' element={<Bookmarks />} />
@@ -74,19 +75,10 @@ function App() {
 
                 <Route path='help' element={<Help />} />
                 <Route path='account-management' element={<AccountManagement />} />
-              <Route path="progress-summary" element={<ProgressSummary />} />
-              <Route path="activity" element={<Activity />} />
-              <Route path="bookmarks" element={<Bookmarks />} />
-              <Route path="settings" element={<Settings />}>
-                <Route path="personal-details" element={<PersonalDetails />} />
-                <Route path="notification-settings" element={<NotificationSettings />} />
-                <Route path="privacy" element={<Privacy />} />
-                <Route path="help" element={<Help />} />
-                <Route path="account-management" element={<AccountManagement />} />
+>>>>>>>>> Temporary merge branch 2
               </Route>
             </Route>
           </Route>
-        </Route>
 
           <Route path="/course" element={<CourseSelection />} />
           <Route path="/price" element={<PricePlan />} />
