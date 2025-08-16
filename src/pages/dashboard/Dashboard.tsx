@@ -58,23 +58,23 @@ const Dashboard = () => {
                                 Dashboard
                             </Link>
 
-                            <Link to='modules' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${currentPath == "/dashboard/modules" ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
-                                <img src={currentPath == "/dashboard/modules" ? ModulesIconGreen : ModulesIconWhite} alt='module icon' />
+                            <Link to='modules' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${currentPath.includes("/dashboard/modules") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
+                                <img src={currentPath.includes("/dashboard/modules") ? ModulesIconGreen : ModulesIconWhite} alt='module icon' />
                                 Modules
                             </Link>
 
-                            <Link to='quiz' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${currentPath == "/dashboard/quiz" ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
-                                <img src={currentPath == "/dashboard/quiz" ? QuizIconGreen : QuizIconWhite} alt='module icon' />
+                            <Link to='quiz' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${currentPath.includes("/dashboard/quiz") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
+                                <img src={currentPath.includes("/dashboard/quiz") ? QuizIconGreen : QuizIconWhite} alt='module icon' />
                                 Quizzes
                             </Link>
 
-                            <Link to='mock-exam' className={`flex gap-[16px] text-[#fff] py-[15px] pl-[10px] mx-10 ${currentPath == "/dashboard/mock-exam" ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
-                                <img src={currentPath == "/dashboard/mock-exam" ? MockIconGreen : MockIconWhite} alt='module icon' />
+                            <Link to='mock-exam' className={`flex gap-[16px] text-[#fff] py-[15px] pl-[10px] mx-10 ${currentPath.includes("/dashboard/mock-exam") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
+                                <img src={currentPath.includes("/dashboard/mock-exam") ? MockIconGreen : MockIconWhite} alt='module icon' />
                                 Mock exams
                             </Link>
 
-                            <Link to='community' className={`flex gap-[16px] text-[#fff] py-[15px] pl-[10px] mx-10 ${currentPath == "/dashboard/community" ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
-                                <img src={currentPath == "/dashboard/community" ? CommunityIconGreen : CommunityIconWhite} alt='module icon' />
+                            <Link to='community' className={`flex gap-[16px] text-[#fff] py-[15px] pl-[10px] mx-10 ${currentPath.includes("/dashboard/community") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
+                                <img src={currentPath.includes( "/dashboard/community") ? CommunityIconGreen : CommunityIconWhite} alt='module icon' />
                                 Community
                             </Link>
 
@@ -83,8 +83,8 @@ const Dashboard = () => {
                                 Profile
                             </Link>
 
-                            <Link to='notification' className={`flex gap-[16px] text-[#fff] py-[15px] pl-[10px] mx-10 ${currentPath == "/dashboard/notification" ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
-                                <img src={currentPath == "/dashboard/notification" ? NotificationIconGreen : NotificationIconWhite} alt='module icon' />
+                            <Link to='notification' className={`flex gap-[16px] text-[#fff] py-[15px] pl-[10px] mx-10 ${currentPath.includes("/dashboard/notification") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
+                                <img src={currentPath.includes("/dashboard/notification") ? NotificationIconGreen : NotificationIconWhite} alt='module icon' />
                                 Notification
                             </Link>
                         </div>
