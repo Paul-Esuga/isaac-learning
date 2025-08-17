@@ -1,5 +1,5 @@
 // React Hooks
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // Assets
 import CloseIcon from '../../../assets/images/Close.png';

@@ -8,7 +8,6 @@ import { useLocation } from 'react-router-dom';
 // React Hooks
 import { useState, useEffect } from 'react';
 
-const Paths_with_back_button_list = ["personal-details", "notification-settins", "privacy", "help", "account-management"];
 
 const NavBar = () => {
 
