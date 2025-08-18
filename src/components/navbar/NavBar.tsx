@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 // React Hooks
 import { useState, useEffect } from 'react';
 
+
 const NavBar = () => {
 
     const { pathname } = useLocation();
@@ -21,6 +22,9 @@ const NavBar = () => {
 
 
 
+
+
+
     const username = "John";
 
     // const showBackButton = false;
@@ -28,7 +32,12 @@ const NavBar = () => {
     return (
         <nav className="flex justify-between items-center bg-[#ffffff] shadow-md fixed right-0 left-[280px] px-[24px] pt-[32px] pb-[20px]">
             <div>
-                {currentPath.includes("personal-details") || currentPath.includes("notification-settings") || currentPath.includes("privacy") || currentPath.includes("help") || currentPath.includes("account-management") ?
+                {currentPath.includes("personal-details") || 
+                currentPath.includes("notification-settings") || 
+                currentPath.includes("privacy") || 
+                currentPath.includes("help") || 
+                currentPath.includes("account-management") ||
+                currentPath.includes("view-comment") ?
                     <BackButton />
                     : <h1 className="font-bold text-[20px]">Welcome back, {username}</h1>}
             </div>

@@ -14,7 +14,11 @@ import Modules from './pages/modules/Modules';
 import Quiz from './pages/quiz/Quiz';
 import MockExam from './pages/mockexams/MockExams';
 import Community from './pages/community/Community';
+
 import Notification from './pages/notification/Notification';
+import All from './pages/notification/all/All';
+import Read from './pages/notification/read/Read';
+import Unread from './pages/notification/unread/Unread';
 
 import Profile from './pages/profile/Profile';
 import ProgressSummary from './pages/profile/ProgressSummary';
@@ -58,7 +62,12 @@ function App() {
             <Route path="community" element={<Community />}>
               <Route path="view-comment/:id" element={<ViewComment />} />
             </Route>
-            <Route path="notification" element={<Notification />} />
+            <Route path="notification" element={<Notification />}>
+            <Route index element={<All/>} />
+              <Route path='all' element={<All/>}/>
+              <Route path='unread' element={<Unread/>}/>
+              <Route path='read' element={<Read/>}/>
+            </Route>
 
             {/* Profile page and its sub pages */}
             <Route path="profile" element={<Profile />}>

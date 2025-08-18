@@ -73,7 +73,7 @@ const Profile = () => {
 
             </div>
 
-            <nav className=' flex align-center w-[100%] border-b-[1px] w-[70vw]'>
+            <nav className=' flex align-center  w-[100%] border-b-[1px]'>
 
                 <NavLink to='progress-summary' className={indexPath == "/dashboard/profile" || indexPath == "/dashboard/profile/progress-summary" ? 'text-primary-green text-center w-[100%] py-[13px] border-primary-green border-b-[5px] font-[700] text-nowrap' : 'py-[13px] px-[100px] text-center text-nowrap'}>
                     Progress Summary
@@ -94,7 +94,6 @@ const Profile = () => {
 
             { showEditBio ? <EditBioPopup setShowEditBio={removeEditBio}/> : "" }
             { showUploadPhoto ? <UploadPhotoPopup setShowUploadPhoto={removeUploadPhoto}/> : ""}
-            {/* <UploadPhotoPopup setShowUploadPhoto={removeUploadPhoto}/> */}
 
             <div className='pt-[24px]'>
                 <Outlet />

@@ -1,5 +1,5 @@
 // React Hooks
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // Assets
 import CloseIcon from '../../../assets/images/Close.png';
@@ -30,8 +30,10 @@ const UploadPhotoPopup = ({ setShowUploadPhoto }: UploadPhotoPrps) => {
 
 
     const withImage = <div className="bg-[#fff] h-[1000px] w-screen absolute top-[-100px]  left-0 flex flex-col gap-[55px] items-center justify-center">
-        <img src={inputFile || EmptyImage}  className='rounded-[50%] w-[300px] h-[300px]'/>
-        <button className='bg-primary-green text-[#fff] px-[40px] py-[10px] rounded-[10px] cursor-pointer w-[300px]' onClick={setShowUploadPhoto}>Upload</button>
+        <div className='flex-col gap-[55px] items-cente justify-center px-[350px] py-[100px] border-[#000] border rounded-[10px] border-dashed'>
+            <img src={inputFile || EmptyImage} className='rounded-[50%] w-[300px] h-[300px] mb-[55px]' />
+            <button className='bg-primary-green text-[#fff] px-[40px] py-[10px] rounded-[10px] cursor-pointer w-[300px]' onClick={setShowUploadPhoto}>Upload</button>
+        </div>
     </div>
 
 
@@ -52,10 +54,9 @@ const UploadPhotoPopup = ({ setShowUploadPhoto }: UploadPhotoPrps) => {
                         <h3 className='text-[#000] font-[600]'>Upload cover photo</h3>
                         <p className='text-[#999999]'>Select from files or document to upload picture</p>
                     </div>
-                    <button className='bg-primary-green text-[#fff] px-[40px] py-[4px] rounded-[10px] cursor-pointer'>
-                        <label htmlFor='photo_input' className='cursor-pointer'>Browse file</label>
-                    </button>
-                    <input id='photo_input' type='file' className='none' onChange={e =>  onFileChange(e)} />
+                    
+                    <label htmlFor='photo_input' className='bg-primary-green text-[#fff] px-[40px] py-[4px] rounded-[10px] cursor-pointer'>Browse file</label>
+                    <input id='photo_input' type='file' className='none' onChange={e => onFileChange(e)} />
                 </div>
                 <div>{inputFile as string}</div>
             </div>
