@@ -2,7 +2,11 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 // React Hooks
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+
+// Componenets
+import EditBioPopup from './popup/EditBioPopup';
+import UploadPhotoPopup from './popup/UploadPhotoPopup';
 
 
 // Assets
@@ -15,9 +19,20 @@ const Profile = () => {
     const { pathname } = useLocation();
     const [indexPath, setIndexPath] = useState(pathname);
 
+    const [showEditBio, setShowEditBio] = useState(false);
+    const [showUploadPhoto, setShowUploadPhoto] = useState(false);
+
     useEffect(() => {
         setIndexPath(pathname);
     },[pathname]);
+
+    const removeEditBio = useCallback( () => {
+        setShowEditBio(false);
+    }, [] )
+
+    const removeUploadPhoto = useCallback( () => {
+        setShowUploadPhoto(false)
+    }, [])
 
 
 
@@ -26,7 +41,7 @@ const Profile = () => {
     const name = "John Adekola";
 
     return (
-        <section className="h-screen w-[100%]">
+        <section className="h-screen w-[100%] bg-[#f8fcfc]">
 
             <p className="font-[700] mb-[15px] text-[20px]">My Profile</p>
 
@@ -37,7 +52,7 @@ const Profile = () => {
 
                     <div className='relative'>
                         <img src={Pfp} className='mb-20 w-[130px] h-[130px]' alt='profile image cursor-pointer' />
-                        <img src={ProfileIcon} className='w-[30px] h-[30px] absolute right-[-10px] top-[60px]' alt='pick profile image icon cursor-pointer' />
+                        <img src={ProfileIcon} className='w-[30px] h-[30px] absolute right-[-10px] top-[60px] cursor-pointer' alt='pick profile image icon cursor-pointer' onClick={() => setShowUploadPhoto(true)}/>
                     </div>
 
                     <div>
@@ -51,14 +66,14 @@ const Profile = () => {
 
                 </div>
 
-                <button className='flex align-center justify-center gap-[8px] bg-[#fcfcfc]  h-[50px] w-[137px] py-[15px] rounded-[10px] cursor-pointer'>
+                <button className='flex align-center justify-center gap-[8px] bg-[#fcfcfc]  h-[50px] w-[137px] py-[15px] rounded-[10px] cursor-pointer' onClick={() => setShowEditBio(true)}>
                     <p className='text-[#00a36cff] font-bold'>Edit bio</p>
-                    <img src={EditIcon} className='w-[25px] h-[25px]' alt='edit icon' />
+                    <img src={EditIcon} className='w-[25px] h-[25px]' alt='edit icon'/>
                 </button>
 
             </div>
 
-            <nav className=' flex align-center w-[100%] border-b-[1px] w-[70vw]'>
+            <nav className=' flex align-center  w-[100%] border-b-[1px]'>
 
                 <NavLink to='progress-summary' className={indexPath == "/dashboard/profile" || indexPath == "/dashboard/profile/progress-summary" ? 'text-primary-green text-center w-[100%] py-[13px] border-primary-green border-b-[5px] font-[700] text-nowrap' : 'py-[13px] px-[100px] text-center text-nowrap'}>
                     Progress Summary
@@ -76,6 +91,9 @@ const Profile = () => {
                     Settings
                 </NavLink>
             </nav>
+
+            { showEditBio ? <EditBioPopup setShowEditBio={removeEditBio}/> : "" }
+            { showUploadPhoto ? <UploadPhotoPopup setShowUploadPhoto={removeUploadPhoto}/> : ""}
 
             <div className='pt-[24px]'>
                 <Outlet />

@@ -10,8 +10,11 @@ function IndividualPayment() {
   const [cardNumber, setCardNumnber] = useState('')
   const [expiryDate, setExpiryDate] = useState('')
   const [cvv, setCvv] = useState('')
-  const { selectedCourse, selectedPayment } = usePayment()
-  const storedPlan = localStorage.getItem("paymentPlan")
+  const { selectedCourse } = usePayment()
+  const storedPlan = {
+    type: sessionStorage.getItem("paymentPlan"),
+    price: sessionStorage.getItem('paymentPrice')
+  }
   // const nameValid = /^([a-z]+)(\s)([a-z]+)(?:( )([a-z]+))?$/i
   // const numberValid = /d+/
   // const expiryValid = /d+/
@@ -39,9 +42,9 @@ function IndividualPayment() {
             <p className="text-sub-gray text-xs text-left mb-2">Course</p>
             <div className="border-1 border-primary-green px-4 py-[10px] text-sm text-slate-gray rounded-[10px] mb-5 text-left">{selectedCourse.title}</div>
             <p className="text-sub-gray text-xs text-left mb-2">Plan</p>
-            <div className="border-1 border-primary-green px-4 py-[10px] text-sm text-slate-gray rounded-[10px] mb-5 text-left">{selectedPayment.type}</div>
+            <div className="border-1 border-primary-green px-4 py-[10px] text-sm text-slate-gray rounded-[10px] mb-5 text-left">{storedPlan.type}</div>
             <p className="text-sub-gray text-xs text-left mb-2">Price</p>
-            <div className="border-1 border-primary-green px-4 py-[10px] text-sm text-slate-gray rounded-[10px] text-left mb-5">{selectedPayment.price}</div>
+            <div className="border-1 border-primary-green px-4 py-[10px] text-sm text-slate-gray rounded-[10px] text-left mb-5">{storedPlan.price}</div>
           </div>
           <div className="lg:w-[48%] items-start  text-left max-h-[276px]  content-between flex flex-col justify-between sm:w-full">
             <div className=" w-full">
@@ -49,7 +52,8 @@ function IndividualPayment() {
               <input type="text" name="" id="" className={`border-1 px-4 py-[10px] mb-6 w-full rounded-[10px] focus:outline-primary-green ${cardName ? 'outline-primary-green border-primary-green ' : 'border-sub-gray'}`}
                 value={cardName}
                 onChange={(e) => {
-                  setCardName(e.target.value);
+                  const value = e.target.value.replace(/[^a-z ]/gi, "").slice(0, 100);
+                  setCardName(value);
                   setIsFormFilled(prev => prev.map((form, i) => i == 0 ? e.target.value : form))
                   console.log(cvv, ' ', expiryDate, ' ', cardName, ' ', cardNumber)
 
@@ -58,7 +62,7 @@ function IndividualPayment() {
             </div>
             <div className=" w-full">
               <p className="text-sub-gray text-xs text-left mb-2">Card number</p>
-              <input type="text" name="" id="" className={`border-1 px-4 py-[10px] mb-6 w-full rounded-[10px] focus:outline-primary-green ${cardNumber ? 'outline-primary-green border-primary-green ' : 'border-sub-gray'}`}
+              <input type="text" name="myCustomfield" autoComplete="off" className={`border-1 px-4 py-[10px] mb-6 w-full rounded-[10px] focus:outline-primary-green ${cardNumber ? 'outline-primary-green border-primary-green ' : 'border-sub-gray'}`}
                 value={cardNumber}
                 onChange={(e) => {
                   const value = e.target.value.replace(/\D/g, "").slice(0, 16);
@@ -103,7 +107,7 @@ function IndividualPayment() {
           </div>
         </div>
         <div className="w-full  mt-2">
-          {(storedPlan == 'Individual') ? <IndividualForm canSubmit={canSubmit} /> :
+          {(storedPlan.type == 'Individual') ? <IndividualForm canSubmit={canSubmit} /> :
             <FamilyForm canSubmit={canSubmit} />}
         </div>
       </div>

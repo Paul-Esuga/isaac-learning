@@ -4,15 +4,27 @@
   --color-primary-green: #00a36c;
   --color-slate-gray: #414D58;
   --color-sub-gray: #7F8C8D;
+  --color-warm-white: #FDFEFE;
   --color-secondary: #456789;
   --color-brand-blue: #1fb6ff;
   --color-brand-purple: #7e5bef;
 }
 
-
 div::-webkit-scrollbar{
   display: none;
 }
+input::-webkit-search-cancel-button{
+  display: none;
+}
+button{
+  cursor: pointer;
+}
+.none{
+  display: none;
+  pointer-events: none;
+}
+
+
 /* #root { */
 /* max-width: 1800px;
   margin: 0 2rem; */

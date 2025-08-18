@@ -4,18 +4,22 @@ import { Link } from 'react-router-dom';
 
 type SettingsCardProps = {
     title: string,
-    route: string
+    route: string,
+    gotoLabel?: string
 }
 
-const SettingsCard = ( {title, route}: SettingsCardProps ) => {
+const SettingsCard = ({ title, route, gotoLabel }: SettingsCardProps) => {
 
 
-    return(
+    return (
         <div className='flex justify-between py-[16px] border-b-[1px] mb-[15px]'>
             <h3 className='font-[700] text-[20px] text-[#414d58]'>{title}</h3>
-            <Link to={route}>
-                <img src={Goto} alt='go to icon' className='w-[15px] h-[20px]'/>
-            </Link>
+            <div className='flex items-center gap-[10px]'>
+                <p className='text-[#7f8c8d] mt-[7px] mb-[10px] text-[20px]'>{gotoLabel}</p>
+                <Link to={route}>
+                    <img src={Goto} alt='go to icon' className='w-[15px] h-[20px]' />
+                </Link>
+            </div>
         </div>
     )
 }
