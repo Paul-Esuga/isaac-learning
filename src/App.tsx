@@ -41,8 +41,10 @@ import PricePlan from './pages/payment/PricePlan';
 // Components
 import ScrollToTop from './components/ScrollToTop';
 import IndividualPayment from './pages/payment/IndividualPayment';
+import Otp from './pages/createaccount/Otp';
 import ViewComment from './pages/community/ViewComment';
 import PostQuestion from './pages/community/PostQuestion';
+
 
 function App() {
   return (
@@ -52,6 +54,10 @@ function App() {
         <Routes>
           {/* Keep both versions' routes */}
           <Route path="/create-account" element={<CreateAccountPage />} />
+
+          <Route path="/otp" element={<Otp />} />
+          <Route path="/" element={<CourseSelection />} />
+
 
           {/* Dashboard page and all its sub pages */}
           <Route path="dashboard" element={<Dashboard />}>
