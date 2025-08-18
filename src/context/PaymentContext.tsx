@@ -21,6 +21,14 @@ type PaymentContextType = {
     type: string
     price: string
   }>>
+  question: {
+    title: string
+    body: string
+  }
+  setQuestion: React.Dispatch<React.SetStateAction<{
+    title: string;
+    body: string;
+  }>>
 }
 
 const PaymentContext = createContext<PaymentContextType | undefined>(undefined)
@@ -35,9 +43,14 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
     type: 'Individual',
     price: '₦20,000'
   })
+  const [question, setQuestion] = useState({
+    title: '',
+    body: ''
+  })
+
 
   return (
-    <PaymentContext.Provider value={{ selectedCourse, setSelectedCourse, selectedPayment, setSelectedPayment }}>
+    <PaymentContext.Provider value={{ selectedCourse, setSelectedCourse, selectedPayment, setSelectedPayment, question, setQuestion }}>
       {children}
     </PaymentContext.Provider>
   )

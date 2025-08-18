@@ -27,9 +27,9 @@ export type BookmarkProps = {
 
 const Bookmark = ({ img, name, time, title, body, like_count, comment_count }: BookmarkProps) => {
     return (
-        <div className='shadow-md px-[10px] py-[20px] rounded-[10px] mb-[20px]'>
+        <div className='shadow-md px-[10px] py-[20px] rounded-[10px] mb-[20px]  lg:pr-[55px] sm:pr-[20px]'>
 
-            <div className='flex align-center gap-[20px] mb-[20px]'>
+            <div className='flex align-center gap-[20px] mb-[20px] '>
                 <img src={img} className='w-[50px] h-[50px] mb-[20px]' alt='bookmark icon' />
                 <div>
                     <h3 className='font-[500] text-[20px]'>{name}</h3>
