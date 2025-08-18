@@ -34,6 +34,7 @@ import PricePlan from './pages/payment/PricePlan';
 // Components
 import ScrollToTop from './components/ScrollToTop';
 import IndividualPayment from './pages/payment/IndividualPayment';
+import Otp from './pages/createaccount/Otp';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Routes>
           {/* Keep both versions' routes */}
           <Route path="/create-account" element={<CreateAccountPage />} />
+          <Route path="/otp" element={<Otp />} />
           <Route path="/" element={<CourseSelection />} />
 
           {/* Dashboard page and all its sub pages */}
