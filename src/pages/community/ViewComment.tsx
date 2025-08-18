@@ -23,13 +23,15 @@ function ViewComment() {
 
   return (
     <main
-      className='overflow-y-scroll h-[80vh] lg:h-[80vh] sm:mt-8 lg:mt-0 '
+      className='overflow-y-scroll h-[80vh] lg:h-[80vh] sm:mt-8 lg:mt-0'
     >
-      <div className='bg-[#fcfcfc] h-screen z-[1000] absolute top-0 left-[0] right-[0] pt-[30px] overflow-y-scroll'>
+      <div className='bg-[#fcfcfc] h-screen z-[1000] absolute top-0 left-[0] right-[0] pt-[30px] overflow-y-scroll px-5'>
         <Bookmark id={query.id} img={query.img} name={query.name} time={query.time} title={query.title} body={query.body} like_count={query.like_count} comment_count={query.comment_count} isBookmarked={query.isBookmarked} />
-        <div
-        // className='overflow-y-scroll overflow-x-hidden h-[70vh] lg:h-[70vh] sm:mt-8 lg:mt-0'
-        >
+        <div className='my-6 flex justify-between'>
+          <input type="text" className='p-5 rounded-[10px] bg-[#f0f0f0] text-black w-[80%] placeholder:text-black' placeholder='Add your comment' />
+          <button className='px-5 py-2.5 bg-primary-green text-warm-white font-bold rounded-xl'>Comment</button>
+        </div>
+        <div>
           {query.comments != undefined ?
             query.comments.map((comment) =>
               <div>
