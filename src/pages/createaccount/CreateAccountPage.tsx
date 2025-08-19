@@ -4,7 +4,8 @@ import NGN from "../../assets/images/createaccount-logo/flag-nigeria.png"
 import type { Entryprops } from "../../components/createaccount/EntryDetails";
 import Facebook from "../../assets/images/createaccount-logo/facebook.png";
 import apple from "../../assets/images/createaccount-logo/apple.png";
-import google from "../../assets/images/createaccount-logo/Google.png"
+import google from "../../assets/images/createaccount-logo/Google.png";
+import { useNavigate } from "react-router-dom";
 
 function Entry(props: Entryprops) {
   return (
@@ -41,6 +42,7 @@ function PhoneEntry() {
 }
 
 export default function CreateAccountPage() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-white">
       {/* Left section */}
@@ -75,14 +77,14 @@ export default function CreateAccountPage() {
           </div>
 
           {/* Submit Button */}
-          <button className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 px-4 rounded-md transition-colors mt-6">
+          <button className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 px-4 rounded-md transition-colors mt-6" onClick={() => navigate('/otp')}>
             Create account
           </button>
 
           {/* Login Link */}
           <p className="text-center text-sm text-gray-600 mt-4">
             Already have an account?{' '}
-            <a href="#" className="text-green-500 hover:text-green-600 font-medium">
+            <a href="/login" className="text-green-500 hover:text-green-600 font-medium">
               Log in
             </a>
           </p>
