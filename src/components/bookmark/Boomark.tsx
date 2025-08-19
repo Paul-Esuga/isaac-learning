@@ -3,12 +3,14 @@ import comment from '../../assets/images/profile-images/comment.png';
 import bookmarked from '../../assets/images/profile-images/bookmark-icon.png';
 
 export type CommentProps = {
+    bookmarkId?: string
     id: string
     img: string,
     name: string
     time: string,
     body: string,
     like_count: string,
+    replies: string[]
 }
 
 export type BookmarkProps = {

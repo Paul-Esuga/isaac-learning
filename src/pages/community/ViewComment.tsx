@@ -6,12 +6,15 @@ import Bookmark from '../../components/bookmark/Boomark';
 import { useEffect, useState } from 'react';
 import CommunityQuestions from '../../static-data/CommunityQuestions';
 import FrancisPFP from '../../assets/images/community-images/francis-pfp.png'
+import { usePayment } from '../../context/PaymentContext';
+import InputSection from '../../components/community/InputSection';
 
 
 function ViewComment() {
   const { id } = useParams()
   const [newComment, setNewComment] = useState('')
   const [isFilled, setIsFilled] = useState(false)
+  const { replyComment, isComment } = usePayment()
 
   // my version of the the setComments lines
   // const [comments, setComments] = useState((id != undefined && CommunityQuestions[parseInt(id) - 1].comments != undefined) ? CommunityQuestions[parseInt(id) - 1].comments : [])
@@ -22,14 +25,15 @@ function ViewComment() {
   })
 
   useEffect(() => {
-    newComment ? (setComments((prev) => [...prev,
+    newComment && !isComment ? (setComments((prev) => [...prev,
     {
-      id: String(CommunityQuestions[parseInt(id != undefined ? id : '1') - 1].comments?.length),
+      id: String((CommunityQuestions[parseInt(id ?? '1') - 1].comments?.length ?? 0) + 1),
       img: FrancisPFP,
       name: "The grazy",
       time: "2h ago",
       body: newComment,
       like_count: "2",
+      replies: []
     }])
     ) : ''
     setNewComment('')
@@ -37,6 +41,7 @@ function ViewComment() {
 
   useEffect(() => {
     CommunityQuestions[parseInt(id != undefined ? id : '1') - 1].comments = comments
+    console.log(CommunityQuestions[parseInt(id != undefined ? id : '1') - 1].comments)
   }, [comments])
 
   const query = id != undefined ? Questions[parseInt(id) - 1] : {
@@ -56,32 +61,22 @@ function ViewComment() {
     <main
       className='overflow-y-scroll h-[80vh] lg:h-[80vh] sm:mt-8 lg:mt-0 '
     >
-      <div className='bg-[#fcfcfc] h-screen z-[1000] absolute top-0 left-[0] right-[0] pt-[30px] overflow-y-scroll px-5 pb-30'>
+      <div className={`bg-[#fcfcfc] h-screen z-[1000] absolute top-0 left-[0] right-[0] pt-[30px] overflow-y-scroll px-5 pb-30 ${replyComment ? 'pb-70' : 'pb-30'}`}>
         <Bookmark id={query.id} img={query.img} name={query.name} time={query.time} title={query.title} body={query.body} like_count={query.like_count} comment_count={query.comment_count} isBookmarked={query.isBookmarked} />
-        <div className='my-6 flex justify-between'>
-          <input type="text" className='p-5 rounded-[10px] bg-[#f0f0f0] text-black w-[80%] lg:w-[90%] placeholder:text-black' placeholder='Add your comment'
-            value={newComment}
-            onChange={(e) => {
-              setNewComment(e.target.value)
-            }}
-          />
-          <button className='px-5 py-2.5 bg-primary-green text-warm-white font-bold rounded-xl disabled:opacity-50'
-            disabled={!newComment}
-            onClick={() => {
-              setIsFilled(!isFilled)
-            }}
-
-          >Comment</button>
-        </div>
+        {!replyComment ? <InputSection input={newComment} setInput={setNewComment} submitCheck={isFilled} setSubmitCheck={setIsFilled} /> : ''}
         <div>
-          {comments != undefined ?
+          {
             comments.slice().reverse().map((comment) =>
-              <div>
-                <Comments id={comment.id} img={comment.img} name={comment.name} time={comment.time} body={comment.body} like_count={comment.like_count} />
+              <div >
+                <Comments bookmarkId={id} id={comment.id} img={comment.img} name={comment.name} time={comment.time} body={comment.body} like_count={comment.like_count} replies={comment.replies} />
               </div>)
-            : ''}
+          }
         </div>
+        {replyComment ? <div className='fixed bottom-0 py-10 right-2 left-70 bg-[#fcfcfc] px-4'>
+          <InputSection input={newComment} setInput={setNewComment} submitCheck={isFilled} setSubmitCheck={setIsFilled} />
+        </div> : ''}
       </div>
+
     </main>
   )
 }

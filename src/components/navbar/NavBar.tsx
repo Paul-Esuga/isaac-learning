@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react';
 
 const NavBar = () => {
 
-    const { question } = usePayment()
+    const { question, setQuestion } = usePayment()
 
     const navigate = useNavigate()
 
@@ -39,7 +39,7 @@ const NavBar = () => {
                         <div>
                             <BackButton name="Cancel" />
                         </div>
-                        <button className="bg-primary-green text-warm-white font-[500] text-base p-2.5 rounded-[10px] h-[44px]"
+                        <button className={`bg-primary-green text-warm-white font-[500] text-base p-2.5 rounded-[10px] h-[44px] ${(!question.title || !question.body) ? 'opacity-50' : ''}`}
                             onClick={() => {
                                 navigate('community')
                                 CommunityQuestions.push({
@@ -54,7 +54,14 @@ const NavBar = () => {
                                     isBookmarked: false,
                                     comments: []
                                 })
+                                setQuestion(() => {
+                                    return {
+                                        title: '',
+                                        body: ''
+                                    }
+                                })
                             }}
+                            disabled={!question.title || !question.body}
                         >Send Post</button>
                     </div>
                 </nav> :
