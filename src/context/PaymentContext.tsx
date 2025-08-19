@@ -29,6 +29,16 @@ type PaymentContextType = {
     title: string;
     body: string;
   }>>
+  replyComment: boolean
+  setReplyComment: React.Dispatch<React.SetStateAction<boolean>>
+  commentId: string
+  setCommentId: React.Dispatch<React.SetStateAction<string>>
+  questionId: string
+  setQuestionId: React.Dispatch<React.SetStateAction<string>>
+  isComment: boolean
+  setIsComment: React.Dispatch<React.SetStateAction<boolean>>
+  hideReply: boolean
+  setHideReply: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const PaymentContext = createContext<PaymentContextType | undefined>(undefined)
@@ -47,10 +57,16 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
     title: '',
     body: ''
   })
+  const [replyComment, setReplyComment] = useState(false)
+  const [commentId, setCommentId] = useState('0')
+  const [questionId, setQuestionId] = useState('0')
+  const [isComment, setIsComment] = useState(false)
+  const [hideReply, setHideReply] = useState(false)
+
 
 
   return (
-    <PaymentContext.Provider value={{ selectedCourse, setSelectedCourse, selectedPayment, setSelectedPayment, question, setQuestion }}>
+    <PaymentContext.Provider value={{ selectedCourse, setSelectedCourse, selectedPayment, setSelectedPayment, question, setQuestion, replyComment, setReplyComment, commentId, setCommentId, questionId, setQuestionId, isComment, setIsComment, hideReply, setHideReply }}>
       {children}
     </PaymentContext.Provider>
   )
