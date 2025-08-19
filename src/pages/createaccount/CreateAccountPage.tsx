@@ -98,13 +98,16 @@ export default function CreateAccountPage() {
 
           {/* Social Login Buttons */}
           <div className="flex justify-center space-x-4">
-            <button className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors">
+            {/* implemented a re-routing to an external link for the Apple button to test smth*/}
+            <button className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors" onClick={() => window.location.href = "https://apple.com"}>
               <img src= {apple} />
             </button>
-            <button className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors">
+            {/* implemented a re-routing to an external link for the Google button  */}
+            <button className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors" onClick={() => window.location.href = "https://google.com"}>
               <img src= {google} />
             </button>
-            <button className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors">
+            {/* implemented a re-routing to an external link for the Facebook button  */}
+            <button className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors" onClick={() => window.location.href = "https://facebook.com"}>
               <img src = {Facebook} />
             </button>
           </div>
