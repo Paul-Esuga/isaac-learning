@@ -11,7 +11,7 @@ import BadgesCard from "../../components/badges/BadgesCard";
 const ProgressSummary = () => {
 
     return (
-        <div className="">
+        <div>
             <div className="flex gap-[60px] w-[100%]">
                 {
                     ProgressData.map(data => <ProgressCard key={data.id} image={data.image} title={data.title} body={data.body} />)
