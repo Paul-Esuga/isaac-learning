@@ -44,6 +44,7 @@ import IndividualPayment from './pages/payment/IndividualPayment';
 import Otp from './pages/createaccount/Otp';
 import ViewComment from './pages/community/ViewComment';
 import PostQuestion from './pages/community/PostQuestion';
+import Otp1 from './pages/createaccount/Otp1';
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
         <Routes>
           {/* Keep both versions' routes */}
           <Route path="/create-account" element={<CreateAccountPage />} />
+          <Route path="/otp1" element={<Otp1 />} />
 
           <Route path="/otp" element={<Otp />} />
           <Route path="/" element={<CourseSelection />} />
