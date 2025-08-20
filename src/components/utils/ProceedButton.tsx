@@ -1,14 +1,21 @@
 import { useNavigate } from 'react-router-dom'
 
 
-export const ProceedButton = ({ style, destination }: { style: string, destination: string }) => {
+type ProceedButtonProps = {
+  style: string,
+  destination?: string,
+  value: string,
+  func?: () => void
+}
+
+export const ProceedButton = ({ style, destination, value, func }: ProceedButtonProps) => {
   const navigate = useNavigate()
 
   return (
     <button
       className={`${style}`}
-      onClick={() => { navigate(destination) }}
+      onClick={() => { destination ? navigate(destination) : func}}
 
-    >Pay ₦90,000</button>
+    >{value}</button>
   )
 }

@@ -12,7 +12,11 @@ import Dashboard from './pages/dashboard/Dashboard';
 import MainDashboard from './pages/dashboard/MainDashboard';
 import Modules from './pages/modules/Modules';
 import Quiz from './pages/quiz/Quiz';
+
 import MockExam from './pages/mockexams/MockExams';
+import CipmMockExams from './pages/mockexams/mock-exam-sub-pages/CipmMockExams';
+
+
 import Community from './pages/community/Community';
 
 import Notification from './pages/notification/Notification';
@@ -67,7 +71,10 @@ function App() {
             <Route path="dashboard" element={<MainDashboard />} />
             <Route path="modules" element={<Modules />} />
             <Route path="quiz" element={<Quiz />} />
-            <Route path="mock-exam" element={<MockExam />} />
+
+            <Route path="mock-exam" element={<MockExam />}>
+              <Route path='cipm-mock-exam' element={<CipmMockExams/>}/>
+            </Route>
             <Route path="community" element={<Community />}>
               <Route path="view-comment/:id" element={<ViewComment />} />
               <Route path='post-question' element={<PostQuestion />} />
