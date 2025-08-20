@@ -36,11 +36,17 @@ function ViewComment() {
       replies: []
     }])
     ) : ''
-    setNewComment('')
+    newComment && isComment ? setNewComment('') : ''
+    console.log(comments)
   }, [isFilled])
 
   useEffect(() => {
+    replyComment ? setNewComment('') : ''
+  }, [replyComment])
+
+  useEffect(() => {
     CommunityQuestions[parseInt(id != undefined ? id : '1') - 1].comments = comments
+    setNewComment('')
   }, [comments])
 
   const query = id != undefined ? Questions[parseInt(id) - 1] : {
@@ -63,6 +69,7 @@ function ViewComment() {
       <div className={`bg-[#fcfcfc] cursor-pointer h-screen z-[1000] absolute top-0 left-[0] right-[0] pt-[30px] overflow-y-scroll px-5 pb-30 ${replyComment ? 'pb-70' : 'pb-30'}`}>
         <div onClick={() => {
           setReplyComment(false)
+          setNewComment('')
         }}>
           <Bookmark id={query.id} img={query.img} name={query.name} time={query.time} title={query.title} body={query.body} like_count={query.like_count} comment_count={query.comment_count} isBookmarked={query.isBookmarked} />
         </div>
