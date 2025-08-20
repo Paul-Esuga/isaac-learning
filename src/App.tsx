@@ -6,6 +6,9 @@ import CreateAccountPage from './pages/createaccount/CreateAccountPage';
 
 // Context Provider Import
 import { PaymentProvider } from './context/PaymentContext';
+import MockExamContext from './context/MockExamContext';
+
+// Context Apis
 
 // Pages Import
 import Dashboard from './pages/dashboard/Dashboard';
@@ -54,62 +57,65 @@ function App() {
   return (
     <BrowserRouter>
       <PaymentProvider>
-        <ScrollToTop />
-        <Routes>
-          {/* Keep both versions' routes */}
-          <Route path="/create-account" element={<CreateAccountPage />} />
+        <MockExamContext>
+          <ScrollToTop />
+          <Routes>
+            {/* Keep both versions' routes */}
+            <Route path="/create-account" element={<CreateAccountPage />} />
 
-          <Route path="/otp" element={<Otp />} />
-          <Route path="/" element={<CourseSelection />} />
+            <Route path="/otp" element={<Otp />} />
+            <Route path="/" element={<CourseSelection />} />
 
 
-          {/* Dashboard page and all its sub pages */}
-          <Route path="dashboard" element={<Dashboard />}>
-            <Route index element={<MainDashboard />} />
-            <Route path="dashboard" element={<MainDashboard />} />
-            <Route path="modules" element={<Modules />} />
-            <Route path="quiz" element={<Quiz />} />
+            {/* Dashboard page and all its sub pages */}
+            <Route path="dashboard" element={<Dashboard />}>
+              <Route index element={<MainDashboard />} />
+              <Route path="dashboard" element={<MainDashboard />} />
+              <Route path="modules" element={<Modules />} />
+              <Route path="quiz" element={<Quiz />} />
 
-            <Route path="mock-exam" element={<MockExam />}>
-              <Route path='cipm-mock-exam' element={<CipmMockExams/>}/>
-            </Route>
-            <Route path="community" element={<Community />}>
-              <Route path="view-comment/:id" element={<ViewComment />} />
-              <Route path='post-question' element={<PostQuestion />} />
-            </Route>
-            <Route path="notification" element={<Notification />}>
-              <Route index element={<All />} />
-              <Route path='all' element={<All />} />
-              <Route path='unread' element={<Unread />} />
-              <Route path='read' element={<Read />} />
-            </Route>
+              <Route path="mock-exam" element={<MockExam />}>
+                <Route path='cipm-mock-exam' element={<CipmMockExams />} />
+              </Route>
 
-            {/* Profile page and its sub pages */}
-            <Route path="profile" element={<Profile />}>
-              <Route index element={<ProgressSummary />} />
+              <Route path="community" element={<Community />}>
+                <Route path="view-comment/:id" element={<ViewComment />} />
+                <Route path='post-question' element={<PostQuestion />} />
+              </Route>
+              <Route path="notification" element={<Notification />}>
+                <Route index element={<All />} />
+                <Route path='all' element={<All />} />
+                <Route path='unread' element={<Unread />} />
+                <Route path='read' element={<Read />} />
+              </Route>
 
-              <Route path='progress-summary' element={<ProgressSummary />} />
-              <Route path='activity' element={<Activity />} />
-              <Route path='bookmarks' element={<Bookmarks />} />
-              <Route path='settings' element={<Settings />} >
-                <Route path='personal-details' element={<PersonalDetails />} />
-                <Route path='notification-settings' element={<NotificationSettings />} />
+              {/* Profile page and its sub pages */}
+              <Route path="profile" element={<Profile />}>
+                <Route index element={<ProgressSummary />} />
 
-                <Route path='privacy' element={<Privacy />}>
-                  <Route path='comment-boundaries' element={<CommentBoundaries />} />
+                <Route path='progress-summary' element={<ProgressSummary />} />
+                <Route path='activity' element={<Activity />} />
+                <Route path='bookmarks' element={<Bookmarks />} />
+                <Route path='settings' element={<Settings />} >
+                  <Route path='personal-details' element={<PersonalDetails />} />
+                  <Route path='notification-settings' element={<NotificationSettings />} />
+
+                  <Route path='privacy' element={<Privacy />}>
+                    <Route path='comment-boundaries' element={<CommentBoundaries />} />
+                  </Route>
+
+                  <Route path='help' element={<Help />} />
+                  <Route path='account-management' element={<AccountManagement />} />
+
                 </Route>
-
-                <Route path='help' element={<Help />} />
-                <Route path='account-management' element={<AccountManagement />} />
-
               </Route>
             </Route>
-          </Route>
 
-          <Route path="/course" element={<CourseSelection />} />
-          <Route path="/price" element={<PricePlan />} />
-          <Route path="/payment" element={<IndividualPayment />} />
-        </Routes>
+            <Route path="/course" element={<CourseSelection />} />
+            <Route path="/price" element={<PricePlan />} />
+            <Route path="/payment" element={<IndividualPayment />} />
+          </Routes>
+        </MockExamContext>
       </PaymentProvider>
     </BrowserRouter>
   );
