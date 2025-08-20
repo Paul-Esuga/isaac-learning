@@ -1,5 +1,4 @@
-import {useState, createContext } from 'react';
-import mockExamQuestions from '../static-data/MockExamQuestions';
+import {useState, createContext, useEffect } from 'react';
 
 type questionsType = {
     questionIndex: number,
@@ -28,8 +27,9 @@ const MockExamContextApi = ( {children}: MockExamContextApiProps ) => {
 
        const [questionIndex, setQuestionIndex] = useState(0);
 
-    //    const [doneQuestions, setDoneQuestions] = useState<string[]>([])
        const [doneQuestions, setDoneQuestions] = useState<questionsType[]>([])
+
+       useEffect(() => {}, [])
 
     return (
         <MockExamContext.Provider value={{clicked_questions_list, setClicked_questions_list, questionIndex, setQuestionIndex, doneQuestions, setDoneQuestions}}>

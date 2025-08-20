@@ -1,5 +1,5 @@
 // React Hook
-import { useState, useContext } from "react";
+import { useContext } from "react";
 
 // Data
 import mockExamQuestions from "../../../static-data/MockExamQuestions"
