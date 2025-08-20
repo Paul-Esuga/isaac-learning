@@ -65,8 +65,9 @@ function App() {
             {/* Keep both versions' routes */}
             <Route path="/create-account" element={<CreateAccountPage />} />
 
-            <Route path="/otp" element={<Otp />} />
-            <Route path="/" element={<CourseSelection />} />
+          <Route path="/otp1" element={<Otp1 />} />
+          <Route path="/otp" element={<Otp />} />
+          <Route path="/" element={<CourseSelection />} />
 
 
             {/* Dashboard page and all its sub pages */}
