@@ -23,15 +23,52 @@ export default function Otp() {
           < ChevronLeft className="w-5 h-5" />
         </button>
         <h1 className="text-2xl font-bold text-gray-800 mb-4">Verify email address</h1>
-        <p className="text-gray-600 mb-6">Kindly enter the <b>6 digit code</b> we sent to your email address <b>jose****@gmail.com</b> below</p>
-       <div className="flex flex-row gap-5">
-         <input className="size-12 rounded-md bg-gray-300"></input>
-         <button className="size-12 rounded-md bg-gray-200"></button>
-          <button className="size-12 rounded-md bg-purple-500"></button>
+        <p className="text-gray-500 mb-6">Kindly enter the <b>6 digit code</b> we sent to your email address <span className="block text-center mt-1"><b>jose****@gmail.com</b> below</span></p>
+       <div className="flex gap-4 mr-15 mt-3 mb-8 justify-center">
+        <input
+          type="text"
+          maxLength={1}
+          className="w-12 h-12 border bg-gray-100 border-gray-300 rounded-md text-center text-xl  focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+        <input
+          type="text"
+          maxLength={1}
+          className="w-12 h-12 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+        <input
+          type="text"
+          maxLength={1}
+          className="w-12 h-12 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+        <input
+          type="text"
+          maxLength={1}
+          className="w-12 h-12 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+        <input
+          type="text"
+          maxLength={1}
+          className="w-12 h-12 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+        <input
+          type="text"
+          maxLength={1}
+          className="w-12 h-12 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+       </div>
+       <div className="mr-14">
+        <p className="font-montserrat text-center">Code expires in <b>2 : 59</b></p>
+        <p className="gap-4">Didn't get code? <span className="text-green-600"><b>Resend code</b></span></p>
+       </div>
+        <div>
+          
+          <button className="w-[480px] rounded-lg bg-green-700 px-10 py-4 mr-7 mt-6 text-white font-bold hover:bg-green-900 transition-colors">Verify</button>
+
         </div>
     </div>
-    
+
    
+
         
         <div className="hidden lg:flex w-[55%] bg-[linear-gradient(180deg,rgba(0,0,0,0)_19.64%,rgba(0,0,0,0.6)_87.08%)] relative overflow-hidden">
         
@@ -59,3 +96,7 @@ export default function Otp() {
       </div>
   );
 }
+
+
+
+   
