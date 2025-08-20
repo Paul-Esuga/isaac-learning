@@ -58,20 +58,11 @@ function App() {
   return (
     <BrowserRouter>
       <PaymentProvider>
-<<<<<<< HEAD
         <MockExamContext>
           <ScrollToTop />
           <Routes>
             {/* Keep both versions' routes */}
             <Route path="/create-account" element={<CreateAccountPage />} />
-=======
-        <ScrollToTop />
-        <Routes>
-          {/* Keep both versions' routes */}
-          <Route path="/create-account" element={<CreateAccountPage />} />
-          <Route path="/otp1" element={<Otp1 />} />
-          
->>>>>>> origin/main
 
             <Route path="/otp" element={<Otp />} />
             <Route path="/" element={<CourseSelection />} />
