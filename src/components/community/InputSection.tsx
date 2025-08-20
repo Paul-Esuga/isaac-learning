@@ -16,6 +16,8 @@ function InputSection({ input, setInput, submitCheck, setSubmitCheck }: Input) {
     <div>
       <div className='my-6 flex justify-between'>
         <textarea rows={1} className='resize-none content-center p-5 rounded-[10px] bg-[#f0f0f0] text-black w-[75%] lg:w-[90%] placeholder:text-black focus:border-[#2ECC71] focus:border-1 focus:outline-0 overflow-hidden' placeholder='Add your comment'
+          // value={!replyComment ? input : ''}
+          value={input}
           onChange={(e) => {
             setInput(e.target.value)
             !replyComment ? setIsComment(false) : ''
