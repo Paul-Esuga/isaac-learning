@@ -15,7 +15,7 @@ export const Community = () => {
     return (
 
         <div className='overflow-y-scroll overflow-x-hidden h-[83vh] lg:h-[85vh] sm:mt-8 lg:mt-0 '>
-            <div>
+            <div className='px-6'>
                 {CommunityQuestion.map((query) =>
                     <div className='cursor-pointer' onClick={() => {
                         navigate(`view-comment/${query.id}`)
