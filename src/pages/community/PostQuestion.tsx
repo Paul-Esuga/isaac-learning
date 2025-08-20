@@ -1,18 +1,10 @@
-import { useNavigate } from 'react-router-dom'
 import FrancisPFP from '../../assets/images/community-images/francis-pfp.png'
-import { useState } from 'react'
-import CommunityQuestions from '../../static-data/CommunityQuestions'
 import { usePayment } from '../../context/PaymentContext'
 
 
 function PostQuestion() {
-  const navigate = useNavigate()
-  // const [question, setQuestion] = useState('')
-  const { question, setQuestion } = usePayment()
+  const { setQuestion } = usePayment()
   return (
-    // <main
-    //   className='overflow-y-scroll h-[80vh] lg:h-[80vh] sm:mt-8 lg:mt-0'
-    // >
     <div className='bg-[#fcfcfc] h-screen z-[1000] absolute top-0 left-[0] right-[0] pt-[30px] overflow-y-scroll px-5'>
       <div className='flex gap-6   p-2.5 '>
         <div>

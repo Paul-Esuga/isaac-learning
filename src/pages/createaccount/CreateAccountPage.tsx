@@ -4,7 +4,8 @@ import NGN from "../../assets/images/createaccount-logo/flag-nigeria.png"
 import type { Entryprops } from "../../components/createaccount/EntryDetails";
 import Facebook from "../../assets/images/createaccount-logo/facebook.png";
 import apple from "../../assets/images/createaccount-logo/apple.png";
-import google from "../../assets/images/createaccount-logo/Google.png"
+import google from "../../assets/images/createaccount-logo/Google.png";
+import { useNavigate } from "react-router-dom";
 
 function Entry(props: Entryprops) {
   return (
@@ -41,6 +42,7 @@ function PhoneEntry() {
 }
 
 export default function CreateAccountPage() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-white">
       {/* Left section */}
@@ -75,14 +77,14 @@ export default function CreateAccountPage() {
           </div>
 
           {/* Submit Button */}
-          <button className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 px-4 rounded-md transition-colors mt-6">
+          <button className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 px-4 rounded-md transition-colors mt-6" onClick={() => navigate('/otp')}>
             Create account
           </button>
 
           {/* Login Link */}
           <p className="text-center text-sm text-gray-600 mt-4">
             Already have an account?{' '}
-            <a href="#" className="text-green-500 hover:text-green-600 font-medium">
+            <a href="/login" className="text-green-500 hover:text-green-600 font-medium">
               Log in
             </a>
           </p>
@@ -96,13 +98,16 @@ export default function CreateAccountPage() {
 
           {/* Social Login Buttons */}
           <div className="flex justify-center space-x-4">
-            <button className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors">
+            {/* implemented a re-routing to an external link for the Apple button to test smth*/}
+            <button className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors" onClick={() => window.location.href = "https://apple.com"}>
               <img src= {apple} />
             </button>
-            <button className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors">
+            {/* implemented a re-routing to an external link for the Google button  */}
+            <button className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors" onClick={() => window.location.href = "https://google.com"}>
               <img src= {google} />
             </button>
-            <button className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors">
+            {/* implemented a re-routing to an external link for the Facebook button  */}
+            <button className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors" onClick={() => window.location.href = "https://facebook.com"}>
               <img src = {Facebook} />
             </button>
           </div>

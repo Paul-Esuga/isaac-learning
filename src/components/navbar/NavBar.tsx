@@ -20,7 +20,7 @@ import { useState, useEffect } from 'react';
 
 const NavBar = () => {
 
-    const { question } = usePayment()
+    const { question, setQuestion } = usePayment()
 
     const navigate = useNavigate()
 
@@ -114,6 +114,42 @@ const NavBar = () => {
                     </div>
             }
         </nav>
+<<<<<<< HEAD
+=======
+        <div>
+            {currentPath.includes("post-question") ?
+                <nav className="flex justify-between items-center bg-[#ffffff] shadow-md fixed right-0 left-[280px] px-[24px] pt-[32px] pb-[20px]">
+                    <div className="flex justify-between  w-[170vh]">
+                        <div>
+                            <BackButton name="Cancel" />
+                        </div>
+                        <button className={`bg-primary-green text-warm-white font-[500] text-base p-2.5 rounded-[10px] h-[44px] ${(!question.title || !question.body) ? 'opacity-50' : ''}`}
+                            onClick={() => {
+                                navigate('community')
+                                CommunityQuestions.push({
+                                    id: String(parseInt(CommunityQuestions[CommunityQuestions.length - 1].id) + 1),
+                                    img: FrancisPFP,
+                                    name: "Francis Adeleke",
+                                    time: "3h ago",
+                                    title: question.title,
+                                    body: question.body,
+                                    like_count: "1.1k",
+                                    comment_count: "225",
+                                    isBookmarked: false,
+                                    comments: []
+                                })
+                                setQuestion(() => {
+                                    return {
+                                        title: '',
+                                        body: ''
+                                    }
+                                })
+                            }}
+                            disabled={!question.title || !question.body}
+                        >Send Post</button>
+                    </div>
+                </nav> :
+>>>>>>> origin/main
 
 
             }

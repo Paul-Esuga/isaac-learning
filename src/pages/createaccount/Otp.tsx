@@ -36,7 +36,7 @@ export default function Otp() {
         </button> */}
         
         <div className="w-full max-w-md space-y-4">
-          <button className="flex items-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded mb-4 w-full">
+          <button className="flex items-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded mb-4 w-full" onClick={() => navigate('/Otp1')}>
             <Mail className="w-6 h-6 inline mr-2" />
             OTP via email
           </button>

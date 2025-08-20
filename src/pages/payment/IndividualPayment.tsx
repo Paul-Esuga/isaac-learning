@@ -16,9 +16,6 @@ function IndividualPayment() {
     price: sessionStorage.getItem('paymentPrice')
   }
   // const nameValid = /^([a-z]+)(\s)([a-z]+)(?:( )([a-z]+))?$/i
-  // const numberValid = /d+/
-  // const expiryValid = /d+/
-  // const cvvValid = /d+/
   const [isFormFilled, setIsFormFilled] = useState(new Array(4).fill(''))
   const [canSubmit, setCanSubmit] = useState(false)
 
