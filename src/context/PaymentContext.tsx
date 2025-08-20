@@ -63,8 +63,6 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
   const [isComment, setIsComment] = useState(false)
   const [hideReply, setHideReply] = useState(false)
 
-
-
   return (
     <PaymentContext.Provider value={{ selectedCourse, setSelectedCourse, selectedPayment, setSelectedPayment, question, setQuestion, replyComment, setReplyComment, commentId, setCommentId, questionId, setQuestionId, isComment, setIsComment, hideReply, setHideReply }}>
       {children}
