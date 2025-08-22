@@ -33,27 +33,27 @@ export default function Otp() {
         <input
           type="text"
           maxLength={1}
-          className="w-12 h-12 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="w-12 h-12  bg-gray-100 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
         />
         <input
           type="text"
           maxLength={1}
-          className="w-12 h-12 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="w-12 h-12  bg-gray-100 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
         />
         <input
           type="text"
           maxLength={1}
-          className="w-12 h-12 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="w-12 h-12  bg-gray-100 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
         />
         <input
           type="text"
           maxLength={1}
-          className="w-12 h-12 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="w-12 h-12  bg-gray-100 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
         />
         <input
           type="text"
           maxLength={1}
-          className="w-12 h-12 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="w-12 h-12  bg-gray-100 border border-gray-300 rounded-md text-center text-xl focus:outline-none focus:ring-2 focus:ring-green-400"
         />
        </div>
        <div className="mr-14">
@@ -62,7 +62,7 @@ export default function Otp() {
        </div>
         <div>
           
-          <button className="w-[480px] rounded-lg bg-green-700 px-10 py-4 mr-7 mt-6 text-white font-bold hover:bg-green-900 transition-colors">Verify</button>
+          <button className="w-[480px] rounded-lg bg-green-700 px-10 py-4 mr-7 mt-6 text-white font-bold hover:bg-green-900 transition-colors" onClick={() => navigate('/acctMessage')}>Verify</button>
 
         </div>
     </div>
