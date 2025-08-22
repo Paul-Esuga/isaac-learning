@@ -4,6 +4,7 @@ import { DashboardModalDetails } from "../../components/Modal/DashboardModalDeta
 import LearningProgress from "../../components/dashboard/LearningProgress";
 import HRNugget from "../../components/dashboard/HRNugget";
 import LearningModules from "../../components/dashboard/LearningModules";
+import { Outlet } from "react-router-dom";
 
 
 const MainDashboard = () => {
@@ -23,6 +24,9 @@ const MainDashboard = () => {
                 <LearningProgress />
                 <HRNugget />
                 <LearningModules />
+            </div>
+            <div className="">
+                <Outlet />
             </div>
         </div>
 

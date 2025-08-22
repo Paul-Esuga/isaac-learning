@@ -1,6 +1,6 @@
 export default function DashboardModal({ isFormFilled, children }: { isFormFilled: boolean; children: any }) {
   return (
-    <div onClick={(e) => e.stopPropagation()} className={`fixed inset-0 flex justify-center items-center transition-colors text-black
+    <div onClick={(e) => e.stopPropagation()} className={`fixed inset-0 flex justify-center items-center z-[2000] transition-colors text-black
     ${isFormFilled ? "visible bg-black/20" : "invisible"}`}>
       <div
         onClick={(e) => e.stopPropagation()}

@@ -5,6 +5,9 @@ import MockExamIcon from '../../assets/images/icons/dashboard-icons/mock-icon-gr
 import IsaacILS from '../../assets/images/dashboard-images/dashboard-modal.png'
 import ShareInsightsImg from '../../assets/images/dashboard-images/share-insights.png'
 import Bookmark from '../../assets/images/icons/community-icons/bookmark-icon.png'
+import { useState } from 'react'
+import DashboardModal from "../../components/Modal/DashboardModal";
+import { ShareNuggetDetails } from "../../components/Modal/ShareNuggetDetails";
 
 function HRNugget() {
   const options = [
@@ -25,6 +28,8 @@ function HRNugget() {
       text: 'Mock exam simulator'
     }
   ]
+  const [isFormFilled, setIsFormFilled] = useState(false)
+
   return (
     <div className='flex sm:flex-col md:flex-col lg:flex-row justify-between flex-wrap lg:gap-8'>
       <div className="bg-[#5DADE2]/16 flex p-4 gap-4 w-[450px] flex-wrap sm:mb-6  h-[217px] lg:mr-10">
@@ -49,7 +54,11 @@ function HRNugget() {
             <p className='font-normal text-sm text-sub-gray my-3'>“Recognition is a powerful motivator. Research shows that employees who receive regular recognition are 5x more likely to stay at their company. Try implementing a peer recognition program where team members can acknowledge each other's contributions."
               This practice can boost team morale and create a positive workplace culture where achievements are and valued.</p>
             <div className='flex gap-2.5'>
-              <img src={ShareInsightsImg} alt="" />
+              <img src={ShareInsightsImg}
+                onClick={() => {
+                  setIsFormFilled(true)
+                }}
+                className='cursor-pointer' alt="" />
               <div className='bg-[#89B6C2]/10 flex content-center rounded-lg p-2 w-[140px] h-[40px]'>
                 <img src={Bookmark} className='self-center w-[24px] h-[24px]' alt="" />
                 <p className='min-w-[127px] self-center h-[40px] p-1.5'>Save for later</p>
@@ -58,6 +67,9 @@ function HRNugget() {
           </div>
         </div>
       </div>
+      <DashboardModal isFormFilled={isFormFilled} >
+        <ShareNuggetDetails setIsFormFilled={setIsFormFilled} />
+      </DashboardModal>
     </div>
   )
 }

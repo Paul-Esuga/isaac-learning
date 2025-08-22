@@ -1,104 +1,8 @@
-import FoundationalIcon from '../../assets/images/dashboard-images/foundational-logo.png'
-import SecondaryIcon from '../../assets/images/dashboard-images/secondary-logo.png'
-import TertiaryIcon from '../../assets/images/dashboard-images/tertiary-logo.png'
-import FullBar from '../../assets/images/dashboard-images/full-bar.png'
-import MostlyFullBar from '../../assets/images/dashboard-images/mostly-full-bar.png'
-import HalfFullBar from '../../assets/images/dashboard-images/half-full-bar.png'
-import EmptyBar from '../../assets/images/dashboard-images/empty-bar.png'
-import FComplete from '../../assets/images/dashboard-images/foundational-complete.png'
-import SComplete from '../../assets/images/dashboard-images/secondary-complete.png'
-import InProgress from '../../assets/images/dashboard-images/in-progress.png'
-import NotStart from '../../assets/images/dashboard-images/not-started.png'
-import Badges3 from '../../assets/images/dashboard-images/3-badges.png'
-import Badges2 from '../../assets/images/dashboard-images/2-badges.png'
-import Badges1 from '../../assets/images/dashboard-images/1-badges.png'
-import Locked2 from '../../assets/images/dashboard-images/2-locked.png'
-import Available4 from '../../assets/images/dashboard-images/4-available.png'
-import Available3 from '../../assets/images/dashboard-images/3-available.png'
+import Levels from '../../static-data/DashboardLevels'
+import Modules from '../../static-data/DashboardModules'
 
 
 function LearningModules() {
-  const levels = [
-    {
-      borderColor: '#00A36C',
-      icon: FoundationalIcon,
-      name: 'Foundational',
-      completion: '4 of 6 completed',
-      bar: MostlyFullBar
-    },
-    {
-      borderColor: '#5dbcf3',
-      icon: SecondaryIcon,
-      name: 'Secondary',
-      completion: '2 of 4 completed',
-      bar: HalfFullBar
-    },
-    {
-      borderColor: '#FFD700',
-      icon: TertiaryIcon,
-      name: 'Tertiary',
-      completion: 'Complete secondary level to start',
-      bar: EmptyBar
-    }
-  ]
-
-
-  const modules = [
-    {
-      name: 'Recruitment fundamentals',
-      level: levels[0],
-      status: FComplete,
-      badges: Badges3,
-      timing: 'Last accessed: May 18, 2025',
-      bar: FullBar,
-      button: 'Review module'
-    },
-    {
-      name: 'The evolving workforce',
-      level: levels[1],
-      status: SComplete,
-      badges: Badges2,
-      timing: 'Last accessed: May 18, 2025',
-      bar: FullBar,
-      button: 'Review module'
-    },
-    {
-      name: 'Recruitment fundamentals',
-      level: levels[0],
-      status: InProgress,
-      badges: Badges1,
-      timing: 'Last accessed: Today',
-      bar: MostlyFullBar,
-      button: 'Continue learning'
-    },
-    {
-      name: 'HR analytics',
-      level: levels[0],
-      status: SComplete,
-      badges: Locked2,
-      timing: 'Due: June 24, 2025',
-      bar: HalfFullBar,
-      button: 'Continue learning'
-    },
-    {
-      name: 'Nigerian Labor Law',
-      level: levels[2],
-      status: NotStart,
-      badges: Available4,
-      timing: 'Due: June 24, 2025',
-      bar: EmptyBar,
-      button: 'Start module'
-    },
-    {
-      name: 'Performance management',
-      level: levels[2],
-      status: NotStart,
-      badges: Available3,
-      timing: 'Due: June 24, 2025',
-      bar: EmptyBar,
-      button: 'Start module'
-    }
-  ]
   return (
 
     <div>
@@ -110,7 +14,7 @@ function LearningModules() {
         <div>
           <div className='flex justify-between mt-2 sm:flex-col lg:flex-row'>
             {
-              levels.map((level) =>
+              Levels.map((level) =>
                 <div className={`bg-white border-t-3 p-2.5 pb-3.5 rounded-[20px] sm:mb-4 lg:w-[31.2%]`} style={{ borderColor: level.borderColor }}>
                   <div className='flex justify-start gap-4 cursor-pointer'>
                     <div className='rounded-[100px] justify-center content-center w-[48px] h-[48px]'>
@@ -127,7 +31,7 @@ function LearningModules() {
             }
           </div>
           <div className='flex flex-wrap justify-between'>
-            {modules.map((mod, key) =>
+            {Modules.map((mod, key) =>
               <div className={`bg-white border-t-3 px-2.5 py-5 rounded-[20px] lg:mb-8 sm:mb-4 sm:w-[95%] lg:w-[31.2%]`} style={{ borderColor: mod.level.borderColor }}>
                 <div>
                   <div className='justify-start gap-8 mb-4 flex'>

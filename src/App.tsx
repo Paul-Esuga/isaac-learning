@@ -53,6 +53,7 @@ import Otp from './pages/createaccount/Otp';
 import ViewComment from './pages/community/ViewComment';
 import PostQuestion from './pages/community/PostQuestion';
 import Otp1 from './pages/createaccount/Otp1';
+import ProgressTracker from './pages/dashboard/ProgressTracker';
 
 
 
@@ -66,15 +67,17 @@ function App() {
             {/* Keep both versions' routes */}
             <Route path="/create-account" element={<CreateAccountPage />} />
 
-          <Route path="/otp1" element={<Otp1 />} />
-          <Route path="/otp" element={<Otp />} />
-          <Route path="/" element={<CourseSelection />} />
+            <Route path="/otp1" element={<Otp1 />} />
+            <Route path="/otp" element={<Otp />} />
+            <Route path="/" element={<CourseSelection />} />
 
 
             {/* Dashboard page and all its sub pages */}
             <Route path="dashboard" element={<Dashboard />}>
               <Route index element={<MainDashboard />} />
-              <Route path="dashboard" element={<MainDashboard />} />
+              <Route path="index" element={<MainDashboard />}>
+                <Route path='progress' element={<ProgressTracker />} />
+              </Route>
               <Route path="modules" element={<Modules />} />
               <Route path="quiz" element={<Quiz />} />
 
