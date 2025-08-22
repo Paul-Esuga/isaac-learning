@@ -100,7 +100,7 @@ const Dashboard = () => {
 
                 <div className='relative'>
                     <NavBar />
-                    <div className='mt-[100px] fixed left-[280px]  pt-[16px] bg-[#fff] right-0'>
+                    <div className='mt-[100px] fixed left-[280px]  pt-[16px] bg-warm-white right-0'>
                         <Outlet />
                     </div>
                 </div>
