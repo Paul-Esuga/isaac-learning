@@ -4,15 +4,13 @@ import { useState } from "react";
 // Data
 import mockExamQuestions from "../../static-data/MockExamQuestions"
 
-// Componenets
-// import MockExamQuestionCard from "../../components/mock-exam-components/mock-exam-question-card/MockExamQuestionCard"
 import MockExamAnswerCard from "../../components/mock-exam-components/mock-exam-answer-card/MockExamAnswerCard";
 
 const MockExamReview = () => {
 
     const [currentq, setCurrentq] = useState(0)
 
-    const val = 1;
+    
 
     return (
         <div className="bg-[#FCFCFC] h-screen flex flex-col gap-[60px]  z-[1000] absolute top-[15px] left-[0] right-[0] p-[24px]">
