@@ -75,7 +75,8 @@ const NavBar = () => {
                                 currentPath.includes("account-management") ||
                                 currentPath.includes("view-comment") ||
                                 currentPath.includes("cipm-mock-exam") ||
-                                currentPath.includes('view-results') ?
+                                currentPath.includes('view-results')|| 
+                                currentPath.includes("mock-exam-review") ?
                                 <BackButton />
                                 : <h1 className="font-bold text-[20px]">Welcome back, {username}</h1>}
                         </div>
