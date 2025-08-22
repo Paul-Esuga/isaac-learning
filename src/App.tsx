@@ -18,6 +18,7 @@ import Quiz from './pages/quiz/Quiz';
 
 import MockExam from './pages/mockexams/MockExams';
 import CipmMockExams from './pages/mockexams/mock-exam-sub-pages/CipmMockExams';
+import MockExamResult from './pages/mockexams/MockExamResult';
 
 
 import Community from './pages/community/Community';
@@ -79,6 +80,7 @@ function App() {
 
               <Route path="mock-exam" element={<MockExam />}>
                 <Route path='cipm-mock-exam' element={<CipmMockExams />} />
+                <Route path='view-results' element={<MockExamResult />} />
               </Route>
 
               <Route path="community" element={<Community />}>

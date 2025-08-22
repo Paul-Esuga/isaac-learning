@@ -38,7 +38,7 @@ const MockExamTimer = () => {
 
     return (
         <div>
-            <h2 className='font-[700] text-[#414d58] text-[26px] mb-[10px]'>{`0${hour}:${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`}</h2>
+            <h2 className='font-[700] text-[#414d58] text-[26px]'>{`0${hour}:${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`}</h2>
             <p className='font-[400] text-[#7f8c8d] text-[#18px]'>Time remaining</p>
         </div>
     )

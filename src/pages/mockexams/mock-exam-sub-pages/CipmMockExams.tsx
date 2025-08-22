@@ -1,12 +1,12 @@
 // React Hook
-import { useContext } from "react";
+import { useContext, useState, useCallback } from "react";
 
 // Data
 import mockExamQuestions from "../../../static-data/MockExamQuestions"
 
 // Componenets
-import { ProceedButton } from "../../../components/utils/ProceedButton";
 import MockExamQuestionCard from "../../../components/mock-exam-components/mock-exam-question-card/MockExamQuestionCard";
+import MocExamSubmitComponenet from "../../../components/mock-exam-components/mock-exam-submit-componenet/MockExamSubmitComponenet";
 
 // Context Apis
 import { MockExamContext } from "../../../context/MockExamContext";
@@ -14,6 +14,8 @@ import { MockExamContext } from "../../../context/MockExamContext";
 
 
 const CipmMockExams = () => {
+
+    const [showSubmitExam, setShowSubmitExam] = useState(false);
 
     const MockContext = useContext(MockExamContext)
 
@@ -27,8 +29,12 @@ const CipmMockExams = () => {
     }
 
     const handleSubmit = () => {
-
+        setShowSubmitExam(true);
     }
+
+    const removeSubmit = useCallback(() => {
+        setShowSubmitExam(false);
+    }, [])
 
     return (
         <div className="bg-[#f8fcfc] h-screen flex flex-col gap-[60px]  z-[1000] absolute top-[15px] left-[0] right-[0] p-[30px]">
@@ -40,8 +46,6 @@ const CipmMockExams = () => {
                         Question {(MockContext?.questionIndex as number) + 1}/{mockExamQuestions.length}
                     </div>
 
-                    <div className="">
-                    </div>
                     <MockExamQuestionCard index={MockContext?.questionIndex} func={() => add_question_to_clicked_list(MockContext?.questionIndex as number)} />
 
                 </div>
@@ -58,7 +62,8 @@ const CipmMockExams = () => {
                         }
 
                     </div>
-                    <ProceedButton style="bg-primary-green px-[56px] py-[12px] text-[#fff] font-[700] rounded-[100px]" value="submit exam" func={handleSubmit} />
+                    {/* <ProceedButton style="bg-primary-green px-[56px] py-[12px] text-[#fff] font-[700] rounded-[100px]" value="submit exam" func={() => console.log('clicked')} /> */}
+                    <button className="bg-primary-green px-[56px] py-[12px] text-[#fff] font-[700] rounded-[100px]" onClick={handleSubmit}>submit exam</button>
                 </div>
             </div>
 
@@ -69,6 +74,10 @@ const CipmMockExams = () => {
                     )
                 }
             </div>
+
+            {
+                showSubmitExam &&  <MocExamSubmitComponenet removeSubmit={removeSubmit}/>
+            }
 
         </div>
     )
