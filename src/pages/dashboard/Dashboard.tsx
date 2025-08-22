@@ -39,9 +39,6 @@ const Dashboard = () => {
     }, [pathname]);
 
 
-
-
-
     return (
         <>
             <section className='flex gap-[2000px]'>
@@ -53,7 +50,7 @@ const Dashboard = () => {
                     <nav className='flex flex-col gap-[200px]'>
 
                         <div>
-                            <Link to='/dashboard' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${currentPath.includes("/dashboard") && pathname == "/dashboard" ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
+                            <Link to='/dashboard' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${pathname == "/dashboard" ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
                                 <img src={currentPath.includes("/dashboard") && pathname == "/dashboard" ? DashbboardIconGreen : DashboardIconWhite} alt='module icon' />
                                 Dashboard
                             </Link>
@@ -100,7 +97,7 @@ const Dashboard = () => {
 
                 <div className='relative'>
                     <NavBar />
-                    <div className='mt-[100px] fixed left-[280px]  pt-[16px] bg-[#fff] right-0'>
+                    <div className='mt-[100px] fixed left-[280px]  pt-[16px] bg-warm-white right-0'>
                         <Outlet />
                     </div>
                 </div>
