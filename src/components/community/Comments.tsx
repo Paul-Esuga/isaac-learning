@@ -2,18 +2,21 @@ import type { CommentProps } from "../bookmark/Boomark"
 import like from '../../assets/images/profile-images/like.png';
 import { usePayment } from "../../context/PaymentContext";
 import CommunityQuestions from "../../static-data/CommunityQuestions";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import commentsImg from '../../assets/images/icons/community-icons/comment-icon.png'
 
 function Comments({ id, img, name, time, body, like_count }: CommentProps) {
   const { replyComment, setReplyComment, setIsComment, questionId, commentId, setCommentId, setHideReply, hideReply } = usePayment()
-  const [showComment, setShowComment] = useState(false)
+
   useEffect(() => {
-    setHideReply(false)
-  }, [showComment])
+    !replyComment ? (parseInt(id) == parseInt(commentId) + 1 ? (setHideReply(false), console.log('rub')) : '') : (parseInt(id) == parseInt(commentId) + 1 ? (setHideReply(true), console.log('rub')) : '')
+  }, [replyComment])
+
+  //+: unary operator ==> converts stirng to number
+  const commentCount = CommunityQuestions[+questionId]?.comments?.[+commentId]?.replies?.length || '';
 
   return (
-    <div className='shadow-md px-[10px] py-[20px] rounded-[10px] mb-[20px] flex gap-8 lg:pr-25 cursor-pointer hover:border-1 hover:border-sub-gray'
+    <div className={`shadow-md px-[10px] py-[20px] rounded-[10px] mb-[20px] flex gap-8 lg:pr-25 cursor-pointer hover:outline-1 hover:outline-sub-gray ${replyComment && parseInt(id) == parseInt(commentId) + 1 ? 'outline-1 outline-sub-gray' : ''}`}
       onClick={() => {
         setCommentId(String(parseInt(id) - 1))
       }}
@@ -35,15 +38,13 @@ function Comments({ id, img, name, time, body, like_count }: CommentProps) {
               <img src={like} className='w-[20px] h-[20px]' alt='like icon' />
               <p className="ml-2 font-[400] text-base text-[#1A1A1A]">{like_count}</p>
             </div>
-            {hideReply ? <div className="flex"><img src={commentsImg} /> <p>{CommunityQuestions[parseInt(questionId)]?.comments?.[parseInt(commentId)].replies.length}</p></div> : <p className="text-primary-green text-base cursor-pointer"
+            {((parseInt(id) == parseInt(commentId) + 1) && hideReply) ? <div className="flex"><img src={commentsImg} /> <p>{commentCount}</p></div> : <button className="text-primary-green text-base cursor-pointer bg-transparent"
+              disabled={replyComment}
               onClick={() => {
                 setReplyComment(!replyComment)
                 setIsComment(true)
-                console.log(CommunityQuestions[parseInt(questionId)]?.comments?.[parseInt(commentId)])
-                // setHideReply(true)
-                setShowComment(!showComment)
               }}
-            >Reply</p>}
+            >Reply</button>}
           </div>
         </div>
       </div>

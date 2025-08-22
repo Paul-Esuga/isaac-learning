@@ -1,5 +1,5 @@
 // React Hook
-import { useState } from "react";
+import { useContext } from "react";
 
 // Data
 import mockExamQuestions from "../../../static-data/MockExamQuestions"
@@ -8,15 +8,22 @@ import mockExamQuestions from "../../../static-data/MockExamQuestions"
 import { ProceedButton } from "../../../components/utils/ProceedButton";
 import MockExamQuestionCard from "../../../components/mock-exam-components/mock-exam-question-card/MockExamQuestionCard";
 
+// Context Apis
+import { MockExamContext } from "../../../context/MockExamContext";
+
+
+
 const CipmMockExams = () => {
 
-    const [clicked_questions_list, setClicked_questions_list] = useState<number[]>([])
+    const MockContext = useContext(MockExamContext)
 
-    const [questionIndex, setQuestionIndex] = useState(0)
+
 
 
     const add_question_to_clicked_list = (i: number) => {
-        setClicked_questions_list(prev => [...prev, i + 1])
+        MockContext?.setClicked_questions_list(prev => {
+            return prev.includes(i + 1) ? prev : [...prev, i + 1];
+        });
     }
 
     const handleSubmit = () => {
@@ -30,12 +37,12 @@ const CipmMockExams = () => {
                 <div className="bg-[#fff] py-[20px] px-[10px] rounded-[10px] w-[75%] h-[fit-content] flex flex-col gap-[24px]">
 
                     <div className="bg-primary-green text-[#fff] w-[130px] p-[10px] rounded-[100px]">
-                        Question {questionIndex + 1}/{mockExamQuestions.length}
+                        Question {(MockContext?.questionIndex as number) + 1}/{mockExamQuestions.length}
                     </div>
 
                     <div className="">
-                        <MockExamQuestionCard index={questionIndex} func={() => add_question_to_clicked_list(questionIndex)} />
                     </div>
+                    <MockExamQuestionCard index={MockContext?.questionIndex} func={() => add_question_to_clicked_list(MockContext?.questionIndex as number)} />
 
                 </div>
 
@@ -44,18 +51,12 @@ const CipmMockExams = () => {
                     <div className="flex flex-wrap items-center">
                         {
                             mockExamQuestions.map((_, i) =>
-                                <div className={`bg-[#f0f0f0] cursor-pointer text-[#414d58] font-[600] flex items-center justify-center w-[44px] h-[44px] rounded-[50%] m-[5px] ${clicked_questions_list.includes(i + 1) ? "border-[#00A36C] border-[3px]" : ""}`}>
+                                <div key={i} className={`bg-[#f0f0f0] cursor-pointer text-[#414d58] font-[600] flex items-center justify-center w-[44px] h-[44px] rounded-[50%] m-[5px] ${MockContext?.clicked_questions_list.includes(i + 1) ? "border-[#00A36C] border-[3px]" : ""}`}>
                                     {i + 1}
                                 </div>
                             )
                         }
-                        {/* {
-                            mockExamQuestions.length > 5 &&
-                                <div className={`bg-[#f0f0f0] cursor-pointer text-[#414d58] text-center font-[600] flex items-center justify-center w-[44px] h-[44px] rounded-[50%] m-[5px]`}>
-                                    ...
-                                </div>
-                         
-                        } */}
+
                     </div>
                     <ProceedButton style="bg-primary-green px-[56px] py-[12px] text-[#fff] font-[700] rounded-[100px]" value="submit exam" func={handleSubmit} />
                 </div>
@@ -64,7 +65,7 @@ const CipmMockExams = () => {
             <div className="bg-primary-green flex justify-between items-center w-[75%] px-[50px] py-[7px] rounded-[8px]">
                 {
                     mockExamQuestions.map((_, i) =>
-                        <p className={`${questionIndex == i ? "bg-[#fff] font-[700] px-[17px] py-[9px] rounded-[8px] text-primary-green" : " text-[#fff] text-center"} cursor-pointer`} onClick={() => setQuestionIndex(i)}>{i + 1}</p>
+                        <p key={i} className={`${MockContext?.questionIndex == i ? "bg-[#fff] font-[700] px-[17px] py-[9px] rounded-[8px] text-primary-green" : " text-[#fff] text-center"} cursor-pointer`} onClick={() => MockContext?.setQuestionIndex(i)}>{i + 1}</p>
                     )
                 }
             </div>

@@ -46,7 +46,7 @@ const Dashboard = () => {
         <>
             <section className='flex gap-[2000px]'>
 
-                <div className='w-[280px] h-[1000px] bg-primary-green pt-[50px] fixed top-0 bottom-0 h-screen'>
+                <div className='w-[280px] h-[1000px] bg-primary-green pt-[50px] fixed  top-0 bottom-0 h-screen'>
 
                     <img src={Logo} alt='Isaac Lerning Logo' className='mb-[30px] pl-[36px]' />
 
@@ -74,7 +74,7 @@ const Dashboard = () => {
                             </Link>
 
                             <Link to='community' className={`flex gap-[16px] text-[#fff] py-[15px] pl-[10px] mx-10 ${currentPath.includes("/dashboard/community") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
-                                <img src={currentPath.includes( "/dashboard/community") ? CommunityIconGreen : CommunityIconWhite} alt='module icon' />
+                                <img src={currentPath.includes("/dashboard/community") ? CommunityIconGreen : CommunityIconWhite} alt='module icon' />
                                 Community
                             </Link>
 
