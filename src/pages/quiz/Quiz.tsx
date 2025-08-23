@@ -1,5 +1,5 @@
 // React Router Hooks
-import { data, Outlet } from 'react-router-dom';
+import {Outlet } from 'react-router-dom';
 
 // React Hooks
 import { useState } from 'react';
