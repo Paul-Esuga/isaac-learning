@@ -1,10 +1,19 @@
+// React Router Hooks
+import { data, Outlet } from 'react-router-dom';
+
 // React Hooks
 import { useState } from 'react';
+
+// Componenets
+import QuizCard from '../../components/quiz-componenets/QuizCard';
 
 // Assets
 import FilterIcon from '../../assets/images/quiz-images/filter-icon.png';
 import DropUpIcon from '../../assets/images/quiz-images/dropup-icon.png';
 import DropDownIcon from '../../assets/images/quiz-images/dropdown-icon.png';
+
+// Data
+import QuizData from '../../static-data/QuizData';
 
 const CategoriesList = ["All Categories", "Foundational", "Secondary", "Tertiary"]
 
@@ -16,10 +25,15 @@ const Quiz = () => {
 
     const [categories, setCategories] = useState(CategoriesList[0]);
 
-    return (
-        <div className="bg-[#FAFAFA] w-[100%] px-[124px] py-[40px]">
+    const Data = categories == "All Categories" ? QuizData 
+    : categories == "Foundational" ? QuizData.filter(data => data.category == "Foundational") 
+    : categories == "Secondary" ? QuizData.filter(data => data.category == "Secondary")
+    : categories == "Tertiary" ? QuizData.filter(data => data.category == "Tertiary") : QuizData
 
-            <div className="bg-primary-green w-[90%] rounded-[10px] px-[30px] py-[20px] m-auto">
+    return (
+        <div className="bg-[#FAFAFA] w-[100%] h-screen  px-[30px] py-[40px]">
+
+            <div className="bg-primary-green flex flex-col gap-[30px] w-[100%] rounded-[10px] px-[30px] py-[20px]">
 
                 <div className="flex items-center justify-between">
                     <div className="flex flex-col items-center">
@@ -52,6 +66,24 @@ const Quiz = () => {
                     </div>
 
                 </div>
+
+                <div className='flex flex-col gap-[24px] overflow-scroll h-[600px] py-[10px]'>
+                    {
+                        Data.map((data, i) => 
+                        <QuizCard 
+                        key={i} 
+                        id={data.id} 
+                        title={data.title}
+                        category={data.category}
+                        topic={data.topic}
+                        questionCount={data.questionCount}
+                        quizDuration={data.quizDuration}
+                        completors={data.completors}
+                        />)
+                    }
+                </div>
+
+                <Outlet/>
 
 
             </div>

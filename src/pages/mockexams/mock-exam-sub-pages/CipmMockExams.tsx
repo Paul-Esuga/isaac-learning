@@ -62,7 +62,6 @@ const CipmMockExams = () => {
                         }
 
                     </div>
-                    {/* <ProceedButton style="bg-primary-green px-[56px] py-[12px] text-[#fff] font-[700] rounded-[100px]" value="submit exam" func={() => console.log('clicked')} /> */}
                     <button className="bg-primary-green px-[56px] py-[12px] text-[#fff] font-[700] rounded-[100px]" onClick={handleSubmit}>submit exam</button>
                 </div>
             </div>
