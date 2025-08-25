@@ -45,6 +45,7 @@ import AccountManagement from './pages/profile/settings/AccountManagement';
 import CourseSelection from './pages/payment/CourseSelection';
 import PricePlan from './pages/payment/PricePlan';
 
+
 // Components
 import ScrollToTop from './components/ScrollToTop';
 import IndividualPayment from './pages/payment/IndividualPayment';
@@ -52,6 +53,10 @@ import Otp from './pages/createaccount/Otp';
 import ViewComment from './pages/community/ViewComment';
 import PostQuestion from './pages/community/PostQuestion';
 import Otp1 from './pages/createaccount/Otp1';
+import AcctMessage from './pages/createaccount/AcctMessage';
+import Login from "./pages/createaccount/login1"
+import ForgotPassword from "./pages/createaccount/ForgotPassword";
+import SuccessfulAccount from './pages/createaccount/FP-successful';
 
 
 
@@ -67,7 +72,11 @@ function App() {
 
           <Route path="/otp1" element={<Otp1 />} />
           <Route path="/otp" element={<Otp />} />
+          <Route path="/acctMessage" element={<AcctMessage/>} />
+          <Route path= "/login" element={<Login/>} />
           <Route path="/" element={<CourseSelection />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/successful" element={<SuccessfulAccount />} />
 
 
             {/* Dashboard page and all its sub pages */}
