@@ -12,7 +12,6 @@ import NotificationDeletePopup from '../popup/NotificationDeletePopup';
 // Assets
 import BackRoundedIcon from '../../../assets/images/notification-images/back-rounded-icon.png';
 import DeleteIcon from '../../../assets/images/notification-images/delete-icon.png';
-import CloseIcon from '../../../assets/images/Close.png';
 const All = () => {
 
     const [showNotificationInfo, setShowNotificationInfo] = useState(false);

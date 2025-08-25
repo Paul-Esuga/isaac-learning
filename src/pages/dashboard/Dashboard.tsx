@@ -39,9 +39,6 @@ const Dashboard = () => {
     }, [pathname]);
 
 
-
-
-
     return (
         <>
             <section className='flex gap-[2000px]'>
@@ -53,23 +50,23 @@ const Dashboard = () => {
                     <nav className='flex flex-col gap-[200px]'>
 
                         <div>
-                            <Link to='/dashboard' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${currentPath.includes("/dashboard") && pathname == "/dashboard" ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
-                                <img src={currentPath.includes("/dashboard") && pathname == "/dashboard" ? DashbboardIconGreen : DashboardIconWhite} alt='module icon' />
+                            <Link to='/dashboard/home' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${ currentPath.includes("home") || currentPath.split("/").join("") == "dashboard"  ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
+                                <img src={currentPath.includes("home") || currentPath.split("/").join("") == "dashboard" ? DashbboardIconGreen : DashboardIconWhite} alt='module icon' />
                                 Dashboard
                             </Link>
 
-                            <Link to='modules' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${currentPath.includes("/dashboard/modules") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
-                                <img src={currentPath.includes("/dashboard/modules") ? ModulesIconGreen : ModulesIconWhite} alt='module icon' />
+                            <Link to='modules' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${currentPath.includes("modules") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
+                                <img src={currentPath.includes("modules") ? ModulesIconGreen : ModulesIconWhite} alt='module icon' />
                                 Modules
                             </Link>
 
-                            <Link to='quiz' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${currentPath.includes("/dashboard/quiz") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
-                                <img src={currentPath.includes("/dashboard/quiz") ? QuizIconGreen : QuizIconWhite} alt='module icon' />
+                            <Link to='quiz' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${currentPath.includes("quiz") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
+                                <img src={currentPath.includes("quiz") ? QuizIconGreen : QuizIconWhite} alt='module icon' />
                                 Quizzes
                             </Link>
 
-                            <Link to='mock-exam' className={`flex gap-[16px] text-[#fff] py-[15px] pl-[10px] mx-10 ${currentPath.includes("/dashboard/mock-exam") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
-                                <img src={currentPath.includes("/dashboard/mock-exam") ? MockIconGreen : MockIconWhite} alt='module icon' />
+                            <Link to='mock-exam' className={`flex gap-[16px] text-[#fff] py-[15px] pl-[10px] mx-10 ${currentPath.includes("mock-exam") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
+                                <img src={currentPath.includes("mock-exam") ? MockIconGreen : MockIconWhite} alt='module icon' />
                                 Mock exams
                             </Link>
 
@@ -77,7 +74,6 @@ const Dashboard = () => {
                                 <img src={currentPath.includes("/dashboard/community") ? CommunityIconGreen : CommunityIconWhite} alt='module icon' />
                                 Community
                             </Link>
-
                             <Link to='profile' className={`flex gap-[16px] text-[#fff] py-[15px] px-[10px] w-50 mx-10 ${currentPath.includes("/dashboard/profile") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
                                 <img src={currentPath.includes("/dashboard/profile") ? ProfileIconGreen : ProfileIconWhite} alt='module icon' />
                                 Profile
@@ -100,7 +96,7 @@ const Dashboard = () => {
 
                 <div className='relative'>
                     <NavBar />
-                    <div className='mt-[100px] fixed left-[280px]  pt-[16px] bg-[#fff] right-0'>
+                    <div className='mt-[100px] fixed left-[280px]  pt-[16px] bg-warm-white right-0'>
                         <Outlet />
                     </div>
                 </div>
