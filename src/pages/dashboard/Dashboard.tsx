@@ -50,8 +50,8 @@ const Dashboard = () => {
                     <nav className='flex flex-col gap-[200px]'>
 
                         <div>
-                            <Link to='/dashboard/home' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${ currentPath.includes("home") ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
-                                <img src={currentPath.includes("home") ? DashbboardIconGreen : DashboardIconWhite} alt='module icon' />
+                            <Link to='/dashboard/home' className={`flex gap-[16px] text-[#fff]  py-[15px] pl-[10px] mx-10 ${ currentPath.includes("home") || currentPath.split("/").join("") == "dashboard"  ? "bg-[#fff] text-primary-green rounded-[10px] font-[700]" : ""}`} onClick={() => setCurrentPath(pathname)}>
+                                <img src={currentPath.includes("home") || currentPath.split("/").join("") == "dashboard" ? DashbboardIconGreen : DashboardIconWhite} alt='module icon' />
                                 Dashboard
                             </Link>
 

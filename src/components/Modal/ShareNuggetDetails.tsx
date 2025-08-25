@@ -56,18 +56,18 @@ export const ShareNuggetDetails = ({ setIsFormFilled }: { setIsFormFilled: React
       </div>
       <div className='align-middle justify-between flex rounded-xl mb-6'>
         {
-          shareIcons.map((share) =>
-            <div className="w-[72px] h-[80px] flex flex-col mr-2 ">
-              <img src={share.img} alt="" className='justify-self-center self-center w-[48px] h-[48px] ' />
-              <p className="text-slate-gray text-center font-normal w-[78px] h-[28px] justify-self-center  text-[18px]/7 self-center flex">{share.text}</p>
+          shareIcons.map((share, i) =>
+            <div key={i}>
+              <img src={share.img} alt="" className='justify-self-center w-[48px] h-[48px] mb-10' />
+              <p className="text-slate-gray font-normal text-[18px]">{share.text}</p>
             </div>
           )
         }
       </div>
       <div className="align-middle justify-between flex rounded-xl">
         {
-          socialMedia.map((share) =>
-            <div className="w-[72px] h-[80px] flex flex-col ">
+          socialMedia.map((share, i) =>
+            <div key={i} className="w-[72px] h-[80px] flex flex-col ">
               <img src={share.img} alt="" className='justify-self-center self-center w-[48px] h-[48px] ' />
               <p className="text-slate-gray text-center font-normal text-[18px] self-center flex">{share.text}</p>
             </div>

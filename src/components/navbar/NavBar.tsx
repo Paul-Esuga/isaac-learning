@@ -16,9 +16,21 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 
-
+const PathList = [
+    "personal-details",
+    "notification-settings",
+    "privacy",
+    "help",
+    "account-management",
+    "view-comment",
+    "cipm-mock-exam",
+    "view-results",
+    "mock-exam-review",
+    "start-quiz"
+]
 
 const NavBar = () => {
+
 
     const { question } = usePayment()
 
@@ -30,7 +42,7 @@ const NavBar = () => {
 
     useEffect(() => {
         setCurrentPath(pathname);
-    }, [pathname]);
+    }, [pathname, currentPath]);
 
 
     const username = "John";
@@ -68,18 +80,11 @@ const NavBar = () => {
 
                     <nav className="flex justify-between items-center bg-[#ffffff] shadow-md fixed right-0 left-[280px] px-[24px] pt-[32px] pb-[20px]">
                         <div>
-                            {currentPath.includes("personal-details") ||
-                                currentPath.includes("notification-settings") ||
-                                currentPath.includes("privacy") ||
-                                currentPath.includes("help") ||
-                                currentPath.includes("account-management") ||
-                                currentPath.includes("view-comment") ||
-                                currentPath.includes("cipm-mock-exam") ||
-                                currentPath.includes('view-results')|| 
-                                currentPath.includes("mock-exam-review") ||
-                                currentPath.includes("start-quiz") ?
-                                <BackButton />
-                                : <h1 className="font-bold text-[20px]">Welcome back, {username}</h1>}
+                            {
+                                PathList.some(some => currentPath.includes(some))   ?
+                                    <BackButton />
+                                    : <h1 className="font-bold text-[20px]">Welcome back, {username}</h1>
+                            }
                         </div>
 
                         {

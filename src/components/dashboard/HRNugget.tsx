@@ -33,8 +33,8 @@ function HRNugget() {
   return (
     <div className='flex sm:flex-col md:flex-col lg:flex-row justify-between flex-wrap lg:gap-8'>
       <div className="bg-[#5DADE2]/16 flex p-4 gap-4 w-[450px] flex-wrap sm:mb-6  h-[217px] lg:mr-10">
-        {options.map((option) =>
-          <div className="bg-white rounded-[10px] h-[80px] align-middle w-[190px] p-5 flex gap-2">
+        {options.map((option, i) =>
+          <div key={i} className="bg-white rounded-[10px] h-[80px] align-middle w-[190px] p-5 flex gap-2">
             <div className='w-[24px] h-[24px] self-center '><img src={option.img} alt="" /></div>
             <p className='self-center font-normal text-sm text-slate-gray'>{option.text}</p>
           </div>
