@@ -34,7 +34,7 @@ const All = () => {
 
 
     return (
-        <div className="overflow-y-scroll">
+        <div className="overflow-y-scroll flex flex-col gap-[24px]">
             {
                 NotificationsData.map(data =>
                     <NotificationCard
