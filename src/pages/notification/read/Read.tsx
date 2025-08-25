@@ -12,7 +12,6 @@ import NotificationDeletePopup from '../popup/NotificationDeletePopup';
 // Assets
 import BackRoundedIcon from '../../../assets/images/notification-images/back-rounded-icon.png';
 import DeleteIcon from '../../../assets/images/notification-images/delete-icon.png';
-import CloseIcon from '../../../assets/images/Close.png';
 
 const Unread = () => {
 
@@ -32,7 +31,7 @@ const Unread = () => {
     }, [])
 
     return (
-        <div className="overflow-y-scroll">
+        <div className="overflow-y-scroll flex flex-col gap-[24px]">
             {
                 NotificationsData.filter(data => data.read == false).map(data =>
                     <NotificationCard
@@ -68,7 +67,7 @@ const Unread = () => {
                             }
                         </div>
                     </div>
-                    : showNotificationInfo && showDeleteNotification ?
+                    : showNotificationInfo && showDeleteNotification &&
                         <div className="shadow-2xl backdrop-blur-xs h-screen w-screen absolute top-[-100px]  left-[-300px] flex items-center justify-center">
                             <div className="shadow-2xl flex flex-col gap-[80px] w-[600px] bg-[#fff] rounded-[24px] p-[40px]">
 
@@ -89,7 +88,7 @@ const Unread = () => {
 
                             </div>
                         </div>
-                        : ""
+                        
             }
         </div>
     )

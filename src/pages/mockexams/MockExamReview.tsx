@@ -4,6 +4,7 @@ import { useState } from "react";
 // Data
 import mockExamQuestions from "../../static-data/MockExamQuestions"
 
+// Components
 import MockExamAnswerCard from "../../components/mock-exam-components/mock-exam-answer-card/MockExamAnswerCard";
 
 const MockExamReview = () => {
