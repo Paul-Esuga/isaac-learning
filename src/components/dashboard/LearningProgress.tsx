@@ -10,9 +10,9 @@ function LearningProgress() {
       <div>
         <div className="flex justify-between">
           <h2 className="font-semibold text-xl text-slate-gray mb-6">Your learning progress</h2>
-          <p className="text-primary-green text-xl font-bold cursor-pointer transition-all"
+          <p className="cursor-pointer text-primary-green text-xl font-bold cursor-pointer transition-all"
             onClick={() => {
-              navigate('/dashboard/index/progress')
+              navigate('/dashboard/home/progress')
             }}
           >See all</p>
         </div>

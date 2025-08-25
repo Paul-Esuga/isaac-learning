@@ -12,7 +12,7 @@ export const DashboardModalDetails = ({ setIsFormFilled }: { setIsFormFilled: Re
         </button> */}
         <img src={close}
           className="cursor-pointer"
-          alt="" onClick={() => { setIsFormFilled(false), navigate('/dashboard') }} />
+          alt="" onClick={() => { setIsFormFilled(false), navigate('/dashboard/home') }} />
 
       </div>
       <div className='align-middle items-center justify-center rounded-xl'>
