@@ -29,6 +29,8 @@ function HRNugget() {
     }
   ]
   const [isFormFilled, setIsFormFilled] = useState(false)
+  const tip = "Recognition is a powerful motivator. Research shows that employees who receive regular recognition are 5x more likely to stay at their company. Try implementing a peer recognition program where team members can acknowledge each other's contributions. \nThis practice can boost team morale and create a positive workplace culture where achievements are and valued."
+
 
   return (
     <div className='flex sm:flex-col md:flex-col lg:flex-row justify-between flex-wrap lg:gap-8'>
@@ -51,8 +53,7 @@ function HRNugget() {
           </div>
           <div className='w-[65%]'>
             <h3 className='text-primary-green font-semibold text-base'>Employee Engagement Tip</h3>
-            <p className='font-normal text-sm text-sub-gray my-3'>“Recognition is a powerful motivator. Research shows that employees who receive regular recognition are 5x more likely to stay at their company. Try implementing a peer recognition program where team members can acknowledge each other's contributions."
-              This practice can boost team morale and create a positive workplace culture where achievements are and valued.</p>
+            <p className='font-normal text-sm text-sub-gray my-3'>{tip}</p>
             <div className='flex gap-2.5'>
               <img src={ShareInsightsImg}
                 onClick={() => {
@@ -68,7 +69,7 @@ function HRNugget() {
         </div>
       </div>
       <DashboardModal isFormFilled={isFormFilled} >
-        <ShareNuggetDetails setIsFormFilled={setIsFormFilled} />
+        <ShareNuggetDetails setIsFormFilled={setIsFormFilled} text={tip} />
       </DashboardModal>
     </div>
   )
