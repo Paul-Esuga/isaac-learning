@@ -1,20 +1,27 @@
 // import { useNavigate } from "react-router-dom"; importing the navigating hook
-import background from "../../assets/images/createaccount-logo/background.png";
 
 
-export default function AcctMessage() {
+import Success from "../../assets/images/createaccount-logo/success-icon.png";
+
+
+export default function SuccessfulAccount() {
     // const navigate = useNavigate();
 
     return (
     //page divide
-    <div className="flex flex-col lg:flex-row h-screen bg-white">
+    <div className="flex flex-col lg:flex-row h-screen bg-[#FFFFFF]">
       {/* Left section */}
       <div className="w-full lg:w-[45%] mt-[100px] bg-white flex flex-col items-center justify-start p-6 sm:p-8 lg:p-12">
         <div className="flex flex-col -translate-y-20 items-center justify-center">
-            <div className=""><img src={background} alt="Background"/></div>
-            <h1 className="font-poppins text-3xl font-bold mb-3" style={{color: "rgba(65, 77, 88, 1"}}>Account created <span className="block ml-7">successfully!</span></h1>
-            <p className="text-[10px] font-lato">Click button below to start your HR journey and ace your<span className="block ml-10">CIPM exam Isaac is waiting for you.</span></p></div>
-            <div className="-mt-10"><button className="w-[480px] rounded-lg bg-green-700 px-10 py-4 mr-7 -mt-16 text-white font-bold hover:bg-green-900 transition-colors">Get started</button></div>
+            <div className="mt-28"><img src={Success} alt="Background"/></div>
+            <h1 className="font-poppins text-4xl font-bold mt-14 mb-3" style={{color: "rgba(65, 77, 88, 1"}}>Password changed <span className="block mt-2 ml-14">successfully!</span></h1>
+           
+            <p className="mt-0 text-color-[#7F8C8D]">Joseph, you have successfully reset your password and can <span className="block ml-20">now login back to your account now.</span></p>
+             <button className="w-[480px] mt-10 rounded-lg bg-[#00A36C] px-10 py-4 text-white font-bold hover:bg-green-900 transition-colors">Log in</button>
+            {/* <p className="text-[10px] font-lato">Click button below to start your HR journey and ace your<span className="block ml-10">CIPM exam Isaac is waiting for you.</span></p></div> */}
+            </div>
+        
+
         </div>
         
         <div className="hidden lg:flex w-[55%] bg-[linear-gradient(180deg,rgba(0,0,0,0)_19.64%,rgba(0,0,0,0.6)_87.08%)] relative overflow-hidden">
