@@ -58,6 +58,9 @@ import ViewComment from './pages/community/ViewComment';
 import PostQuestion from './pages/community/PostQuestion';
 import Otp1 from './pages/createaccount/Otp1';
 import ProgressTracker from './pages/dashboard/ProgressTracker';
+import Foundational from './pages/modules/Foundational';
+import Secondary from './pages/modules/Secondary';
+import Tertiary from './pages/modules/Tertiary';
 
 
 
@@ -84,18 +87,22 @@ function App() {
                 <Route path='progress' element={<ProgressTracker />} />
               </Route>
 
-              <Route path="modules" element={<Modules />} />
+              <Route path="modules" element={<Modules />}>
+                <Route path='foundational' element={<Foundational />} />
+                <Route path='secondary' element={<Secondary />} />
+                <Route path='tertiary' element={<Tertiary />} />
+              </Route>
 
               {/* Quiz page and its sub pages */}
               <Route path="quiz" element={<Quiz />}>
-                <Route path='start-quiz/:id' element={<QuizQuestions/>}/>
+                <Route path='start-quiz/:id' element={<QuizQuestions />} />
               </Route>
 
               {/* Mock-Exam page and its sub pages */}
               <Route path="mock-exam" element={<MockExam />}>
                 <Route path='cipm-mock-exam' element={<CipmMockExams />} />
                 <Route path='view-results' element={<MockExamResult />} />
-                <Route path='mock-exam-review' element={<MockExamReview/>}/>
+                <Route path='mock-exam-review' element={<MockExamReview />} />
               </Route>
 
               {/* Community page and its sub pages */}

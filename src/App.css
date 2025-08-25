@@ -14,6 +14,10 @@
   --color-brand-purple: #7e5bef;
 }
 
+@theme {
+  --font-Mont: 'Montserrat', sans-serif;
+}
+
 div::-webkit-scrollbar{
   display: none;
 }
