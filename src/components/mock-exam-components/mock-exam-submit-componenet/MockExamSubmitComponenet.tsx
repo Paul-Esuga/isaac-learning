@@ -28,7 +28,7 @@ const MocExamSubmitComponenet = ({ removeSubmit }: MocExamSubmitComponenetProps)
                             Dear John, weldone. You have successfully completed your mock exam and you can now see results or go back to homepage to continue learning
                         </p>
                         <div className='flex gap-[24px]'>
-                            <button className='bg-[#F5F5F5] rounded-[10px] px-[20px] py-[14px] font-[700] text-[#414d58]' onClick={() => navigate("/dashboard")}>Back to homepage</button>
+                            <button className='bg-[#F5F5F5] rounded-[10px] px-[20px] py-[14px] font-[700] text-[#414d58]' onClick={() => navigate("/dashboard/home")}>Back to homepage</button>
                             <button className='bg-[#00A36C] rounded-[10px] px-[20px] py-[14px] font-[700] text-[#fff]' onClick={() => navigate('/dashboard/mock-exam/view-results')}>View results</button>
                         </div>
                     </div>

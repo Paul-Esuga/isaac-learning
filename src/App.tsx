@@ -14,11 +14,15 @@ import MockExamContext from './context/MockExamContext';
 import Dashboard from './pages/dashboard/Dashboard';
 import MainDashboard from './pages/dashboard/MainDashboard';
 import Modules from './pages/modules/Modules';
+
+
 import Quiz from './pages/quiz/Quiz';
+import QuizQuestions from './pages/quiz/QuizQuestion';
 
 import MockExam from './pages/mockexams/MockExams';
 import CipmMockExams from './pages/mockexams/mock-exam-sub-pages/CipmMockExams';
 import MockExamResult from './pages/mockexams/MockExamResult';
+import MockExamReview from './pages/mockexams/MockExamReview';
 
 
 import Community from './pages/community/Community';
@@ -74,22 +78,33 @@ function App() {
 
             {/* Dashboard page and all its sub pages */}
             <Route path="dashboard" element={<Dashboard />}>
+
               <Route index element={<MainDashboard />} />
-              <Route path="index" element={<MainDashboard />}>
+              <Route path="home" element={<MainDashboard />}>
                 <Route path='progress' element={<ProgressTracker />} />
               </Route>
-              <Route path="modules" element={<Modules />} />
-              <Route path="quiz" element={<Quiz />} />
 
+              <Route path="modules" element={<Modules />} />
+
+              {/* Quiz page and its sub pages */}
+              <Route path="quiz" element={<Quiz />}>
+                <Route path='start-quiz/:id' element={<QuizQuestions/>}/>
+              </Route>
+
+              {/* Mock-Exam page and its sub pages */}
               <Route path="mock-exam" element={<MockExam />}>
                 <Route path='cipm-mock-exam' element={<CipmMockExams />} />
                 <Route path='view-results' element={<MockExamResult />} />
+                <Route path='mock-exam-review' element={<MockExamReview/>}/>
               </Route>
 
+              {/* Community page and its sub pages */}
               <Route path="community" element={<Community />}>
                 <Route path="view-comment/:id" element={<ViewComment />} />
                 <Route path='post-question' element={<PostQuestion />} />
               </Route>
+
+              {/*Notification page and its sub pages  */}
               <Route path="notification" element={<Notification />}>
                 <Route index element={<All />} />
                 <Route path='all' element={<All />} />

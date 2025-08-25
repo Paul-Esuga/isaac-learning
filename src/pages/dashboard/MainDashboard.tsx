@@ -13,7 +13,7 @@ const MainDashboard = () => {
         setIsFormFilled(true)
     }, [])
 
-    document.title = "Dashboard ";
+    document.title = "Dashboard | Home ";
 
     return (
         <div className="overflow-y-scroll overflow-x-hidden h-[83vh] lg:h-[85vh]  lg:mt-0">
