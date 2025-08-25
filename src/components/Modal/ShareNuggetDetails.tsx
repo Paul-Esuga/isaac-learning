@@ -32,8 +32,8 @@ export const ShareNuggetDetails = ({ setIsFormFilled }: { setIsFormFilled: React
       </div>
       <div className='align-middle justify-between flex rounded-xl'>
         {
-          shareIcons.map((share) =>
-            <div>
+          shareIcons.map((share, i) =>
+            <div key={i}>
               <img src={share.img} alt="" className='justify-self-center w-[48px] h-[48px] mb-10' />
               <p className="text-slate-gray font-normal text-[18px]">{share.text}</p>
             </div>

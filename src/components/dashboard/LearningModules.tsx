@@ -14,9 +14,9 @@ function LearningModules() {
         <div>
           <div className='flex justify-between mt-2 sm:flex-col lg:flex-row'>
             {
-              Levels.map((level) =>
-                <div className={`bg-white border-t-3 p-2.5 pb-3.5 rounded-[20px] sm:mb-4 lg:w-[31.2%]`} style={{ borderColor: level.borderColor }}>
-                  <div className='flex justify-start gap-4 cursor-pointer'>
+              Levels.map((level, i) =>
+                <div key={i} className={`bg-white border-t-3 p-2.5 pb-3.5 rounded-[20px] sm:mb-4 lg:w-[31.2%]`} style={{ borderColor: level.borderColor }}>
+                  <div  className='flex justify-start gap-4 cursor-pointer'>
                     <div className='rounded-[100px] justify-center content-center w-[48px] h-[48px]'>
                       <img className='' src={level.icon} alt="" />
                     </div>
@@ -32,7 +32,7 @@ function LearningModules() {
           </div>
           <div className='flex flex-wrap justify-between'>
             {Modules.map((mod, key) =>
-              <div className={`bg-white border-t-3 px-2.5 py-5 rounded-[20px] lg:mb-8 sm:mb-4 sm:w-[95%] lg:w-[31.2%]`} style={{ borderColor: mod.level.borderColor }}>
+              <div key={key} className={`bg-white border-t-3 px-2.5 py-5 rounded-[20px] lg:mb-8 sm:mb-4 sm:w-[95%] lg:w-[31.2%]`} style={{ borderColor: mod.level.borderColor }}>
                 <div>
                   <div className='justify-start gap-8 mb-4 flex'>
                     <h3 className='font-medium text-base text-slate-gray'>{mod.name}</h3>
