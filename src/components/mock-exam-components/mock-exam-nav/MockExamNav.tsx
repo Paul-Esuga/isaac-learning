@@ -13,7 +13,7 @@ const MockExamNav = () => {
             <div className='flex justify-between items-center'>
                 <h1 className="text-[24px] text-[#414d58] font-[700]">CIPM MOCK EXAM</h1>
                 <MockExamTimer/>
-                {/* <MockExamScore/> */}
+                <MockExamScore/>
             </div>
             <MockExamProgressBar/>
         </div>

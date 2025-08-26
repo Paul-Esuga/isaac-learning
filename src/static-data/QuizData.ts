@@ -32,7 +32,7 @@ const QuizData = [
                     `Finanace and accounting`,
                     `Research and developmenet`
                 ],
-                correctAnswer: `Recruitment and seleection`
+                correctAnswer: `Recruitmenet and selection`
             },
 
             {
@@ -44,7 +44,7 @@ const QuizData = [
                     `Personnael Management`,
                     `Staffing`
                 ],
-                correctAnswer: `To manage people`
+                correctAnswer: `Human Resource Planning`
             },
 
             {

@@ -1,10 +1,13 @@
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 // Assets
 import Checkedbox from '../../../assets/images/mock-exam-images/checkbox.png';
 import Uncheckedbox from '../../../assets/images/mock-exam-images/uncheckbox.png';
 import ErrorCheckedbox from '../../../assets/images/mock-exam-images/error-checkbox.png';
 import Close from '../../../assets/images/Close.png';
+
+// Componenets
+import CorrectAnswerCard from '../../correct-answer-card/CorrectAnswerCard';
 
 // Data
 import mockExamQuestions from '../../../static-data/MockExamQuestions';
@@ -52,6 +55,10 @@ const MockExamAnswerCard = ({ i }: MockExamAnswerCardProps) => {
     const userAnswer = MockContext?.doneQuestions.find(q => q.questionIndex === i);
     const isIncorrect = userAnswer && userAnswer.optionChosen !== currentQuestion.correctAnswer;
 
+    const hideCorrectAnswerCard = useCallback(() => {
+        setShowCorrectAnswer(false);
+    }, [])
+
     return (
         <div className="flex flex-col gap-[24px] border p-[20px] rounded-[10px]">
             <h2 className="text-[20px] text-[#414d58] font-[700]">
@@ -81,27 +88,7 @@ const MockExamAnswerCard = ({ i }: MockExamAnswerCardProps) => {
             }
 
             {showCorrectAnswer && isIncorrect && (
-                <div className="shadow-2xl backdrop-blur-xs h-screen w-screen absolute top-[-100px]  left-[-300px] flex items-center justify-center">
-                    <div className='shadow-md flex flex-col gap-[20px] bg-[#fff] py-[24px] px-[50px] rounded-[20px]'>
-
-                        <div className='flex justify-between gap-[100px]'>
-                            <p className="mt-[10px] text-green-600 text-[16px] font-semibold">
-                                Correct Answer: {currentQuestion.correctAnswer}
-                            </p>
-                            <img src={Close} onClick={() => setShowCorrectAnswer(false)} className='cursor-pointer' />
-                        </div>
-
-                        <p className='text-[#414d58] font-[700]'>
-                            {currentQuestion.correctAnswer}
-                        </p>
-
-                        <p className='font-[400] w-[400px]'>
-                            <span className='text-[#414d58] font-[700]'>Explanation:</span>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas rem recusandae eius aliquam molestias praesentium placeat consectetur consequuntur obcaecati illo nihil et eligendi, maxime officiis dicta quisquam. Aliquam, provident nesciunt.
-                        </p>
-                    </div>
-                </div>
-
+                <CorrectAnswerCard correctAnswer={currentQuestion.correctAnswer} setShowCorrectAnswer={hideCorrectAnswerCard}/>
             )}
         </div>
     );
