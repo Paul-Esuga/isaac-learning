@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import shareIcons from "../../static-data/ShareIcons"
 import socialMedia from "../../static-data/SocialMedia"
 import { useEffect, useState } from "react"
-import { ShareSocial } from "react-share-social"
+// import { ShareSocial } from "react-share-social"
 
 type NuggetType = {
   setIsFormFilled: React.Dispatch<React.SetStateAction<boolean>>,
@@ -78,9 +78,9 @@ export const ShareNuggetDetails = ({ setIsFormFilled, text }: NuggetType) => {
           socialMedia.map((share, i) =>
             <div key={i} className="w-[72px] h-[80px] flex flex-col ">
               {/* <img src={share.img} alt="" className='justify-self-center self-center w-[48px] h-[48px] mb-2 cursor-pointer' /> */}
-              <ShareSocial url={'Our HR tip for the day: '.concat(text ?? 'Isaac Learning Rocks')} socialTypes={[share.text]}
+              {/* <ShareSocial url={'Our HR tip for the day: '.concat(text ?? 'Isaac Learning Rocks')} socialTypes={[share.text]}
                 style={style}
-              />
+              /> */}
               <p className="text-slate-gray text-center font-normal text-[18px] self-center flex">{share.text.slice(0, 1).toUpperCase()}{share.text.slice(1)}</p>
             </div>
           )
