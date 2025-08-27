@@ -24,16 +24,16 @@ const Modules = () => {
           <div>
             <nav className=' flex items-center  w-[100%] border-b-[0.5px] border-b-sub-gray py-2.5 transition-all'>
 
-              <NavLink to='foundational' className={indexPath == "/dashboard/modules" || indexPath == "/dashboard/modules/foundational" ? 'text-[#FCFCFC] text-center rounded-[100px] px-5 py-3 w-[134px] h-[24px] flex  items-stretch  bg-primary-green border-primary-green border-b-[5px] justify-center  mr-6' : ' w-[134px] h-[24px]  mr-6 text-center text-nowrap text-[#999999]'}>
-                <p className=' font-[700] text-base/5 flex self-center mt-1 '>Foundational</p>
+              <NavLink to='foundational' className={indexPath == "/dashboard/modules" || indexPath == "/dashboard/modules/foundational" ? 'text-[#FCFCFC] text-center rounded-[100px] px-5 py-3 w-[134px] h-[24px] flex  items-stretch  bg-primary-green justify-center  mr-6' : ' w-[134px] h-[24px]  mr-6 text-center text-nowrap text-[#999999]'}>
+                <p className=' font-[700] text-base/5 flex self-center '>Foundational</p>
               </NavLink>
 
-              <NavLink to='secondary' className={({ isActive }) => isActive ? 'text-[#FCFCFC] text-center rounded-[100px] px-5 py-3 w-[115px] h-[24px] flex  items-center content-center bg-primary-green border-primary-green border-b-[5px] justify-center text-nowrap mr-6' : 'w-[115px] h-[24px] text-center text-nowrap mr-6 text-[#999999]'} >
-                <p className='mt-1 font-[700] text-base/5  self-center  '>Secondary</p>
+              <NavLink to='secondary' className={({ isActive }) => isActive ? 'text-[#FCFCFC] text-center rounded-[100px] px-5 py-3 w-[115px] h-[24px] flex  items-center content-center bg-[#5DADE2] justify-center text-nowrap mr-6' : 'w-[115px] h-[24px] text-center text-nowrap mr-6 text-[#999999]'} >
+                <p className='font-[700] text-base/5  self-center  '>Secondary</p>
               </NavLink>
 
-              <NavLink to='tertiary' className={({ isActive }) => isActive ? 'text-[#FCFCFC] text-center rounded-[100px] px-5 py-3 w-[96px] h-[24px] flex  items-center content-center bg-primary-green border-primary-green border-b-[5px]  text-nowrap justify-centermb-2 ' : ' text-center text-nowrap mr-6 w-[96px] h-[24px] text-[#999999]'}>
-                <p className=' mt-1 font-[700] text-base/5  self-center justify-self-center text-center '>Tertiary</p>
+              <NavLink to='tertiary' className={({ isActive }) => isActive ? 'text-[#FCFCFC] text-center rounded-[100px] px-5 py-3 w-[96px] h-[24px] flex  items-center content-center bg-[#CCAC00]    text-nowrap justify-centermb-2 ' : ' text-center text-nowrap mr-6 w-[96px] h-[24px] text-[#999999]'}>
+                <p className=' font-[700] text-base/5  self-center justify-self-center text-center '>Tertiary</p>
 
               </NavLink>
             </nav>
