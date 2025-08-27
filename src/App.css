@@ -1,7 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
-
+/* @plugin "daisyui"; */
 
 @theme {
   --color-primary-green: #00a36c;
@@ -12,6 +12,12 @@
   --color-secondary: #456789;
   --color-brand-blue: #1fb6ff;
   --color-brand-purple: #7e5bef;
+  --color-secondary-blue: #5DADE2;
+  --color-tertiary-gold: #CCAC00;
+}
+
+@theme {
+  --font-Mont: 'Montserrat', sans-serif;
 }
 
 div::-webkit-scrollbar{

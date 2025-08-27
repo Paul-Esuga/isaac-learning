@@ -6,7 +6,6 @@ import Facebook from "../../assets/images/createaccount-logo/facebook.png";
 import apple from "../../assets/images/createaccount-logo/apple.png";
 import google from "../../assets/images/createaccount-logo/Google.png";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 
 function Entry(props: Entryprops) {
   return (
@@ -22,59 +21,28 @@ function Entry(props: Entryprops) {
   );
 }
 
-function PhoneEntry() {
-  return (
-    <div className="w-full">
-      <p className="text-gray-700 text-sm mb-2">Phone number</p>
-      <div className="flex">
-        <div className="flex items-center bg-gray-50 border border-gray-300 rounded-l-md px-3">
-          <span className="text-green-600 text-lg"><img src={NGN}/></span>
-          <span className="ml-2 text-gray-700">+234</span>
-        </div>
-        <input 
-          name="phone" 
-          placeholder=""
-          type="tel"
-          className="border border-gray-300 border-l-0 bg-gray-50 p-3 rounded-r-md flex-1 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
-        />
-      </div>
-    </div>
-  );
-}
+// function PhoneEntry() {
+//   return (
+//     <div className="w-full">
+//       <p className="text-gray-700 text-sm mb-2">Phone number</p>
+//       <div className="flex">
+//         <div className="flex items-center bg-gray-50 border border-gray-300 rounded-l-md px-3">
+//           <span className="text-green-600 text-lg"><img src={NGN}/></span>
+//           <span className="ml-2 text-gray-700">+234</span>
+//         </div>
+//         <input 
+//           name="phone" 
+//           placeholder=""
+//           type="tel"
+//           className="border border-gray-300 border-l-0 bg-gray-50 p-3 rounded-r-md flex-1 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
+//         />
+//       </div>
+//     </div>
+//   );
+// }
 
-
-
-export default function CreateAccountPage() {
+export default function Login() {
   const navigate = useNavigate();
-  const mutAr = {
-        "pictures" :[
-            "/Learning-bg.png",
-            "/building-bg.png",
-            "/climbing-bg.png",
-            
-        ],
-        "write": [
-            "Your Gateway to Smarter Learning",
-            "Grow Together, Lead Together",
-            "Ace your exams with confidence",
-        ],
-        "Text": [
-          "Access a variety of curated courses across fields, from HR to Science and more. Learn at your pace, anytime, anywhere.",
-          "Connect with fellow learners, gain real-world insights from experienced mentors in your field and grow with a network that supports your journey.",
-          "You’re not just studying , you’re building a future. With Isaac by your side, you’ll gain the clarity, tools, and mindset to rise above challenges and succeed where it matters most."
-        ]
-    }
-
-    const [indexval, setIndexval] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setIndexval(prev => (prev + 1) % mutAr.pictures.length);
-        }, 3000);
-
-        return () => clearInterval(interval); // cleanup
-    }, []); // run once when component mounts
-
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-white">
       {/* Left section */}
@@ -89,17 +57,15 @@ export default function CreateAccountPage() {
 
         {/* Headings */}
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-center text-gray-900">
-          Create account
+          Welcome back
         </h1>
         <p className="text-gray-600 text-center text-sm sm:text-base mb-8 max-w-md">
-          Please kindly enter your correct details below to sign up with us and get started
+            Enter your details to log in your account
         </p>
 
         {/* Form */}
         <div className="w-full max-w-md space-y-4">
-          <Entry name="Full name" placeholder="Enter your full name" />
-          <Entry name="Email address" placeholder="Enter your email address" />
-          <PhoneEntry />
+          <Entry name="Email address" placeholder="Email address or phone number" />
           <div className="relative">
             <Entry name="Password" placeholder="Create password" />
             <p className="text-red-500 text-xs mt-1 flex items-center">
@@ -110,14 +76,14 @@ export default function CreateAccountPage() {
 
           {/* Submit Button */}
           <button className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 px-4 rounded-md transition-colors mt-6" onClick={() => navigate('/otp')}>
-            Create account
+            Log in
           </button>
 
           {/* Login Link */}
           <p className="text-center text-sm text-gray-600 mt-4">
-            Already have an account?{' '}
+            Don't have an account?{' '}
             <a href="/login" className="text-green-500 hover:text-green-600 font-medium">
-              Log in
+              sign up
             </a>
           </p>
 
@@ -148,25 +114,25 @@ export default function CreateAccountPage() {
 
       {/* Right section */}
       <div className="hidden lg:flex w-[55%] bg-[linear-gradient(180deg,rgba(0,0,0,0)_19.64%,rgba(0,0,0,0.6)_87.08%)] relative overflow-hidden">
-
-        <div className="absolute inset-0" style={{ backgroundImage: `url(${mutAr.pictures[indexval]})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
-
+        
+        <div className="absolute inset-0 bg-[url('Learning-bg.png')] bg-opacity-20"></div>
+        
         {/* Content */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center text-white text-center p-12">
           
           
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            {mutAr.write[indexval]}
+            Your Gateway to Smarter Learning
           </h2>
           <p className="text-lg lg:text-xl opacity-90 max-w-md">
-            {mutAr.Text[indexval]}
+            Access a variety of curated courses across fields, from HR to Science and more. Learn at your pace, anytime, anywhere.
           </p>
           
           {/* Progress dots */}
           <div className="flex space-x-2 mt-8">
-            {mutAr.write.map((_, i) => (
-              <div key={i} className={`w-3 h-3 rounded-full ${indexval === i ? 'bg-green-700' : 'bg-white'}`} />
-            ))}
+            <div className="w-3 h-3 bg-white rounded-full"></div>
+            <div className="w-3 h-3 bg-white bg-opacity-50 rounded-full"></div>
+            <div className="w-3 h-3 bg-white bg-opacity-50 rounded-full"></div>
           </div>
         </div>
       </div>

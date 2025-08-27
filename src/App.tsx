@@ -50,6 +50,7 @@ import AccountManagement from './pages/profile/settings/AccountManagement';
 import CourseSelection from './pages/payment/CourseSelection';
 import PricePlan from './pages/payment/PricePlan';
 
+
 // Components
 import ScrollToTop from './components/ScrollToTop';
 import IndividualPayment from './pages/payment/IndividualPayment';
@@ -57,7 +58,16 @@ import Otp from './pages/createaccount/Otp';
 import ViewComment from './pages/community/ViewComment';
 import PostQuestion from './pages/community/PostQuestion';
 import Otp1 from './pages/createaccount/Otp1';
+import AcctMessage from './pages/createaccount/AcctMessage';
+import Login from "./pages/createaccount/login1"
+import ForgotPassword from "./pages/createaccount/ForgotPassword";
+import SuccessfulAccount from './pages/createaccount/FP-successful';
 import ProgressTracker from './pages/dashboard/ProgressTracker';
+import UseeffectLearn from './pages/createaccount/UseeffectLearn';
+import Foundational from './pages/modules/Foundational';
+import Secondary from './pages/modules/Secondary';
+import Tertiary from './pages/modules/Tertiary';
+import ViewModule from './pages/modules/ViewModule';
 
 
 
@@ -73,7 +83,13 @@ function App() {
 
             <Route path="/otp1" element={<Otp1 />} />
             <Route path="/otp" element={<Otp />} />
+            <Route path="/acctMessage" element={<AcctMessage />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/" element={<CourseSelection />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/successful" element={<SuccessfulAccount />} />
+          <Route path="/useeffect" element={<UseeffectLearn />} />
+
 
 
             {/* Dashboard page and all its sub pages */}
@@ -84,18 +100,30 @@ function App() {
                 <Route path='progress' element={<ProgressTracker />} />
               </Route>
 
-              <Route path="modules" element={<Modules />} />
+              <Route path="modules" element={<Modules />}>
+                <Route path='foundational' element={<Foundational />}>
+                  {/* <Route path='view-module/:id' element={<ViewModule />} /> */}
+
+                </Route>
+                <Route path='secondary' element={<Secondary />}>
+                  {/* <Route path='view-module/:id' element={<ViewModule />} /> */}
+                </Route>
+                <Route path='tertiary' element={<Tertiary />}>
+                  {/* <Route path='view-module/:id' element={<ViewModule />} /> */}
+                </Route>
+                <Route path='view-module/:id' element={<ViewModule />} />
+              </Route>
 
               {/* Quiz page and its sub pages */}
               <Route path="quiz" element={<Quiz />}>
-                <Route path='start-quiz/:id' element={<QuizQuestions/>}/>
+                <Route path='start-quiz/:id' element={<QuizQuestions />} />
               </Route>
 
               {/* Mock-Exam page and its sub pages */}
               <Route path="mock-exam" element={<MockExam />}>
                 <Route path='cipm-mock-exam' element={<CipmMockExams />} />
                 <Route path='view-results' element={<MockExamResult />} />
-                <Route path='mock-exam-review' element={<MockExamReview/>}/>
+                <Route path='mock-exam-review' element={<MockExamReview />} />
               </Route>
 
               {/* Community page and its sub pages */}
