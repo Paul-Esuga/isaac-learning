@@ -97,18 +97,12 @@ function App() {
                 <Route path='progress' element={<ProgressTracker />} />
               </Route>
 
-              <Route path="modules" element={<Modules />}>
-                <Route path='foundational' element={<Foundational />}>
-                  {/* <Route path='view-module/:id' element={<ViewModule />} /> */}
-
-                </Route>
-                <Route path='secondary' element={<Secondary />}>
-                  {/* <Route path='view-module/:id' element={<ViewModule />} /> */}
-                </Route>
-                <Route path='tertiary' element={<Tertiary />}>
-                  {/* <Route path='view-module/:id' element={<ViewModule />} /> */}
-                </Route>
-                <Route path='view-module/:id' element={<ViewModule />} />
+              <Route path="modules" element={<Modules />} >
+                <Route index element={<Foundational />} />
+                <Route path='foundational' element={<Foundational />} />
+                <Route path='secondary' element={<Secondary />} />
+                <Route path='tertiary' element={<Tertiary />} />
+                <Route path='view-module/:id' element={<ViewModule />} />`
               </Route>
 
               {/* Quiz page and its sub pages */}
