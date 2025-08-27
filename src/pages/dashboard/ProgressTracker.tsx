@@ -74,7 +74,8 @@ function ProgressTracker() {
                   <div><ProgressCard timing={card.title} bar={card.bar} title={card.title} /></div>
                 )}
               </div>
-            </div> :
+            </div>
+            :
             <div className=" justify-center flex flex-col mt-10">
               <img className="self-center flex " src={NoModuleImg} alt="" />
               <h2 className="text-slate-gray font-bold text-xl text-center">Oops!! John, you have not started learning  so there is nothing to show.</h2>
