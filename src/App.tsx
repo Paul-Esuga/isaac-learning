@@ -66,6 +66,7 @@ import ProgressTracker from './pages/dashboard/ProgressTracker';
 import Foundational from './pages/modules/Foundational';
 import Secondary from './pages/modules/Secondary';
 import Tertiary from './pages/modules/Tertiary';
+import ViewModule from './pages/modules/ViewModule';
 
 
 
@@ -81,11 +82,11 @@ function App() {
 
             <Route path="/otp1" element={<Otp1 />} />
             <Route path="/otp" element={<Otp />} />
-          <Route path="/acctMessage" element={<AcctMessage/>} />
-          <Route path= "/login" element={<Login/>} />
+            <Route path="/acctMessage" element={<AcctMessage />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/" element={<CourseSelection />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/successful" element={<SuccessfulAccount />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/successful" element={<SuccessfulAccount />} />
 
 
             {/* Dashboard page and all its sub pages */}
@@ -97,9 +98,17 @@ function App() {
               </Route>
 
               <Route path="modules" element={<Modules />}>
-                <Route path='foundational' element={<Foundational />} />
-                <Route path='secondary' element={<Secondary />} />
-                <Route path='tertiary' element={<Tertiary />} />
+                <Route path='foundational' element={<Foundational />}>
+                  {/* <Route path='view-module/:id' element={<ViewModule />} /> */}
+
+                </Route>
+                <Route path='secondary' element={<Secondary />}>
+                  {/* <Route path='view-module/:id' element={<ViewModule />} /> */}
+                </Route>
+                <Route path='tertiary' element={<Tertiary />}>
+                  {/* <Route path='view-module/:id' element={<ViewModule />} /> */}
+                </Route>
+                <Route path='view-module/:id' element={<ViewModule />} />
               </Route>
 
               {/* Quiz page and its sub pages */}
