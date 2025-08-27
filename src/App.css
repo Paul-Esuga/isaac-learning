@@ -12,6 +12,8 @@
   --color-secondary: #456789;
   --color-brand-blue: #1fb6ff;
   --color-brand-purple: #7e5bef;
+  --color-secondary-blue: #5DADE2;
+  --color-tertiary-gold: #CCAC00;
 }
 
 @theme {
