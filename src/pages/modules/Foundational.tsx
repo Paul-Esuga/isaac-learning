@@ -6,7 +6,7 @@ function Foundational() {
   const navigate = useNavigate()
 
   return (
-    <div className='px-6'>
+    <div className='px-1'>
       {
         Modules.map((mod, key) =>
           <div
