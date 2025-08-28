@@ -29,7 +29,7 @@ const MockExamResult = () => {
 
                     <div className="bg-[#f5f5f5] p-[10px] rounded-[10px] w-[510px] grow">
                         <p>Status</p>
-                        <h3 className="font-[700] text-[414d58] text-[20px] text-[#2ECC71]">Passed</h3>
+                        <h3 className="font-[700] text-[20px] text-[#2ECC71]">Passed</h3>
                     </div>
 
                 </div>

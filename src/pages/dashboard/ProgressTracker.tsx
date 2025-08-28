@@ -1,5 +1,4 @@
 import type { ProgCard } from "../../components/dashboard/ProgressCard"
-import progressBar1 from '../../assets/images/dashboard-images/full-bar.png';
 // import ProgressBar from '../../assets/images/Close.png';
 import ProgressCard from "../../components/dashboard/ProgressCard"
 import NoModuleImg from '../../assets/images/dashboard-images/no-modules.png'

@@ -68,6 +68,9 @@ import Foundational from './pages/modules/Foundational';
 import Secondary from './pages/modules/Secondary';
 import Tertiary from './pages/modules/Tertiary';
 import ViewModule from './pages/modules/ViewModule';
+import ModuleAudio from './pages/modules/ModuleAudio';
+import ModuleVideo from './pages/modules/ModuleVideo';
+import ModuleText from './pages/modules/ModuleText';
 
 
 
@@ -86,9 +89,9 @@ function App() {
             <Route path="/acctMessage" element={<AcctMessage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<CourseSelection />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/successful" element={<SuccessfulAccount />} />
-          <Route path="/useeffect" element={<UseeffectLearn />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/successful" element={<SuccessfulAccount />} />
+            <Route path="/useeffect" element={<UseeffectLearn />} />
 
 
 
@@ -105,7 +108,12 @@ function App() {
                 <Route path='foundational' element={<Foundational />} />
                 <Route path='secondary' element={<Secondary />} />
                 <Route path='tertiary' element={<Tertiary />} />
-                <Route path='view-module/:id' element={<ViewModule />} />`
+                <Route path='view-module/:id' element={<ViewModule />}>
+                  <Route index element={<ModuleText />} />
+                  <Route path='text' element={<ModuleText />} />
+                  <Route path='audio' element={<ModuleAudio />} />
+                  <Route path='video' element={<ModuleVideo />} />
+                </Route>
               </Route>
 
               {/* Quiz page and its sub pages */}
