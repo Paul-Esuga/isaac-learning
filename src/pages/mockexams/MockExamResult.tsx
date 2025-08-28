@@ -41,10 +41,10 @@ const MockExamResult = () => {
                         <th className="bg-[#f5f5f5]">Score</th>
                         <th className="bg-[#f5f5f5]">Max score</th>
                         <th className="bg-[#f5f5f5]">Accuracy</th>
-                        <th className="rounded-r-[10px] bg-[#f5f5f5]">Time sent</th>
+                        <th className="rounded-r-[10px] bg-[#f5f5f5]">Time spent</th>
                     </tr>
 
-                    <tr  className="border-b-[1px] border-[#d4d4d4] text-center">
+                    <tr className="border-b-[1px] border-[#d4d4d4] text-center">
                         <td>Employment Law Basics</td>
                         <td>14/20</td>
                         <td>20</td>
@@ -78,9 +78,9 @@ const MockExamResult = () => {
 
                 </table>
 
-                <ProceedButton destination="/dashboard/mock-exam/mock-exam-review" style="bg-primary-green rounded-[10px] px-[170px] py-[12px] text-[#fff] font-[700]" value="Review answers"/>
+                <ProceedButton destination="/dashboard/mock-exam/mock-exam-review" style="bg-primary-green rounded-[10px] px-[170px] py-[12px] text-[#fff] font-[700]" value="Review answers" />
 
-            </div> 
+            </div>
         </div>
     )
 }
