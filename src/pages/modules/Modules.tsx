@@ -16,20 +16,19 @@ const Modules = () => {
 
   return (
     <>
-      <div className=" overflow-x-hidden h-[83vh] lg:h-[85vh]  lg:mt-0">
+      <div className="lg:mt-0">
         <div className="px-6 sm:py-8 ">
           <div className="flex justify-start flex-col mb-6">
             <h1 className="font-bold text-2xl/9 text-slate-gray mb-2">Learning modules</h1>
             <p className="text-sub-gray font-normal text-sm/5">Select a topic to learn John</p>
           </div>
-          <div className='overflow-y-scroll h-full'>
+          <div className=''>
             <nav className=' flex items-center  w-[100%] border-b-[0.5px] border-b-sub-gray py-2.5 transition-all'>
-
-              <NavLink to='foundational' className={(indexPath == "/dashboard/modules" || indexPath == "/dashboard/modules/foundational") ? 'text-[#FCFCFC] text-center rounded-[100px] px-5 py-3 w-[134px] h-[24px] flex  items-stretch  bg-primary-green justify-center  mr-6' : ' w-[134px] h-[24px]  mr-6 text-center text-nowrap text-[#999999]'}>
+              <NavLink to='foundational' className={(indexPath == "/dashboard/modules" || indexPath == "/dashboard/modules/foundational") ? 'text-[#FCFCFC] text-center rounded-[100px] px-5 py-3 w-[134px] h-[24px] flex  items-stretch  bg-primary-green justify-center  mr-4' : ' w-[134px] h-[24px]  mr-4 text-center text-nowrap text-[#999999]'}>
                 <p className=' font-[700] text-base/5 flex self-center '>Foundational</p>
               </NavLink>
 
-              <NavLink to='secondary' className={({ isActive }) => isActive ? 'text-[#FCFCFC] text-center rounded-[100px] px-5 py-3 w-[115px] h-[24px] flex  items-center content-center bg-[#5DADE2] justify-center text-nowrap mr-6' : 'w-[115px] h-[24px] text-center text-nowrap mr-6 text-[#999999]'} >
+              <NavLink to='secondary' className={({ isActive }) => isActive ? 'text-[#FCFCFC] text-center rounded-[100px] px-5 py-3 w-[115px] h-[24px] flex  items-center content-center bg-[#5DADE2] justify-center text-nowrap mr-4' : 'w-[115px] h-[24px] text-center text-nowrap mr-4 text-[#999999]'} >
                 <p className='font-[700] text-base/5  self-center  '>Secondary</p>
               </NavLink>
 
@@ -39,8 +38,11 @@ const Modules = () => {
               </NavLink>
             </nav>
           </div>
+          <div className='overflow-y-scroll mt-3 pb-30 h-[85vh]'>
+            <Outlet />
+          </div>
         </div>
-        <Outlet />
+
       </div>
     </>
   )
