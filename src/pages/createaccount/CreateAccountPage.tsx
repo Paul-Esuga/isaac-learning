@@ -8,6 +8,7 @@ import google from "../../assets/images/createaccount-logo/Google.png";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+
 function Entry(props: Entryprops) {
   return (
     <div className="w-full">
@@ -42,7 +43,7 @@ function PhoneEntry() {
   );
 }
 
-
+const countriesList = require('./countries.json');
 
 export default function CreateAccountPage() {
   const navigate = useNavigate();
