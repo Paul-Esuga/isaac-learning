@@ -1,4 +1,4 @@
-import Modules from "../../static-data/LearningModules"
+import Modules from "../../static-data/LearningModules.ts"
 import ModuleCard from "../../components/modules/ModuleCard"
 import { Outlet, useNavigate } from "react-router-dom"
 
@@ -11,7 +11,7 @@ function Foundational() {
         Modules.map((mod, key) =>
           <div
             onClick={() => {
-              navigate(`../../modules/view-module/${key}`)
+              navigate(`/dashboard/modules/view-module/${key}`)
             }}
             className="cursor-pointer"
           >

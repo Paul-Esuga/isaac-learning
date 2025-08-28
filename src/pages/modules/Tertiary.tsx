@@ -1,4 +1,4 @@
-import Modules from "../../static-data/LearningModules"
+import Modules from "../../static-data/LearningModules.ts"
 import ModuleCard from "../../components/modules/ModuleCard"
 import { Outlet, useNavigate } from "react-router-dom"
 
@@ -12,6 +12,7 @@ function Tertiary() {
             onClick={() => {
               navigate(`../../modules/view-module/${key}`)
             }}
+            className="cursor-pointer"
           >
             <ModuleCard key={key} border={'#CCAC00'} title={mod.title} description={mod.description} progress={mod.progress} started={mod.started} />
           </div>
