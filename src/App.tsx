@@ -67,6 +67,7 @@ import UseeffectLearn from './pages/createaccount/UseeffectLearn';
 import Foundational from './pages/modules/Foundational';
 import Secondary from './pages/modules/Secondary';
 import Tertiary from './pages/modules/Tertiary';
+import ViewModule from './pages/modules/ViewModule';
 
 
 
@@ -82,12 +83,13 @@ function App() {
 
             <Route path="/otp1" element={<Otp1 />} />
             <Route path="/otp" element={<Otp />} />
-          <Route path="/acctMessage" element={<AcctMessage/>} />
-          <Route path= "/login" element={<Login/>} />
+            <Route path="/acctMessage" element={<AcctMessage />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/" element={<CourseSelection />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/successful" element={<SuccessfulAccount />} />
           <Route path="/useeffect" element={<UseeffectLearn />} />
+
 
 
             {/* Dashboard page and all its sub pages */}
@@ -98,10 +100,12 @@ function App() {
                 <Route path='progress' element={<ProgressTracker />} />
               </Route>
 
-              <Route path="modules" element={<Modules />}>
+              <Route path="modules" element={<Modules />} >
+                <Route index element={<Foundational />} />
                 <Route path='foundational' element={<Foundational />} />
                 <Route path='secondary' element={<Secondary />} />
                 <Route path='tertiary' element={<Tertiary />} />
+                <Route path='view-module/:id' element={<ViewModule />} />`
               </Route>
 
               {/* Quiz page and its sub pages */}

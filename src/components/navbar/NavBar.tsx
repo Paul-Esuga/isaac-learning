@@ -26,7 +26,8 @@ const PathList = [
     "cipm-mock-exam",
     "view-results",
     "mock-exam-review",
-    "start-quiz"
+    "start-quiz",
+    "view-module"
 ]
 
 const NavBar = () => {
@@ -81,9 +82,13 @@ const NavBar = () => {
                     <nav className="flex justify-between items-center bg-[#ffffff] shadow-md fixed right-0 left-[280px] px-[24px] pt-[32px] pb-[20px]">
                         <div>
                             {
-                                PathList.some(some => currentPath.includes(some))   ?
+                                PathList.some(some => currentPath.includes(some)) ?
                                     <BackButton />
-                                    : <h1 className="font-bold text-[20px]">Welcome back, {username}</h1>
+                                    :
+                                    (currentPath.includes('modules') ?
+                                        <h1 className="font-bold text-[20px] sm:mr-1 flex sm:w-[200px] lg:w-[350px]">What do you want to learn today</h1>
+                                        :
+                                        <h1 className="font-bold text-[20px]">Welcome back, {username}</h1>)
                             }
                         </div>
 

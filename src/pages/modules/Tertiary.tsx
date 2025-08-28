@@ -1,14 +1,24 @@
-import Modules from "../../static-data/LearningModules"
+import Modules from "../../static-data/LearningModules.ts"
 import ModuleCard from "../../components/modules/ModuleCard"
+import { Outlet, useNavigate } from "react-router-dom"
 
 function Tertiary() {
+  const navigate = useNavigate()
   return (
-    <div className='px-6'>
+    <div className='px-1'>
       {
         Modules.map((mod, key) =>
-          <ModuleCard key={key} border={'#FCF300'} title={mod.title} description={mod.description} progress={mod.progress} started={mod.started} />
+          <div
+            onClick={() => {
+              navigate(`../../modules/view-module/${key}`)
+            }}
+            className="cursor-pointer"
+          >
+            <ModuleCard key={key} border={'#CCAC00'} title={mod.title} description={mod.description} progress={mod.progress} started={mod.started} />
+          </div>
         )
       }
+      <Outlet />
     </div>
   )
 }
