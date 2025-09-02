@@ -1,8 +1,6 @@
-
 // Data
 import ProgressData from "../../static-data/ProgressData";
 import BadgesData from "../../static-data/BadgesData";
-
 
 // Components
 import ProgressCard from "../../components/progress/ProgressCard";
@@ -11,7 +9,7 @@ import BadgesCard from "../../components/badges/BadgesCard";
 const ProgressSummary = () => {
 
     return (
-        <div>
+        <div className="py-[20px] overflow-scroll h-[41dvh]">
             <div className="flex gap-[60px] w-[100%]">
                 {
                     ProgressData.map(data => <ProgressCard key={data.id} image={data.image} title={data.title} body={data.body} />)
