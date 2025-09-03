@@ -1,48 +1,38 @@
-
 // import { useState } from 'react';
 
-// export default function UseeffectLearn() {
+// export function UseeffectLearn() {
+//   const [value, setValue] = useState("");
 
-//   const [value, setValue] = useState(false);
-
-//   function handleChange(){
-//     setValue(true)
+//   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+//     setValue(e.target.value);
 //   }
 
-//     return (
-//         <div>
-//             <h1>Hello</h1>
-//             <input/>
-//         </div>
-//     );
+//   return (
+//     <div>
+//       <h1>{value}</h1>
+//       <input type="text" value={value} onChange={handleChange} className='border-2 border-blue-500 bg-red-700' />
+//     </div>
+//   );
 // }
+import { useState } from "react";
 
-export default function MyForm() {
+export function UseeffectLearn() {
+  const [value, setValue] = useState("");
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setValue(e.target.value); // store the actual text
+  }
+
   return (
-    <>
-      <label>
-        Text input: <input name="myInput" />
-      </label>
-      <hr />
-      <label>
-        Checkbox: <input type="checkbox" name="myCheckbox" />
-      </label>
-      <hr />
-      <p>
-        Radio buttons:
-        <label>
-          <input type="radio" name="myRadio" value="option1" />
-          Option 1
-        </label>
-        <label>
-          <input type="radio" name="myRadio" value="option2" />
-          Option 2
-        </label>
-        <label>
-          <input type="radio" name="myRadio" value="option3" />
-          Option 3
-        </label>
-      </p>
-    </>
+    <div className="p-4">
+      <h1 className="mb-2 text-xl">Length: {value.length < 8 ? "password should be atleast 8 characters": `password is ${value.length}`}</h1>
+      <input
+        type="text"
+        value={value}
+        onChange={handleChange}
+        className="border-2 border-blue-500 bg-white text-black p-2 rounded w-64"
+        placeholder="Type something..."
+      />
+    </div>
   );
 }

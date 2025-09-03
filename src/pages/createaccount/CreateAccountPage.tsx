@@ -184,7 +184,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import PhoneEntry from "./testing1";
 
-function Entry(props: Entryprops) {
+function Entry(props: Entryprops & { value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; }) {
   return (
     <div className="w-full">
       <p className="text-gray-700 text-sm mb-2">{props.name}</p>
@@ -198,6 +198,8 @@ function Entry(props: Entryprops) {
             ? "email"
             : "text"
         }
+        value={props.value}
+        onChange={props.onChange}
         className="border border-gray-300 bg-gray-50 p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
       />
     </div>
@@ -222,6 +224,10 @@ export default function CreateAccountPage() {
   };
 
   const [indexval, setIndexval] = useState(0);
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -252,14 +258,18 @@ export default function CreateAccountPage() {
 
         {/* Form */}
         <div className="w-full max-w-md space-y-4">
-          <Entry name="Full name" placeholder="Enter your full name" />
-          <Entry name="Email address" placeholder="Enter your email address" />
+          <Entry name="Full name" placeholder="Enter your full name" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+          <Entry name="Email address" placeholder="Enter your email address" value={email} onChange={(e) => setEmail(e.target.value)} />
           <PhoneEntry />
           <div className="relative">
-            <Entry name="Password" placeholder="Create password" />
+            <Entry name="Password" placeholder="Create password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <p className="text-red-500 text-xs mt-1 flex items-center">
-              <img src={PassInfo} />
-              Password must be at least 8 characters
+              {password.length < 8 && (
+                <>
+                  <img src={PassInfo} alt="Password Info" className="mr-1" />
+                  Password must be at least 8 characters
+                </>
+              )}
             </p>
           </div>
 

@@ -63,7 +63,7 @@ import Login from "./pages/createaccount/login1"
 import ForgotPassword from "./pages/createaccount/ForgotPassword";
 import SuccessfulAccount from './pages/createaccount/FP-successful';
 import ProgressTracker from './pages/dashboard/ProgressTracker';
-import UseeffectLearn from './pages/createaccount/UseeffectLearn';
+import {UseeffectLearn} from './pages/createaccount/UseeffectLearn';
 import Foundational from './pages/modules/Foundational';
 import Secondary from './pages/modules/Secondary';
 import Tertiary from './pages/modules/Tertiary';
