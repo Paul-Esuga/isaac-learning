@@ -62,7 +62,7 @@ const Help = () => {
                 <div className='flex flex-col gap-[24px] w-[1500px]'>
                     <h3>FAQs</h3>
 
-                    <div className='flex gap-[10px] flex-wrap'>
+                    <div className='flex flex-wrap'>
                         {
                             FAQsData.map(data => <FaqsCard key={data.id} heading={data.heading} body={data.body}/>)
                         }

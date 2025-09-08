@@ -19,7 +19,7 @@ const MockExams = () => {
     document.title = "Dashboard | Mock Exam";
 
     return (
-        <div className="bg-[#f8fcfc] w-[100%] px-[124px] py-[40px]">
+        <div className="bg-[#f8fcfc] overflow-auto h-[700px] w-[100%] px-[124px] py-[40px]">
             <div className='flex flex-col gap-[24px]'>
 
                 <div>

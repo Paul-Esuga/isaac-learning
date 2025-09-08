@@ -1,5 +1,3 @@
-
-
 type ActivityCardProps = {
     img: string;
     title: string;

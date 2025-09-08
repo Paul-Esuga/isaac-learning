@@ -26,7 +26,7 @@ type QuizCardProps = {
 
 const QuizCard = ({id, title, category, topic, questionCount, quizDuration, completors }: QuizCardProps) => {
     return (
-        <div className='bg-[#fff] flex items-center justify-between px-[10px] py-[20px] rounded-[8px] w-[100%]'>
+        <div className='bg-[#fff] flex items-center flex-wrap justify-between gap-[20px] px-[10px] py-[20px] rounded-[8px] w-[100%]'>
 
             <div className='flex gap-[12px] items-center'>
 

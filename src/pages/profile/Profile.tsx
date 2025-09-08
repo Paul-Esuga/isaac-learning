@@ -93,12 +93,11 @@ const Profile = () => {
                     </NavLink>
                 </nav>
 
-                {showEditBio ? <EditBioPopup setShowEditBio={removeEditBio} /> : ""}
-                {showUploadPhoto ? <UploadPhotoPopup setShowUploadPhoto={removeUploadPhoto} /> : ""}
+                {showEditBio && <EditBioPopup setShowEditBio={removeEditBio} />}
+                {showUploadPhoto && <UploadPhotoPopup setShowUploadPhoto={removeUploadPhoto} />}
 
-                <div className='pt-[24px]'>
-                    <Outlet />
-                </div>
+   
+                <Outlet />
             </div>
 
         </section>

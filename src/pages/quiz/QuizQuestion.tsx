@@ -59,7 +59,7 @@ const QuizQuestions = () => {
 
     const [checkList, setCheckList] = useState(answered_options?.map(_ => answered_question_object))
     useEffect(() => {
-        setWidth(prev => prev + 310)
+        setWidth(prev => prev + 266.2)
     }, [checkList.length])
     
     useEffect(() => {setWidth(0)}, [])
@@ -75,13 +75,13 @@ const QuizQuestions = () => {
     return (
         <div className="bg-[#FCFCFC] h-screen flex flex-col gap-[60px]  z-[1000] absolute top-[15px] left-[0] right-[0] p-[24px]">
 
-            <div className="bg-primary-green overflow-y-scroll h-[700px] flex flex-col gap-[30px] w-[100%] rounded-[10px] px-[30px] py-[20px]">
+            <div className="bg-primary-green overflow-y-scroll h-[80dvh] flex flex-col gap-[30px] w-[100%] rounded-[10px] px-[30px] py-[20px]">
 
                 <div className="flex flex-col gap-[6px]">
                     <h1 className="text-[#f5f5f5] text-[18px] font-[600]">Question {currentQuestion} of {question?.length}</h1>
-                    <div className="relative">
+                    <div className="relative p-[10px]">
                         <div className="bg-[#fefefe]/30 rounded-[10px] h-[10px] w-[100%]"></div>
-                        <div style={{ width: `${width}px`}} className={`bg-[#fefefe] h-[10px]  absolute top-0 rounded-l-[10px] ${width == 1550 && "rounded-r-[10px]"} `}></div>
+                        <div style={{ width: `${width}px`}} className={`bg-[#fefefe] h-[10px]  absolute top-[10px] rounded-l-[10px] rounded-r-[10px]`}></div>
                     </div>
                 </div>
 
