@@ -1,68 +1,86 @@
-import Levels from '../../static-data/DashboardLevels'
-import Modules from '../../static-data/DashboardModules'
-
+import Levels from "../../static-data/DashboardLevels";
+import Modules from "../../static-data/DashboardModules";
 
 function LearningModules() {
   return (
+    <div className="mt-12">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <h2 className="text-slate-gray font-semibold text-xl">
+          Learning modules
+        </h2>
+        <h3 className="text-primary-green font-bold text-sm md:text-base cursor-pointer hover:underline">
+          View all modules
+        </h3>
+      </div>
 
-    <div>
-      <div className='mt-8'>
-        <div className="flex justify-between">
-          <h2 className="text-slate-gray font-semibold text-xl mb-6">Learning modules</h2>
-          <h3 className="text-primary-green font-bold text-xl">View all modules</h3>
-        </div>
-        <div>
-          <div className='flex justify-between mt-2 sm:flex-col lg:flex-row'>
-            {
-              Levels.map((level, i) =>
-                <div key={i} className={`bg-white border-t-3 p-2.5 pb-3.5 rounded-[20px] sm:mb-4 lg:w-[31.2%]`} style={{ borderColor: level.borderColor }}>
-                  <div  className='flex justify-start gap-4 cursor-pointer'>
-                    <div className='rounded-[100px] justify-center content-center w-[48px] h-[48px]'>
-                      <img className='' src={level.icon} alt="" />
-                    </div>
-                    <div className='mb-3'>
-                      <p className='font-medium text-sm text-slate-gray mb-2'>{level.name} level</p>
-                      <p className='text-sub-gray font-normal text-[12px]'>{level.completion}</p>
-                    </div>
-                  </div>
-                  <img src={level.bar} className='w-full my-2' />
-                </div>
-              )
-            }
-          </div>
-          <div className='flex flex-wrap justify-between'>
-            {Modules.map((mod, key) =>
-              <div key={key} className={`bg-white border-t-3 px-2.5 py-5 rounded-[20px] lg:mb-8 sm:mb-4 sm:w-[95%] lg:w-[31.2%]`} style={{ borderColor: mod.level.borderColor }}>
-                <div>
-                  <div className='justify-start gap-8 mb-4 flex'>
-                    <h3 className='font-medium text-base text-slate-gray'>{mod.name}</h3>
-                    <div className={`py-0.5 px-1.5 rounded-[10px] text-[12px] max-w-[190px] justify-center flex align-middle ${mod.level.name == 'Foundational' ? 'bg-[#2ECC71]/20' : (mod.level.name == 'Secondary' ? 'bg-[#5DADE2]/20' : 'bg-[#FCF300]/20')}`} style={{ color: mod.level.borderColor }}><p className='self-center '>{mod.level.name}</p></div>
-                  </div>
-                  <div className=''>
-                    <div className='flex w-[50%] mb-2'>
-                      <img src={mod.status} className='h-[20px] w-[33%] mr-2' alt="" />
-                      <img src={mod.badges} className='h-[20px]w-[33%]' alt="" />
-                    </div>
-                    <p className='text-sub-gray font-normal text-xs'>{mod.timing}</p>
-                  </div>
-                  <div>
-                    <img src={mod.bar} className='w-full my-[17px]' alt="" />
-                  </div>
-                </div>
-                <div className='mb-2 cursor-pointer'>
-                  {key < 2 ?
-                    <div className='bg-[#F5F5F5] text-slate-gray  text-center font-normal text-base p-2.5 rounded-[10px] w-full min-h-[44px]'>{mod.button}</div>
-                    :
-                    <div className='bg-primary-green text-warm-white text-center p-2.5 text-base font-bold rounded-[10px] w-full min-[44px]'>{mod.button}</div>
-                  }
-                </div>
+      {/* Levels Row */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        {Levels.map((level, i) => (
+          <div
+            key={i}
+            className="bg-white border-t-4 p-5 rounded-[20px] shadow-sm"
+            style={{ borderColor: level.borderColor }}
+          >
+            <div className="flex gap-4 mb-4">
+              <div className="w-12 h-12 flex-shrink-0 bg-gray-50 rounded-full flex items-center justify-center">
+                <img src={level.icon} alt={level.name} className="w-8 h-8" />
               </div>
-            )}
+              <div>
+                <p className="font-bold text-slate-gray">{level.name} level</p>
+                <p className="text-sub-gray text-xs">{level.completion}</p>
+              </div>
+            </div>
+            <img src={level.bar} className="w-full" alt="progress" />
           </div>
-        </div>
+        ))}
+      </div>
+
+      {/* Modules Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        {" "}
+        {Modules.map((mod, key) => (
+          <div
+            key={key}
+            className="bg-white border-t-4 p-5 rounded-[20px] shadow-sm flex flex-col justify-between"
+            style={{ borderColor: mod.level.borderColor }}
+          >
+            <div>
+              <div className="flex justify-between items-start gap-4 mb-4">
+                <h3 className="font-bold text-slate-gray leading-tight">
+                  {mod.name}
+                </h3>
+                <span
+                  className={`text-[10px] px-2 py-1 rounded-full uppercase font-bold whitespace-nowrap ${
+                    mod.level.name === "Foundational"
+                      ? "bg-green-100"
+                      : "bg-blue-100"
+                  }`}
+                  style={{ color: mod.level.borderColor }}
+                >
+                  {mod.level.name}
+                </span>
+              </div>
+              <div className="flex gap-2 mb-3">
+                <img src={mod.status} className="h-5" alt="status" />
+                <img src={mod.badges} className="h-5" alt="badge" />
+              </div>
+              <p className="text-sub-gray text-xs mb-4">{mod.timing}</p>
+              <img src={mod.bar} className="w-full mb-6" alt="progress" />
+            </div>
+            <button
+              className={`w-full py-3 rounded-xl font-bold transition-transform active:scale-95 ${
+                key < 2
+                  ? "bg-gray-100 text-slate-gray"
+                  : "bg-primary-green text-white"
+              }`}
+            >
+              {mod.button}
+            </button>
+          </div>
+        ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default LearningModules
+export default LearningModules;

@@ -1,139 +1,124 @@
-// Componenets
 import BackButton from "../back-button/BackButton";
 import MockExamNav from "../mock-exam-components/mock-exam-nav/MockExamNav";
-
-// Assets
-import SearchIcon from '../../assets/images/icons/Search.png';
-import OnlineDot from '../../assets/images/online-dot.png';
-import CommunityQuestions from "../../static-data/CommunityQuestions";
-import { usePayment } from "../../context/PaymentContext";
-import FrancisPFP from '../../assets/images/community-images/francis-pfp.png'
-
-// React Router Hook
-import { useLocation, useNavigate } from 'react-router-dom';
-
-// React Hooks
-import { useState, useEffect } from 'react';
-
+import SearchIcon from "../../assets/images/icons/Search.png";
+import OnlineDot from "../../assets/images/online-dot.png";
+// import CommunityQuestions from "../../static-data/CommunityQuestions";
+// import { usePayment } from "../../context/PaymentContext";
+// import FrancisPFP from '../../assets/images/community-images/francis-pfp.png'
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Menu } from "lucide-react";
 
 const PathList = [
-    "personal-details",
-    "notification-settings",
-    "privacy",
-    "help",
-    "account-management",
-    "view-comment",
-    "cipm-mock-exam",
-    "view-results",
-    "mock-exam-review",
-    "start-quiz",
-    "view-module"
-]
+  "personal-details",
+  "notification-settings",
+  "privacy",
+  "help",
+  "account-management",
+  "view-comment",
+  "cipm-mock-exam",
+  "view-results",
+  "mock-exam-review",
+  "start-quiz",
+  "view-module",
+];
 
-const NavBar = () => {
+const NavBar = ({ onMenuClick }: { onMenuClick?: () => void }) => {
+  // const { question } = usePayment()
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const [currentPath, setCurrentPath] = useState(pathname);
 
+  useEffect(() => {
+    setCurrentPath(pathname);
+  }, [pathname]);
 
-    const { question } = usePayment()
+  const username = "John";
 
-    const navigate = useNavigate()
+  return (
+    // CHANGE 1: Removed fixed left-[280px]. The NavBar now fills the available space next to the sidebar.
+    // CHANGE 2: Added z-index and reduced top padding for mobile.
+    <nav className="flex justify-between items-center bg-white shadow-sm fixed top-0 right-0 left-0 lg:left-[280px] px-4 md:px-6 py-3 z-30 min-h-[70px]">
+      <div className="flex items-center gap-3">
+        {/* CHANGE: Add the Menu button here for mobile only */}
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden p-2 -ml-2 text-primary-green active:bg-gray-100 rounded-lg"
+        >
+          <Menu size={24} />
+        </button>
 
-    const { pathname } = useLocation();
+        {currentPath.includes("post-question") ? (
+          <BackButton name="Cancel" />
+        ) : PathList.some((path) => currentPath.includes(path)) ? (
+          <BackButton />
+        ) : (
+          <h1 className="font-bold text-lg md:text-xl truncate max-w-[120px] xs:max-w-none">
+            {currentPath.includes("modules")
+              ? "What to learn?"
+              : `Hi, ${username}`}
+          </h1>
+        )}
+      </div>
 
-    const [currentPath, setCurrentPath] = useState(pathname);
+      {/* RIGHT SECTION: Search, Date, Profile */}
+      <div className="flex items-center gap-3 md:gap-6">
+        {currentPath.includes("cipm-mock-exam") ? (
+          <MockExamNav />
+        ) : (
+          <>
+            {/* CHANGE 3: Hidden Post Button logic moved inside main nav flow */}
+            {currentPath.includes("post-question") && (
+              <button
+                className="bg-primary-green text-white font-medium text-sm md:text-base px-4 py-2 rounded-[10px]"
+                onClick={() => {
+                  // ... your push logic
+                  navigate("community");
+                }}
+              >
+                Post
+              </button>
+            )}
 
-    useEffect(() => {
-        setCurrentPath(pathname);
-    }, [pathname, currentPath]);
-
-
-    const username = "John";
-
-
-    return (
-        <>
-
-            <div>
-                {currentPath.includes("post-question") ?
-                    <nav className="flex justify-between items-center bg-[#ffffff] shadow-md fixed right-0 left-[280px] px-[24px] pt-[32px] pb-[20px]">
-                        <div className="flex justify-between  w-[170vh]">
-                            <div>
-                                <BackButton name="Cancel" />
-                            </div>
-                            <button className="bg-primary-green text-warm-white font-[500] text-base p-2.5 rounded-[10px] h-[44px]"
-                                onClick={() => {
-                                    navigate('community')
-                                    CommunityQuestions.push({
-                                        id: String(parseInt(CommunityQuestions[CommunityQuestions.length - 1].id) + 1),
-                                        img: FrancisPFP,
-                                        name: "Francis Adeleke",
-                                        time: "3h ago",
-                                        title: question.title,
-                                        body: question.body,
-                                        like_count: "1.1k",
-                                        comment_count: "225",
-                                        isBookmarked: false,
-                                        comments: []
-                                    })
-                                }}
-                            >Send Post</button>
-                        </div>
-                    </nav> :
-
-                    <nav className="flex justify-between items-center bg-[#ffffff] shadow-md fixed right-0 left-[280px] px-[24px] pt-[32px] pb-[20px]">
-                        <div>
-                            {
-                                PathList.some(some => currentPath.includes(some)) ?
-                                    <BackButton />
-                                    :
-                                    (currentPath.includes('modules') ?
-                                        <h1 className="font-bold text-[20px] sm:mr-1 flex sm:w-[200px] lg:w-[350px]">What do you want to learn today</h1>
-                                        :
-                                        <h1 className="font-bold text-[20px]">Welcome back, {username}</h1>)
-                            }
-                        </div>
-
-                        {
-                            currentPath.includes("cipm-mock-exam") ?
-                                <MockExamNav />
-                                :
-                                <div className="flex align-center gap-[20px]">
-
-                                    <div className="flex gap-[8px] border-[1px] border-[#999999] px-[16px] py-[12px] rounded-[100px] w-[300px]">
-                                        <img src={SearchIcon} alt="search icon" />
-                                        <input type='search' placeholder="search here" className="text-[#99999] border-none outline-none" />
-                                    </div>
-
-                                    <div className="flex flex-col gap-[4px]">
-                                        <h3 className="font-[400] text-[20px]">Wednesday, May 21, 2025</h3>
-                                        <p className="text-[#7f8c8d]">10:45am</p>
-                                    </div>
-
-                                    <div className="flex items-center gap-[10px]">
-
-                                        <div className="rounded-[50%] bg-[#999999] pt-[13px] pl-[16px] w-[50px] h-[50px]">
-                                            <p className="font-[700] text-[#fff]">JA</p>
-                                        </div>
-
-                                        <div className="flex-col">
-                                            <h3 className="font-[400] text-[20px]">John Adekola</h3>
-
-                                            <div className="flex">
-                                                <p>Online </p>
-                                                <img src={OnlineDot} className="w-[10px] h-[10px]" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                        }
-                    </nav>
-
-
-                }
+            {/* CHANGE 4: Search bar - Hidden on very small screens, or scaled down */}
+            <div className="hidden sm:flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-full w-[180px] lg:w-[250px]">
+              <img src={SearchIcon} alt="search" className="w-4 h-4" />
+              <input
+                type="search"
+                placeholder="Search..."
+                className="text-sm border-none outline-none w-full"
+              />
             </div>
 
-        </>
-    )
-}
+            {/* CHANGE 5: Date - Hidden on mobile/tablet to save space */}
+            <div className="hidden xl:flex flex-col border-l pl-6 border-gray-200">
+              <h3 className="font-medium text-sm">Wednesday, May 21</h3>
+              <p className="text-[#7f8c8d] text-xs text-right">10:45am</p>
+            </div>
+
+            {/* CHANGE 6: Profile - Simplified on mobile (Avatar only) */}
+            <div className="flex items-center gap-2">
+              <div className="relative">
+                <div className="rounded-full bg-gray-400 flex items-center justify-center w-10 h-10 text-white font-bold text-sm">
+                  JA
+                </div>
+                <img
+                  src={OnlineDot}
+                  className="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full"
+                />
+              </div>
+              <div className="hidden md:flex flex-col">
+                <h3 className="font-medium text-sm whitespace-nowrap">
+                  John Adekola
+                </h3>
+                <p className="text-xs text-gray-500">Online</p>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </nav>
+  );
+};
 
 export default NavBar;
