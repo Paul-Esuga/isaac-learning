@@ -1,108 +1,119 @@
 // React Router Hooks
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 
 // React Hooks
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from "react";
 
-// Componenets
-import EditBioPopup from './popup/EditBioPopup';
-import UploadPhotoPopup from './popup/UploadPhotoPopup';
-
+// Components
+import EditBioPopup from "./popup/EditBioPopup";
+import UploadPhotoPopup from "./popup/UploadPhotoPopup";
 
 // Assets
-import Pfp from '../../assets/images/profile-images/pfp.png';
-import ProfileIcon from '../../assets/images/profile-images/add-profile-icon.png';
-import EditIcon from '../../assets/images/icons/dashboard-icons/Edit.png';
+import Pfp from "../../assets/images/profile-images/pfp.png";
+import ProfileIcon from "../../assets/images/profile-images/add-profile-icon.png";
+import EditIcon from "../../assets/images/icons/dashboard-icons/Edit.png";
 
 const Profile = () => {
+  const { pathname } = useLocation();
+  const [indexPath, setIndexPath] = useState(pathname);
+  const [showEditBio, setShowEditBio] = useState(false);
+  const [showUploadPhoto, setShowUploadPhoto] = useState(false);
 
-    const { pathname } = useLocation();
-    const [indexPath, setIndexPath] = useState(pathname);
+  useEffect(() => {
+    setIndexPath(pathname);
+  }, [pathname]);
 
-    const [showEditBio, setShowEditBio] = useState(false);
-    const [showUploadPhoto, setShowUploadPhoto] = useState(false);
+  const removeEditBio = useCallback(() => setShowEditBio(false), []);
+  const removeUploadPhoto = useCallback(() => setShowUploadPhoto(false), []);
 
-    useEffect(() => {
-        setIndexPath(pathname);
-    }, [pathname]);
+  document.title = "profile - Isaac Learning";
+  const name = "John Adekola";
 
-    const removeEditBio = useCallback(() => {
-        setShowEditBio(false);
-    }, [])
+  // Standard class for nav links to reduce repetition
+  const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+    `py-3 px-6 text-center text-nowrap transition-all font-semibold border-b-[3px] flex-shrink-0 ${
+      isActive || (indexPath === "/dashboard/profile" && isActive)
+        ? "text-primary-green border-primary-green"
+        : "text-gray-500 border-transparent hover:text-gray-700"
+    }`;
 
-    const removeUploadPhoto = useCallback(() => {
-        setShowUploadPhoto(false)
-    }, [])
+  return (
+    <section className="min-h-screen w-full bg-[#f8fcfc] pb-20">
+      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 lg:px-10 pt-6">
+        <p className="font-bold mb-4 text-xl text-slate-gray">My Profile</p>
 
-
-
-    document.title = "profile - Isaac Learning";
-
-    const name = "John Adekola";
-
-    return (
-        <section className="h-screen w-[100%] bg-[#f8fcfc]">
-
-            <div className='w-[90%] m-[auto]'>
-                <p className="font-[700] mb-[15px] text-[20px]">My Profile</p>
-
-
-                <div className='flex justify-between items-center pt-20 bg-gradient-to-r from-[#00a36c] to-[#003d28] pt-10 px-20 rounded-tl-[20px] rounded-tr-[20px] mb-[32px] w-[100%] h-[230px]'>
-
-                    <div className='flex align-center gap-[20px]'>
-
-                        <div className='relative'>
-                            <img src={Pfp} className='mb-20 w-[130px] h-[130px]' alt='profile image cursor-pointer' />
-                            <img src={ProfileIcon} className='w-[30px] h-[30px] absolute right-[-10px] top-[60px] cursor-pointer' alt='pick profile image icon cursor-pointer' onClick={() => setShowUploadPhoto(true)} />
-                        </div>
-
-                        <div>
-                            <h3 className='font-[700] text-[#fff] text-[32px] '>{name}</h3>
-                            <p className='max-w-[423px] text-[#fff]'>
-                                Aspiring HR professional, passionate about people, learning,
-                                and workplace impact. Exploring the future of HR one course
-                                at a time.
-                            </p>
-                        </div>
-
-                    </div>
-
-                    <button className='flex align-center justify-center gap-[8px] bg-[#fcfcfc]  h-[50px] w-[137px] py-[15px] rounded-[10px] cursor-pointer' onClick={() => setShowEditBio(true)}>
-                        <p className='text-[#00a36cff] font-bold'>Edit bio</p>
-                        <img src={EditIcon} className='w-[25px] h-[25px]' alt='edit icon' />
-                    </button>
-
-                </div>
-
-                <nav className=' flex align-center  w-[100%] border-b-[1px]'>
-
-                    <NavLink to='progress-summary' className={indexPath == "/dashboard/profile" || indexPath == "/dashboard/profile/progress-summary" ? 'text-primary-green text-center w-[100%] py-[13px] border-primary-green border-b-[5px] font-[700] text-nowrap' : 'py-[13px] px-[100px] text-center text-nowrap'}>
-                        Progress Summary
-                    </NavLink>
-
-                    <NavLink to='activity' className={({ isActive }) => isActive ? 'text-primary-green text-center w-[100%] py-[13px] border-primary-green border-b-[5px] font-[700]' : 'py-[13px] px-[100px] text-center text-nowrap'} >
-                        Activity
-                    </NavLink>
-
-                    <NavLink to='bookmarks' className={({ isActive }) => isActive ? 'text-primary-green text-center w-[100%] py-[13px] border-primary-green border-b-[5px] font-[700]' : 'px-[150px] py-[13px] text-center text-nowrap'}>
-                        Bookmarks
-                    </NavLink>
-
-                    <NavLink to='settings' className={({ isActive }) => isActive ? 'text-primary-green text-center w-[100%]   py-[13px] border-primary-green  border-b-[3px] font-[700]' : 'px-[150px] py-[13px] text-center text-nowrap'}>
-                        Settings
-                    </NavLink>
-                </nav>
-
-                {showEditBio ? <EditBioPopup setShowEditBio={removeEditBio} /> : ""}
-                {showUploadPhoto ? <UploadPhotoPopup setShowUploadPhoto={removeUploadPhoto} /> : ""}
-
-                <div className='pt-[24px]'>
-                    <Outlet />
-                </div>
+        {/* Hero Header Section */}
+        <div className="relative flex flex-col md:flex-row justify-between items-center md:items-end bg-gradient-to-r from-[#00a36c] to-[#003d28] p-6 md:p-10 rounded-2xl mb-8 min-h-[200px] gap-6">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-5 text-center md:text-left">
+            {/* Profile Picture Container */}
+            <div className="relative flex-shrink-0">
+              <img
+                src={Pfp}
+                className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-white/20"
+                alt="profile"
+              />
+              <img
+                src={ProfileIcon}
+                className="w-8 h-8 absolute bottom-0 right-0 cursor-pointer bg-white rounded-full p-1.5 shadow-md hover:scale-110 transition-transform"
+                alt="edit profile"
+                onClick={() => setShowUploadPhoto(true)}
+              />
             </div>
 
-        </section>
-    )
-}
+            {/* Name and Bio */}
+            <div className="flex flex-col">
+              <h3 className="font-bold text-white text-2xl md:text-4xl mb-2">
+                {name}
+              </h3>
+              <p className="max-w-[450px] text-white/90 text-sm md:text-base leading-relaxed">
+                Aspiring HR professional, passionate about people, learning, and
+                workplace impact. Exploring the future of HR one course at a
+                time.
+              </p>
+            </div>
+          </div>
 
-export default Profile
+          {/* Edit Button */}
+          <button
+            className="flex items-center justify-center gap-2 bg-white h-11 px-6 rounded-xl shadow-lg hover:bg-gray-50 transition-colors w-full md:w-auto"
+            onClick={() => setShowEditBio(true)}
+          >
+            <span className="text-primary-green font-bold">Edit bio</span>
+            <img src={EditIcon} className="w-5 h-5" alt="edit" />
+          </button>
+        </div>
+
+        {/* Navigation Tabs - Horizontal Scroll on Mobile */}
+        <div className="border-b border-gray-200">
+          <nav className="flex overflow-x-auto no-scrollbar scroll-smooth">
+            <NavLink to="progress-summary" className={navLinkClass}>
+              Progress Summary
+            </NavLink>
+            <NavLink to="activity" className={navLinkClass}>
+              Activity
+            </NavLink>
+            <NavLink to="bookmarks" className={navLinkClass}>
+              Bookmarks
+            </NavLink>
+            <NavLink to="settings" className={navLinkClass}>
+              Settings
+            </NavLink>
+          </nav>
+        </div>
+
+        {/* Popups */}
+        {showEditBio && <EditBioPopup setShowEditBio={removeEditBio} />}
+        {showUploadPhoto && (
+          <UploadPhotoPopup setShowUploadPhoto={removeUploadPhoto} />
+        )}
+
+        {/* Sub-page Content */}
+        <div className="pt-6">
+          <Outlet />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Profile;
