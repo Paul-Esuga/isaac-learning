@@ -1,7 +1,3 @@
-
-
-import Star from '../../assets/images/profile-images/star.png';
-
 type BadgesCardProps = {
     image: string,
     body: string

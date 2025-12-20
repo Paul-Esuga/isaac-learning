@@ -1,7 +1,6 @@
 // Components
 import ActivityData from "../../static-data/ActivityData";
 import ActivityCard from "../../components/activity/ActivityCard";
-
 const Activity = () => {
   return (
     <div className="w-full max-w-4xl">

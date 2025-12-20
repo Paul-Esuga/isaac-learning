@@ -1,3 +1,6 @@
+// React Router Hooks
+import { Outlet } from 'react-router-dom';
+
 // Data
 import SettingsData from "../../../static-data/SettingsData";
 
