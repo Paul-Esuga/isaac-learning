@@ -1,13 +1,30 @@
-export default function DashboardModal({ isFormFilled, children }: { isFormFilled: boolean; children: any }) {
+import type { ReactNode } from "react";
+
+interface DashboardModalProps {
+  isFormFilled: boolean;
+  children: ReactNode;
+}
+
+export default function DashboardModal({
+  isFormFilled,
+  children,
+}: DashboardModalProps) {
   return (
-    <div onClick={(e) => e.stopPropagation()} className={`fixed inset-0 flex justify-center items-center z-[2000] transition-colors text-black
-    ${isFormFilled ? "visible bg-black/20" : "invisible"}`}>
+    <div
+      className={`fixed inset-0 flex justify-center items-center z-[2000] transition-all duration-300 px-4
+      ${
+        isFormFilled
+          ? "visible bg-black/50 backdrop-blur-sm"
+          : "invisible bg-transparent"
+      }`}
+    >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`bg-warm-white rounded-3xl shadow-[0px_2px_1px_rgba(0,0,0,0.5)] p-6 sm:w-[60%] md:w-[60%] lg:w-[30%] transition-all 
-        ${isFormFilled ? "scale-100 opacxity-100" : "scale-125 opacity-0"}`}>
+        className={`bg-white rounded-3xl shadow-2xl p-6 md:p-10 w-full max-w-[500px] transition-all duration-300
+        ${isFormFilled ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
+      >
         {children}
       </div>
     </div>
-  )
+  );
 }

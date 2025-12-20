@@ -6,31 +6,25 @@ import HRNugget from "../../components/dashboard/HRNugget";
 import LearningModules from "../../components/dashboard/LearningModules";
 import { Outlet } from "react-router-dom";
 
-
 const MainDashboard = () => {
-    const [isFormFilled, setIsFormFilled] = useState(false)
-    useEffect(() => {
-        setIsFormFilled(true)
-    }, [])
+  const [isFormFilled, setIsFormFilled] = useState(false);
+  useEffect(() => {
+    setIsFormFilled(true);
+  }, []);
 
-    document.title = "Dashboard | Home ";
-
-    return (
-        <div className="overflow-y-scroll overflow-x-hidden h-[83vh] lg:h-[85vh]  lg:mt-0">
-            <div className="px-6 sm:py-8 ">
-                <DashboardModal isFormFilled={isFormFilled} >
-                    <DashboardModalDetails setIsFormFilled={setIsFormFilled} />
-                </DashboardModal>
-                <LearningProgress />
-                <HRNugget />
-                <LearningModules />
-            </div>
-            <div className="">
-                <Outlet />
-            </div>
-        </div>
-
-    )
-}
-
+  return (
+    // Removed fixed height to prevent nested scrollbars on mobile
+    <div className="w-full pb-10">
+      <div className="px-4 md:px-8 py-4 md:py-8">
+        <DashboardModal isFormFilled={isFormFilled}>
+          <DashboardModalDetails setIsFormFilled={setIsFormFilled} />
+        </DashboardModal>
+        <LearningProgress />
+        <HRNugget />
+        <LearningModules />
+      </div>
+      <Outlet />
+    </div>
+  );
+};
 export default MainDashboard;

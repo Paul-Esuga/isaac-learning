@@ -1,5 +1,3 @@
-
-
 type ProgressCardProps = {
     image?: string,
     title: string,

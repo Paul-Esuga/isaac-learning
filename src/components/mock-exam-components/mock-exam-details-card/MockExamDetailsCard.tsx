@@ -1,4 +1,4 @@
-import MockExamQuestionICon from '../../assets/images/mock-exam-images/mock-exam-question-icon.png';
+// import MockExamQuestionICon from '../../assets/images/mock-exam-images/mock-exam-question-icon.png';
 
 type MockExamDetailsCardProps = {
     img: string,

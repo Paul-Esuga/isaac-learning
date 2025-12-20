@@ -67,7 +67,7 @@ const Quiz = () => {
 
                 </div>
 
-                <div className='flex flex-col gap-[24px] overflow-scroll h-[600px] py-[10px]'>
+                <div className='flex flex-col gap-[24px] overflow-y-scroll h-[65dvh] py-[20px]'>
                     {
                         Data.map((data, i) => 
                         <QuizCard 

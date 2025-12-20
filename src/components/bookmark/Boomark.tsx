@@ -29,12 +29,11 @@ export type BookmarkProps = {
 }
 
 
-const Bookmark = ({ img, name, time, title, body, like_count, comment_count, isBookmarked }: BookmarkProps) => {
+const Bookmark = ({ img, name, time, title, body, like_count, comment_count}: BookmarkProps) => {
     const [isChecked, setIsChecked] = useState(false)
     const [isBooked, setIsBooked] = useState(false)
     useEffect(() => {
         setIsBooked(!isBooked)
-        // isBookmarked = 
     }, [isChecked])
     return (
         <div className='shadow-md px-[20px] py-[20px] rounded-[10px] mb-[20px] border-[0.5px] border-sub-gray flex gap-[10px] '>
@@ -77,7 +76,7 @@ const Bookmark = ({ img, name, time, title, body, like_count, comment_count, isB
                             console.log(isBooked)
                         }}>
                         {
-                            isBooked ? <img src={bookmarked} className='w-[12px] h-[18px] ' alt='bookmarked icon' /> : <img src={unbookmarked} className='w-[12px] h-[18px] border-t-1 border-t-slate-gray ' alt='bookmarked icon' />
+                            isBooked && <img src={ isBooked ? bookmarked : unbookmarked} className='w-[12px] h-[18px]' alt='bookmarked icon' /> 
                         }
                     </div>
 
