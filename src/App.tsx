@@ -88,7 +88,7 @@ function App() {
             <Route path="/otp" element={<Otp />} />
             <Route path="/acctMessage" element={<AcctMessage />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<CourseSelection />} />
+            <Route path="/" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/successful" element={<SuccessfulAccount />} />
             <Route path="/useeffect" element={<UseeffectLearn />} />
