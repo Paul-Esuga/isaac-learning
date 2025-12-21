@@ -1,37 +1,76 @@
-
 // Assets
-import Close from '../../assets/images/Close.png';
+import Close from "../../assets/images/Close.png";
 
 type CorrectAnswerCardProps = {
-    correctAnswer: string,
-    setShowCorrectAnswer: () => void,
-    Nosplit?: boolean
-}
+  correctAnswer: string;
+  setShowCorrectAnswer: () => void;
+  Nosplit?: boolean;
+};
 
-const CorrectAnswerCard = ( {correctAnswer, setShowCorrectAnswer, Nosplit}: CorrectAnswerCardProps ) => {
+const CorrectAnswerCard = ({
+  correctAnswer,
+  setShowCorrectAnswer,
+  Nosplit,
+}: CorrectAnswerCardProps) => {
+  return (
+    /* CHANGE 1: Use fixed inset-0 to cover the whole viewport.
+           Used z-[2000] to ensure it sits above the quiz questions. */
+    <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4">
+      {/* Dark Overlay with Blur */}
+      <div
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        onClick={setShowCorrectAnswer}
+      />
 
-    return (
-        <div className="shadow-2xl backdrop-blur-xs h-screen w-screen absolute top-[-100px]  left-[-300px] flex items-center justify-center">
-            <div className='shadow-md flex flex-col gap-[20px] bg-[#fff] py-[24px] px-[50px] rounded-[20px]'>
+      {/* CHANGE 2: Responsive Modal Body
+               Removed fixed w-[400px]. Added max-w-lg and w-full. */}
+      <div className="relative shadow-2xl flex flex-col gap-5 bg-white py-6 px-6 md:px-10 rounded-2xl w-full max-w-lg animate-in fade-in zoom-in duration-200">
+        <div className="flex justify-between items-start gap-4">
+          <div className="flex flex-col gap-1">
+            <p className="text-green-600 text-sm md:text-base font-bold uppercase tracking-wide">
+              Correct Answer
+            </p>
+            <h3 className="text-xl md:text-2xl text-[#414d58] font-bold">
+              {Nosplit ? correctAnswer : correctAnswer.split("")[0]}
+            </h3>
+          </div>
 
-                <div className='flex justify-between gap-[100px]'>
-                    <p className="mt-[10px] text-green-600 text-[16px] font-semibold">
-                        Correct Answer: {Nosplit ? correctAnswer : correctAnswer.split("")[0]}
-                    </p>
-                    <img src={Close} onClick={setShowCorrectAnswer} className='cursor-pointer' />
-                </div>
-
-                <p className='text-[#414d58] font-[700]'>
-                    {Nosplit ? correctAnswer : correctAnswer.split("").slice(3,)}
-                </p>
-
-                <p className='font-[400] w-[400px]'>
-                    <span className='text-[#414d58] font-[700]'>Explanation: </span>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas rem recusandae eius aliquam molestias praesentium placeat consectetur consequuntur obcaecati illo nihil et eligendi, maxime officiis dicta quisquam. Aliquam, provident nesciunt.
-                </p>
-            </div>
+          {/* CHANGE 3: Larger hit-area for Close button */}
+          <button
+            onClick={setShowCorrectAnswer}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <img src={Close} alt="close" className="w-4 h-4 md:w-5 md:h-5" />
+          </button>
         </div>
-    )
-}
 
-export default CorrectAnswerCard
+        {!Nosplit && (
+          <p className="text-[#414d58] font-semibold text-lg">
+            {correctAnswer.split("").slice(3)}
+          </p>
+        )}
+
+        {/* CHANGE 4: Responsive Text Wrapper
+                   Removed fixed w-[400px]. Added break-words. */}
+        <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+          <p className="text-sm md:text-base leading-relaxed text-gray-600 break-words">
+            <span className="text-[#414d58] font-bold">Explanation: </span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
+            rem recusandae eius aliquam molestias praesentium placeat
+            consectetur consequuntur.
+          </p>
+        </div>
+
+        {/* Mobile OK Button (Optional but better UX) */}
+        <button
+          onClick={setShowCorrectAnswer}
+          className="md:hidden w-full bg-primary-green text-white py-3 rounded-xl font-bold mt-2"
+        >
+          Got it
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default CorrectAnswerCard;

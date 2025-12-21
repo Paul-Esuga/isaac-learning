@@ -1,37 +1,52 @@
-import FrancisPFP from '../../assets/images/community-images/francis-pfp.png'
-import { usePayment } from '../../context/PaymentContext'
-
+import FrancisPFP from "../../assets/images/community-images/francis-pfp.png";
+import { usePayment } from "../../context/PaymentContext";
 
 function PostQuestion() {
-  const { setQuestion } = usePayment()
+  const { setQuestion } = usePayment();
+
   return (
-    <div className='bg-[#fcfcfc] h-screen z-[1000] absolute top-0 left-[0] right-[0] pt-[30px] overflow-y-scroll px-5'>
-      <div className='flex gap-6   p-2.5 '>
-        <div>
-          <img src={FrancisPFP} alt="" className='w-[60px] h-[60px] rounded-full' />
-        </div>
-        <div className='lg:w-[96%] sm:w-[85%] '>
-          <div className='border-1 border-[#5DADE2] rounded-[100px]! text-[#5DADE2] p-2.5 h-[50px] w-[144px] text-center text-xl font-bold mb-3'>Community</div>
-          <input type="text" placeholder='Whats your question?' id="" className='border-[0.5px] border-sub-gray p-2.5 rounded-[10px] resize-none placeholder:text-slate-gray text-[18px] focus:outline-0 focus:border-2 focus:border-sub-gray w-[100%] mb-4'
-            // value={question.title}
-            onChange={(e) => {
-              setQuestion((prev) => { return { ...prev, title: e.target.value } }
-              )
-            }}
+    <div className="fixed inset-0 lg:left-[280px] bg-[#fcfcfc] z-[1000] pt-6 overflow-y-auto px-4 md:px-6">
+      <div className="max-w-3xl mx-auto flex gap-3 md:gap-6 p-2.5">
+        {/* Profile Picture - Restored and Responsive */}
+        <div className="flex-shrink-0">
+          <img
+            src={FrancisPFP}
+            alt="Profile"
+            className="w-10 h-10 md:w-16 md:h-16 rounded-full object-cover border border-gray-100 shadow-sm"
           />
-          <textarea placeholder='Write your thoughts...' cols={70} rows={5} className='border-[0.5px] border-sub-gray p-2.5 rounded-[10px] resize-none placeholder:text-slate-gray text-[18px] focus:outline-0 focus:border-2 focus:border-sub-gray w-[100%]'
-            // value={question.body}
-            onChange={(e) => {
-              setQuestion((prev) => { return { ...prev, body: e.target.value } }
-              )
-            }}
-          ></textarea>
+        </div>
+
+        <div className="flex-1 min-w-0">
+          {/* Tag / Category Badge */}
+          <div className="inline-flex items-center justify-center border border-[#5DADE2] rounded-full text-[#5DADE2] px-4 py-1.5 md:px-6 md:py-2 h-auto w-auto text-center text-xs md:text-base font-bold mb-4 md:mb-6">
+            Community
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {/* Question Title */}
+            <input
+              type="text"
+              placeholder="What's your question?"
+              className="border-[0.5px] border-sub-gray p-3 md:p-4 rounded-xl placeholder:text-slate-gray/50 text-base md:text-lg focus:outline-none focus:ring-2 focus:ring-[#5DADE2]/50 w-full transition-all"
+              onChange={(e) => {
+                setQuestion((prev) => ({ ...prev, title: e.target.value }));
+              }}
+            />
+
+            {/* Question Body */}
+            <textarea
+              placeholder="Write your thoughts..."
+              rows={10}
+              className="border-[0.5px] border-sub-gray p-3 md:p-4 rounded-xl resize-none placeholder:text-slate-gray/50 text-base md:text-lg focus:outline-none focus:ring-2 focus:ring-[#5DADE2]/50 w-full transition-all"
+              onChange={(e) => {
+                setQuestion((prev) => ({ ...prev, body: e.target.value }));
+              }}
+            ></textarea>
+          </div>
         </div>
       </div>
-
     </div>
-    // </main>
-  )
+  );
 }
 
-export default PostQuestion
+export default PostQuestion;
