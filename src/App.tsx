@@ -63,7 +63,7 @@ import Login from "./pages/createaccount/login1"
 import ForgotPassword from "./pages/createaccount/ForgotPassword";
 import SuccessfulAccount from './pages/createaccount/FP-successful';
 import ProgressTracker from './pages/dashboard/ProgressTracker';
-import UseeffectLearn from './pages/createaccount/UseeffectLearn';
+import {UseeffectLearn} from './pages/createaccount/UseeffectLearn';
 import Foundational from './pages/modules/Foundational';
 import Secondary from './pages/modules/Secondary';
 import Tertiary from './pages/modules/Tertiary';
@@ -88,7 +88,7 @@ function App() {
             <Route path="/otp" element={<Otp />} />
             <Route path="/acctMessage" element={<AcctMessage />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<CourseSelection />} />
+            <Route path="/" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/successful" element={<SuccessfulAccount />} />
             <Route path="/useeffect" element={<UseeffectLearn />} />
