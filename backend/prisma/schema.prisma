@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  // url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String       @id @default(uuid())
+  email       String       @unique
+  fullName    String
+  clerkId     String?      @unique // For future Clerk integration
+  enrollments Enrollment[]
+  results     Result[]
+  createdAt   DateTime     @default(now())
+}
+
+model Course {
+  id          String       @id @default(uuid())
+  title       String       // e.g., "WAEC Prep", "Nigerian Bar Exam"
+  description String?
+  modules     Module[]
+  enrollments Enrollment[]
+}
+
+model Module {
+  id       String @id @default(uuid())
+  title    String // e.g., "Mathematics", "Criminal Law"
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
+  exams    Exam[]
+}
+
+model Exam {
+  id        String     @id @default(uuid())
+  title     String
+  duration  Int        // in minutes
+  moduleId  String
+  module    Module     @relation(fields: [moduleId], references: [id])
+  questions Question[]
+  results   Result[]
+}
+
+model Question {
+  id            String   @id @default(uuid())
+  text          String
+  options       String[] // Array of strings for choices
+  correctAnswer Int      // Index of the correct option
+  explanation   String?
+  examId        String
+  exam          Exam     @relation(fields: [examId], references: [id])
+}
+
+model Enrollment {
+  id       String @id @default(uuid())
+  userId   String
+  courseId String
+  user     User   @relation(fields: [userId], references: [id])
+  course   Course @relation(fields: [courseId], references: [id])
+  paid     Boolean @default(false)
+}
+
+model Result {
+  id         String   @id @default(uuid())
+  score      Int
+  accuracy   Float
+  timeSpent  String   // e.g., "21:43"
+  userId     String
+  examId     String
+  user       User     @relation(fields: [userId], references: [id])
+  exam       Exam     @relation(fields: [examId], references: [id])
+  createdAt  DateTime @default(now())
+}
