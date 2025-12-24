@@ -1,39 +1,61 @@
-// React Hook
-import { useContext, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-// Data
-import mockExamQuestions from "../../../static-data/MockExamQuestions";
+import { type Question, type Exam } from "../../../static-data/useExamStore";
+
+// Zustand Store
+import { useExamStore } from "../../../static-data/useExamStore";
 
 // Components
 import MockExamQuestionCard from "../../../components/mock-exam-components/mock-exam-question-card/MockExamQuestionCard";
 import MocExamSubmitComponenet from "../../../components/mock-exam-components/mock-exam-submit-componenet/MockExamSubmitComponenet";
-import BackButton from "../../../components/back-button/BackButton"; // Import added
+import BackButton from "../../../components/back-button/BackButton";
 
-// Context Apis
-import { MockExamContext } from "../../../context/MockExamContext";
+// Define this at the top of CipmMockExams.tsx or in a types file
 
 const CipmMockExams = () => {
+  const { examId } = useParams();
   const [showSubmitExam, setShowSubmitExam] = useState(false);
-  const MockContext = useContext(MockExamContext);
 
-  const add_question_to_clicked_list = (i: number) => {
-    MockContext?.setClicked_questions_list((prev) => {
-      return prev.includes(i + 1) ? prev : [...prev, i + 1];
-    });
-  };
+  // Zustand State
+  const { questionIndex, setQuestionIndex, clickedQuestions, markAsClicked } =
+    useExamStore();
 
-  const handleSubmit = () => {
-    setShowSubmitExam(true);
-  };
+  // TanStack Query: Fetching data from your new Node.js backend
+  const {
+    data: exam,
+    isLoading,
+    error,
+  } = useQuery<Exam>({
+    queryKey: ["exam", examId], // 3. Use examId here so Query refetches if the ID changes
+    queryFn: async () => {
+      const response = await axios.get(
+        `http://localhost:5000/api/exams/${examId}` // 4. Use template literals
+      );
+      return response.data;
+    },
+    enabled: !!examId, // 5. Only run the query if we actually have an ID
+  });
 
-  const removeSubmit = useCallback(() => {
-    setShowSubmitExam(false);
-  }, []);
+  const handleSubmit = () => setShowSubmitExam(true);
+  const removeSubmit = useCallback(() => setShowSubmitExam(false), []);
+
+  if (isLoading)
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Loading Exam...
+      </div>
+    );
+  if (error)
+    return <div>Error loading exam. Please check if backend is running.</div>;
+
+  const questions = exam?.questions || [];
 
   return (
     <div className="fixed inset-0 lg:left-[280px] bg-[#f8fcfc] z-[1000] overflow-y-auto p-4 md:p-8">
       <div className="max-w-7xl mx-auto flex flex-col gap-6">
-        {/* --- BACK BUTTON ADDED HERE --- */}
         <div className="w-32">
           <BackButton />
         </div>
@@ -42,18 +64,13 @@ const CipmMockExams = () => {
           {/* Main Question Area */}
           <div className="bg-white py-5 px-4 md:px-6 rounded-2xl shadow-sm w-full lg:w-[70%] h-fit flex flex-col gap-6">
             <div className="bg-primary-green text-white w-fit px-5 py-2 rounded-full font-semibold text-sm">
-              Question {(MockContext?.questionIndex as number) + 1} of{" "}
-              {mockExamQuestions.length}
+              Question {questionIndex + 1} of {questions.length}
             </div>
 
             <div className="min-h-[300px]">
               <MockExamQuestionCard
-                index={MockContext?.questionIndex}
-                func={() =>
-                  add_question_to_clicked_list(
-                    MockContext?.questionIndex as number
-                  )
-                }
+                question={questions[questionIndex]} // Now matches the interface!
+                onAnswerSelect={() => markAsClicked(questionIndex + 1)}
               />
             </div>
           </div>
@@ -63,33 +80,29 @@ const CipmMockExams = () => {
             <p className="font-bold text-[#414d58] border-b pb-2">
               Question Palette
             </p>
-
             <div className="flex flex-wrap justify-center lg:justify-start gap-3">
-              {mockExamQuestions.map((_, i) => (
+              {questions.map((_: Question, i: number) => (
                 <div
                   key={i}
-                  onClick={() => MockContext?.setQuestionIndex(i)}
+                  onClick={() => setQuestionIndex(i)}
                   className={`cursor-pointer text-sm font-bold flex items-center justify-center w-10 h-10 rounded-full transition-all
-                                    ${
-                                      MockContext?.clicked_questions_list.includes(
-                                        i + 1
-                                      )
-                                        ? "bg-primary-green/10 border-2 border-primary-green text-primary-green"
-                                        : "bg-gray-100 text-gray-500"
-                                    }
-                                    ${
-                                      MockContext?.questionIndex === i
-                                        ? "ring-2 ring-offset-2 ring-primary-green"
-                                        : ""
-                                    }`}
+                    ${
+                      clickedQuestions.includes(i + 1)
+                        ? "bg-primary-green/10 border-2 border-primary-green text-primary-green"
+                        : "bg-gray-100 text-gray-500"
+                    }
+                    ${
+                      questionIndex === i
+                        ? "ring-2 ring-offset-2 ring-primary-green"
+                        : ""
+                    }`}
                 >
                   {i + 1}
                 </div>
               ))}
             </div>
-
             <button
-              className="bg-primary-green w-full py-3 text-white font-bold rounded-xl shadow-lg hover:bg-opacity-90 active:scale-95 transition-all"
+              className="bg-primary-green w-full py-3 text-white font-bold rounded-xl shadow-lg active:scale-95"
               onClick={handleSubmit}
             >
               Submit Exam
@@ -97,19 +110,19 @@ const CipmMockExams = () => {
           </div>
         </div>
 
-        {/* Bottom Swipable Pagination */}
+        {/* Bottom Pagination */}
         <div className="bg-primary-green flex items-center gap-2 p-2 rounded-xl overflow-x-auto no-scrollbar shadow-lg">
           <div className="flex items-center gap-2 mx-auto">
-            {mockExamQuestions.map((_, i) => (
+            {questions.map((_: Question, i: number) => (
               <button
                 key={i}
                 className={`flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg transition-all text-sm
-                                    ${
-                                      MockContext?.questionIndex === i
-                                        ? "bg-white text-primary-green font-bold scale-110 shadow-md"
-                                        : "text-white hover:bg-white/20"
-                                    } cursor-pointer`}
-                onClick={() => MockContext?.setQuestionIndex(i)}
+                  ${
+                    questionIndex === i
+                      ? "bg-white text-primary-green font-bold scale-110 shadow-md"
+                      : "text-white hover:bg-white/20"
+                  }`}
+                onClick={() => setQuestionIndex(i)}
               >
                 {i + 1}
               </button>
@@ -117,7 +130,6 @@ const CipmMockExams = () => {
           </div>
         </div>
       </div>
-
       {showSubmitExam && (
         <MocExamSubmitComponenet removeSubmit={removeSubmit} />
       )}

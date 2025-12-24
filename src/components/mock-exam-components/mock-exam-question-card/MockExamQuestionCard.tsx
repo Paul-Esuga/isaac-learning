@@ -1,98 +1,73 @@
-import mockExamQuestions from "../../../static-data/MockExamQuestions";
+import { useExamStore } from "../../../static-data/useExamStore";
+import Checkbox from "../../../assets/images/mock-exam-images/checkbox.png";
+import Uncheckbox from "../../../assets/images/mock-exam-images/uncheckbox.png";
+import { type Question } from "../../../static-data/useExamStore";
 
-// React Hooks
-import { useContext } from "react";
+interface MockExamQuestionCardProps {
+  question: Question;
+  onAnswerSelect: (index: number) => void;
+}
 
-// Assets
-import Checkbox from '../../../assets/images/mock-exam-images/checkbox.png';
-import Uncheckbox from '../../../assets/images/mock-exam-images/uncheckbox.png';
-
-// Context Apis
-import { MockExamContext } from "../../../context/MockExamContext";
-
-// Types
-type MockExamQuestionCardProps = {
-  index: number | undefined;
-  func: (i: number) => void;
-};
-
-type QuestionsType = {
-  questionIndex: number;
-  optionChosen: string;
-};
-
-type OptionBoxProps = {
+// OptionBox with refined responsive styles
+export const OptionBox = ({
+  value,
+  isSelected,
+}: {
   value: string;
-  questionIndex: number;
-};
-
-export const OptionBox = ({ value, questionIndex }: OptionBoxProps) => {
-  const MockContext = useContext(MockExamContext);
-
-  const isSelected = MockContext?.doneQuestions.some(
-    item => item.questionIndex === questionIndex && item.optionChosen === value
-  );
-
+  isSelected: boolean;
+}) => {
   return (
-    <div className="flex gap-[24px] border-[1px] rounded-[10px] p-[20px] mb-10px cursor-pointer">
+    <div
+      className={`flex gap-4 md:gap-6 border rounded-xl p-4 md:p-5 mb-3 cursor-pointer transition-all duration-200 
+      ${
+        isSelected
+          ? "border-primary-green bg-primary-green/5 ring-1 ring-primary-green"
+          : "border-gray-200 hover:border-primary-green/50 hover:bg-gray-50"
+      }`}
+    >
       <img
         src={isSelected ? Checkbox : Uncheckbox}
-        className="w-[24px] h-[24px]"
+        className="w-6 h-6 flex-shrink-0"
         alt={isSelected ? "Selected" : "Unselected"}
       />
-      <p className="text-[#414d58] text-[18px]">{value}</p>
+      <p className="text-[#414d58] text-base md:text-lg font-medium">{value}</p>
     </div>
   );
 };
 
-const MockExamQuestionCard = ({ index, func }: MockExamQuestionCardProps) => {
+const MockExamQuestionCard = ({
+  question,
+  onAnswerSelect,
+}: MockExamQuestionCardProps) => {
+  const { userAnswers, selectAnswer } = useExamStore();
 
-  const MockContext = useContext(MockExamContext);
+  if (!question) return null;
 
-  const setDoneQuestions = (q: QuestionsType) => {
-    MockContext?.setDoneQuestions(prev => {
-      const updated = [...prev];
-      const existingIndex = updated.findIndex(
-        item => item.questionIndex === q.questionIndex
-      );
-
-      if (existingIndex !== -1) {
-        updated[existingIndex] = q; 
-      } else {
-        updated.push(q);
-      }
-
-      return updated;
-    });
-    console.log(MockContext?.doneQuestions);
+  const handleSelect = (optionIndex: number) => {
+    // 1. Update Zustand store with the question ID and the chosen index
+    selectAnswer(question.id, optionIndex);
+    // 2. Notify parent to update the palette list
+    onAnswerSelect(optionIndex);
   };
 
-
-  const questionData = mockExamQuestions[index ?? 0];
-
   return (
-    <div className="flex flex-col gap-[24px]">
-      <h2 className="text-[20px] text-[#414d58] font-[700]">
-        {questionData.question}
+    <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+      <h2 className="text-xl md:text-2xl text-[#414d58] font-bold leading-tight">
+        {question.text}
       </h2>
 
-      {questionData.options.map((option, i) => (
-        <div
-          key={i}
-          onClick={() => {
-            func(i);
-            setDoneQuestions({
-              questionIndex: index ?? 0,
-              optionChosen: option,
-            });
-          }}
-        >
-          <OptionBox value={option} questionIndex={index ?? 0} />
-        </div>
-      ))}
+      <div className="flex flex-col mt-2">
+        {question.options.map((option, i) => (
+          <div key={`${question.id}-${i}`} onClick={() => handleSelect(i)}>
+            <OptionBox
+              value={option}
+              isSelected={userAnswers[question.id] === i}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default MockExamQuestionCard;
-
