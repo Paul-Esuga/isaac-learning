@@ -41,9 +41,7 @@ export default function SuccessfulAccount() {
           
           {/* Progress dots */}
           <div className="flex space-x-2 mt-8">
-            <div className="w-3 h-3 bg-white rounded-full"></div>
-            <div className="w-3 h-3 bg-white bg-opacity-50 rounded-full"></div>
-            <div className="w-3 h-3 bg-white bg-opacity-50 rounded-full"></div>
+            
           </div>
         </div>
       </div>
