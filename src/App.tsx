@@ -83,13 +83,13 @@ function App() {
             <ScrollToTop />
             <Routes>
               {/* Keep both versions' routes */}
-              <Route path="/create-account" element={<CreateAccountPage />} />
+              <Route path="create-account" element={<CreateAccountPage />} />
 
               <Route path="/otp1" element={<Otp1 />} />
               <Route path="/otp" element={<Otp />} />
               <Route path="/acctMessage" element={<AcctMessage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/" element={<CourseSelection />} />
+              <Route path="/" element={<Login />} />
+              <Route path="/courses" element={<CourseSelection />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/successful" element={<SuccessfulAccount />} />
               <Route path="/useeffect" element={<UseeffectLearn />} />
