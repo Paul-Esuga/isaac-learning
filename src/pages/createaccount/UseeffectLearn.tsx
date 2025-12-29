@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const UseeffectLearn = () => {
+export const UseeffectLearn = () => {
   // const arr = [
   //     "/building-bg.png",
   //     "/climbing-bg.png",
@@ -40,5 +40,3 @@ const UseeffectLearn = () => {
     </div>
   );
 };
-
-export default UseeffectLearn;
