@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getExamById } from "../controllers/examController.js";
+import { getExamById, submitExam } from "../controllers/examController.js";
 
 const router = Router();
 
-// Path: /api/exams/:id
 router.get("/:id", getExamById);
+router.post("/submit", submitExam); // NEW
 
 export default router;
