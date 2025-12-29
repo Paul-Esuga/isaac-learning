@@ -1,50 +1,38 @@
+// import { useState } from 'react';
 
+// export function UseeffectLearn() {
+//   const [value, setValue] = useState("");
 
-import { useEffect, useState } from 'react';
+//   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+//     setValue(e.target.value);
+//   }
 
-export default function UseeffectLearn() {
-    // const arr = [
-    //     "/building-bg.png",
-    //     "/climbing-bg.png",
-    //     "/Learning-bg.png"
-    // ];
-    // const write = ["Testing", "Another Test", "Final Test"];
+//   return (
+//     <div>
+//       <h1>{value}</h1>
+//       <input type="text" value={value} onChange={handleChange} className='border-2 border-blue-500 bg-red-700' />
+//     </div>
+//   );
+// }
+import { useState } from "react";
 
-    const mutAr = {
-        "pictures" :[
-            "/Learning-bg.png",
-            "/building-bg.png",
-            "/climbing-bg.png",
-            
-        ],
-        "write": [
-            "Testing",
-            "Another Test",
-            "Final Test"
-        ]
-    }
-    
-    const [indexval, setIndexval] = useState(0);
-    
+export function UseeffectLearn() {
+  const [value, setValue] = useState("");
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setIndexval(prev => (prev + 1) % mutAr.pictures.length);
-        }, 3000);
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setValue(e.target.value); // store the actual text
+  }
 
-        return () => clearInterval(interval); // cleanup
-    }, []); // run once when component mounts
-
-    return (
-        <div>
-            <img src={mutAr.pictures[indexval]} alt="Learning" />
-            <p>{mutAr.write[indexval]}</p>
-            <div className="flex space-x-2 mt-8">
-                {mutAr.write.map((j, i) => (
-                    <div key={i} className={`w-3 h-3 rounded-full border-1 border-red-500 ${indexval === i && 'bg-red-500'}`}/>
-                ))}
-            </div>
-        </div>
-    )
+  return (
+    <div className="p-4">
+      <h1 className="mb-2 text-xl">Length: {value.length < 8 ? "password should be atleast 8 characters": `password is ${value.length}`}</h1>
+      <input
+        type="text"
+        value={value}
+        onChange={handleChange}
+        className="border-2 border-blue-500 bg-white text-black p-2 rounded w-64"
+        placeholder="Type something..."
+      />
+    </div>
+  );
 }
-``
