@@ -1,5 +1,11 @@
-// React Router Hooks
-import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useExamStore } from "../../../static-data/useExamStore";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  type SubmissionData,
+  type SubmissionResponse,
+} from "../../../static-data/useExamStore";
 
 // React Hooks
 import { useState } from "react";
@@ -7,15 +13,41 @@ import { useState } from "react";
 // Assets
 import QuestionMark from "../../../assets/images/mock-exam-images/question-mark.png";
 
-type MocExamSubmitComponenetProps = {
+interface MocExamSubmitProps {
   removeSubmit: () => void;
-};
+}
 
-const MocExamSubmitComponenet = ({
-  removeSubmit,
-}: MocExamSubmitComponenetProps) => {
-  const [showResult, setShowResult] = useState(false);
+const MocExamSubmitComponenet = ({ removeSubmit }: MocExamSubmitProps) => {
+  const { examId } = useParams();
   const navigate = useNavigate();
+  const { userAnswers } = useExamStore();
+  const [showResult, setShowResult] = useState(false);
+
+  // 1. Setup the Mutation with proper types
+  const mutation = useMutation({
+    mutationFn: (submissionData: SubmissionData) => {
+      return axios.post<SubmissionResponse>(
+        "http://localhost:5000/api/exams/submit",
+        submissionData
+      );
+    },
+    onSuccess: (response) => {
+      // Logic using the response data
+      console.log("Exam Result ID:", response.data.resultId);
+      setShowResult(true);
+    },
+  });
+
+  const handleFinalSubmit = () => {
+    mutation.mutate({
+      examId,
+      userId: "USER_ID_FROM_CLERK_OR_DB",
+      userAnswers,
+      timeSpent: "21:43",
+    });
+  };
+
+  // ... rest of your JSX
 
   return (
     /* CHANGE 1: Use fixed inset-0 and a high z-index.
@@ -81,11 +113,13 @@ const MocExamSubmitComponenet = ({
               >
                 Cancel
               </button>
+
               <button
-                className="bg-[#00A36C] rounded-xl px-6 py-3.5 font-bold text-white flex-1 transition-all active:scale-95 shadow-md"
-                onClick={() => setShowResult(true)}
+                disabled={mutation.isPending}
+                onClick={handleFinalSubmit}
+                className="bg-[#00A36C] ..."
               >
-                Submit exam
+                {mutation.isPending ? "Submitting..." : "Submit exam"}
               </button>
             </div>
           </>

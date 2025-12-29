@@ -14,6 +14,19 @@ export interface Exam {
   questions: Question[];
 }
 
+export interface SubmissionData {
+  examId: string | undefined;
+  userId: string;
+  userAnswers: Record<string, number>;
+  timeSpent: string;
+}
+
+export interface SubmissionResponse {
+  resultId: string;
+  score: number;
+  accuracy: number;
+}
+
 interface ExamState {
   questionIndex: number;
   clickedQuestions: number[]; // Track visited/answered questions
