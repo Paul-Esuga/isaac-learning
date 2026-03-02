@@ -29,7 +29,7 @@ function Entry(
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onBlur?: () => void;
     error?: boolean;
-  }
+  },
 ) {
   return (
     <div className="w-full">
@@ -41,8 +41,8 @@ function Entry(
           props.name === "Password"
             ? "password"
             : props.name === "Email address"
-            ? "email"
-            : "text"
+              ? "email"
+              : "text"
         }
         value={props.value}
         onChange={props.onChange}
@@ -66,10 +66,11 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [error, setError] = useState("");
 
   // Social Login Handler
   const signInWith = (
-    strategy: "oauth_google" | "oauth_facebook" | "oauth_apple"
+    strategy: "oauth_google" | "oauth_facebook" | "oauth_apple",
   ) => {
     if (!isLoaded) return;
 
@@ -101,8 +102,6 @@ export default function Login() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    validateEmail(email);
-
     if (!isLoaded) return;
 
     try {
@@ -112,14 +111,14 @@ export default function Login() {
       });
 
       if (result.status === "complete") {
+        // This is the bridge to your dashboard
         navigate("/dashboard");
       }
     } catch (err: unknown) {
-      // Fix for "no-explicit-any" - check if it's a Clerk error
-      const error = err as { errors: { message: string }[] };
-      if (error.errors) {
-        console.error("error", error.errors[0].message);
-      }
+      const clerkError = err as { errors: { message: string }[] };
+      const msg = clerkError.errors?.[0]?.message || "Login failed";
+      console.error("error", msg);
+      setError(msg); // Now setError exists!
     }
   };
 
@@ -189,6 +188,14 @@ export default function Login() {
                 Forgot Password?
               </a>
             </div>
+          </div>
+          <div className="flex flex-col ...">
+            {/* Add an error display if you want the user to see it */}
+            {error && (
+              <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
+            )}
+
+            {/* ... the rest of your form */}
           </div>
 
           <button
