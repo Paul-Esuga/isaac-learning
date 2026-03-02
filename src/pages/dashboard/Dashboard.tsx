@@ -3,6 +3,7 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 
 // React Hooks
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Assets
 import Logo from "../../assets/images/logo.png";
@@ -27,17 +28,28 @@ import CommunityIconGreen from "../../assets/images/icons/dashboard-icons/commun
 import NavBar from "../../components/navbar/NavBar";
 import { Menu } from "lucide-react"; // Install lucide-react or use your own icons
 
+// Clerk
+import { useClerk } from "@clerk/clerk-react";
+
 // ... Your Icon Imports (keep them as they are)
 
 const Dashboard = () => {
   const { pathname } = useLocation();
   const [currentPath, setCurrentPath] = useState(pathname);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // New state for mobile toggle
+  const { signOut } = useClerk(); // 2. Destructure signOut
+  const navigate = useNavigate();
 
   useEffect(() => {
     setCurrentPath(pathname);
     setIsSidebarOpen(false); // Close sidebar automatically when navigating on mobile
   }, [pathname]);
+
+  const handleLogout = async () => {
+    // 3. This clears Clerk cookies and local storage
+    await signOut();
+    navigate("/");
+  };
 
   // Navigation Links helper to keep code clean
   const navLinks = [
@@ -138,13 +150,13 @@ const Dashboard = () => {
           </div>
 
           <div className="mb-10">
-            <Link
-              to="#"
-              className="flex gap-[16px] text-white py-[12px] px-[20px] mx-6 hover:bg-white/10 rounded-[10px]"
+            <button
+              onClick={handleLogout}
+              className="w-[calc(100%-48px)] flex gap-[16px] text-white py-[12px] px-[20px] mx-6 hover:bg-white/10 rounded-[10px] transition-colors"
             >
               <img src={LogoutIconWhite} alt="logout" className="w-6 h-6" />
               Log out
-            </Link>
+            </button>
           </div>
         </nav>
       </aside>

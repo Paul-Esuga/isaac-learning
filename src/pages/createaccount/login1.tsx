@@ -6,7 +6,7 @@ import google from "../../assets/images/createaccount-logo/Google.png";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import type { Entryprops } from "../../components/createaccount/EntryDetails";
-import { useSignIn } from "@clerk/clerk-react";
+import { useSignIn, useAuth } from "@clerk/clerk-react";
 
 // Move static data outside the component to fix ESLint dependency warnings
 const mutAr = {
@@ -59,7 +59,8 @@ function Entry(
 
 export default function Login() {
   const navigate = useNavigate();
-  const { signIn, isLoaded } = useSignIn();
+  const { signIn, isLoaded: signInLoaded } = useSignIn();
+  const { isSignedIn, isLoaded: authLoaded } = useAuth();
 
   // State Management
   const [indexval, setIndexval] = useState(0);
@@ -68,11 +69,17 @@ export default function Login() {
   const [emailError, setEmailError] = useState("");
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    if (authLoaded && isSignedIn) {
+      navigate("/dashboard/home");
+    }
+  }, [authLoaded, isSignedIn, navigate]);
+
   // Social Login Handler
   const signInWith = (
     strategy: "oauth_google" | "oauth_facebook" | "oauth_apple",
   ) => {
-    if (!isLoaded) return;
+    if (!signInLoaded) return;
 
     signIn.authenticateWithRedirect({
       strategy,
@@ -102,7 +109,7 @@ export default function Login() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isLoaded) return;
+    if (!signInLoaded) return;
 
     try {
       const result = await signIn.create({
@@ -200,9 +207,9 @@ export default function Login() {
 
           <button
             type="submit"
-            disabled={!isLoaded || !!emailError || password.length < 8}
+            disabled={!signInLoaded || !!emailError || password.length < 8}
             className={`w-full font-semibold py-3 px-4 rounded-md transition-colors mt-4 text-white ${
-              !isLoaded || !!emailError || !email || password.length < 8
+              !signInLoaded || !!emailError || !email || password.length < 8
                 ? "bg-gray-300 cursor-not-allowed"
                 : "bg-green-400 hover:bg-green-500"
             }`}
