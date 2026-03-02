@@ -17,13 +17,6 @@ interface EntryProps {
   onChange: (val: string) => void;
 }
 
-interface ClerkError {
-  errors: {
-    message: string;
-    code: string;
-  }[];
-}
-
 function Entry({ name, placeholder, value, onChange }: EntryProps) {
   return (
     <div className="w-full">
@@ -123,27 +116,35 @@ export default function CreateAccountPage() {
   // Clerk Sign Up Logic
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Guard: Check for isLoaded AND signUp
     if (!isLoaded || !signUp) return;
 
     setError("");
 
     try {
+      // 1. Create the user in Clerk's "Pending" database
       await signUp.create({
         emailAddress: email,
         password,
-        firstName: fullName.split(" ")[0],
-        lastName: fullName.split(" ")[1] || "",
+        // Optional: Clerk usually stores firstName/lastName separately
+        firstName: fullName.split(" ")[0] || "",
+        lastName: fullName.split(" ").slice(1).join(" ") || "",
       });
 
-      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+      // 2. Start the verification process (This sends the email)
+      await signUp.prepareEmailAddressVerification({
+        strategy: "email_code",
+      });
+
+      // 3. Navigate to your OTP page
+      // IMPORTANT: The user is NOT fully "created" in your active users list
+      // until the OTP is verified on the next page.
       navigate("/otp1");
-    } catch (err: unknown) {
-      const clerkError = err as ClerkError;
-      setError(clerkError.errors?.[0]?.message || "Something went wrong");
+    } catch (err: any) {
+      console.error(err);
+      setError(err.errors?.[0]?.longMessage || "An error occurred");
     }
   };
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-white">
       {/* Left section */}
