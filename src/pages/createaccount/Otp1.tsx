@@ -5,7 +5,7 @@ import { useState, useRef } from "react";
 import { useSignUp } from "@clerk/clerk-react";
 
 export default function Otp() {
-  const { isLoaded, signUp, setActive } = useSignUp();
+  const { isLoaded, signUp } = useSignUp();
   const navigate = useNavigate();
 
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
@@ -52,8 +52,8 @@ export default function Otp() {
       });
 
       if (completeSignUp.status === "complete") {
-        await setActive({ session: completeSignUp.createdSessionId });
-        navigate("/dashboard");
+        // await setActive({ session: completeSignUp.createdSessionId });
+        navigate("/");
       }
     } catch (err: any) {
       // Logic to extract Clerk error message safely
