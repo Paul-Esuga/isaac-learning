@@ -80,8 +80,8 @@ export default function CreateAccountPage() {
 
     return signUp.authenticateWithRedirect({
       strategy,
-      redirectUrl: "/dashboard",
-      redirectUrlComplete: "/dashboard",
+      redirectUrl: "/",
+      redirectUrlComplete: "/",
     });
   };
 
