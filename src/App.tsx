@@ -93,6 +93,7 @@ function App() {
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/successful" element={<SuccessfulAccount />} />
               <Route path="/useeffect" element={<UseeffectLearn />} />
+              
 
               {/* Dashboard page and all its sub pages */}
               <Route path="dashboard" element={<Dashboard />}>

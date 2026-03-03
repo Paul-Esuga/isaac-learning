@@ -64,7 +64,7 @@ function PhoneEntry() {
           placeholder="8012345678"
           type="tel"
           className="border border-gray-300 border-l-0 bg-gray-50 p-3 rounded-r-md flex-1 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
-        />
+          required/>
       </div>
     </div>
   );
@@ -74,15 +74,53 @@ function PhoneEntry() {
 
 export default function CreateAccountPage() {
   const navigate = useNavigate();
+  const [showPasswordError, setShowPasswordError] = useState(false);
 
   // Form State
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [error, setError] = useState("");
+  
 
   const { signUp, isLoaded } = useSignUp(); // Ensure you use both
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isLoaded || !signUp) return;
 
+    setError("");
+
+    // Validation check
+    if (password.length < 8) {
+      setShowPasswordError(true);
+      return; 
+    }
+
+    try {
+      await signUp.create({
+        emailAddress: email,
+        password,
+        firstName: fullName.split(" ")[0] || "",
+        lastName: fullName.split(" ").slice(1).join(" ") || "",
+      });
+
+      await signUp.prepareEmailAddressVerification({
+        strategy: "email_code",
+      });
+
+      navigate("/otp1");
+    } catch (err: unknown) {
+  console.error(err);
+  
+  // Cast the error to a type that matches Clerk's error structure
+  const clerkError = err as { errors?: { longMessage: string }[] };
+  
+  setError(
+    clerkError.errors?.[0]?.longMessage || "An error occurred. Please try again."
+  );
+}
+  };
+    
   const signUpWith = (
     strategy: "oauth_google" | "oauth_facebook" | "oauth_apple",
   ) => {
@@ -127,36 +165,41 @@ export default function CreateAccountPage() {
   }, [mutAr.pictures.length]);
 
   // Clerk Sign Up Logic
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!isLoaded || !signUp) return;
+  // const handleSignUp = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   if (!isLoaded || !signUp) return;
 
-    setError("");
+  //   setError("");
+  //   // Validation check
+  //   if (password.length < 8) {
+  //     setShowPasswordError(true);
+  //     return; 
+  //   }
 
-    try {
-      // 1. Create the user in Clerk's "Pending" database
-      await signUp.create({
-        emailAddress: email,
-        password,
-        // Optional: Clerk usually stores firstName/lastName separately
-        firstName: fullName.split(" ")[0] || "",
-        lastName: fullName.split(" ").slice(1).join(" ") || "",
-      });
+  //   try {
+  //     // 1. Create the user in Clerk's "Pending" database
+  //     await signUp.create({
+  //       emailAddress: email,
+  //       password,
+  //       // Optional: Clerk usually stores firstName/lastName separately
+  //       firstName: fullName.split(" ")[0] || "",
+  //       lastName: fullName.split(" ").slice(1).join(" ") || "",
+  //     });
 
-      // 2. Start the verification process (This sends the email)
-      await signUp.prepareEmailAddressVerification({
-        strategy: "email_code",
-      });
+  //     // 2. Start the verification process (This sends the email)
+  //     await signUp.prepareEmailAddressVerification({
+  //       strategy: "email_code",
+  //     });
 
-      // 3. Navigate to your OTP page
-      // IMPORTANT: The user is NOT fully "created" in your active users list
-      // until the OTP is verified on the next page.
-      navigate("/otp1");
-    } catch (err: any) {
-      console.error(err);
-      setError(err.errors?.[0]?.longMessage || "An error occurred");
-    }
-  };
+  //     // 3. Navigate to your OTP page
+  //     // IMPORTANT: The user is NOT fully "created" in your active users list
+  //     // until the OTP is verified on the next page.
+  //     navigate("/otp1");
+  //   } catch (err: any) {
+  //     console.error(err);
+  //     setError(err.errors?.[0]?.longMessage || "An error occurred");
+  //   }
+  // };
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-white">
@@ -210,15 +253,26 @@ export default function CreateAccountPage() {
             </p>
           </div> */}
           <div>
-  <Entry
+  {/* <Entry
     name="Password"
     placeholder="Create password"
     value={password}
     onChange={setPassword}
     type="password" // Ensure this is set for security!
-  />
+  /> */}
+
+  <Entry
+          name="Password"
+          placeholder="Create password"
+          value={password}
+          onChange={(val) => {
+            setPassword(val);
+            // 4. Optional: clear the error once they fix the length
+            if (val.length >= 8) setShowPasswordError(false);
+          }}
+        />
   
-  <p className={`text-xs mt-1 flex items-center gap-1 transition-colors duration-200 ${
+  {/* <p className={`text-xs mt-1 flex items-center gap-1 transition-colors duration-200 ${
     password.length >= 8 ? 'text-green-500' : 'text-gray-500'
   }`}>
     {password.length < 8 && (
@@ -227,13 +281,23 @@ export default function CreateAccountPage() {
     Password must be at least 8 characters
   </p>
 )}
-  </p>
+  </p> */}
+{showPasswordError && (
+          <p className="text-red-500 text-xs mt-1 flex items-center gap-1 transition-opacity duration-200">
+            <img src={PassInfo} alt="info" className="w-3 h-3" />
+            Password must be at least 8 characters
+          </p>
+        )}
+  
+  
+
 </div>
-          <button
-            type="submit"
-            className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 rounded-md transition-colors mt-6 shadow-md active:scale-95"
-          >
-            Create account
+
+<button
+        type="submit"
+        className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 rounded-md transition-colors mt-6 shadow-md active:scale-95"
+      >
+        Create account
           </button>
         </form>
 
@@ -300,4 +364,5 @@ export default function CreateAccountPage() {
     </div>
   );
 }
+
 
