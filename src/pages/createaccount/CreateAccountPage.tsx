@@ -147,11 +147,8 @@ export default function CreateAccountPage() {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [error, setError] = useState("");
-<<<<<<< HEAD
   
   
-=======
->>>>>>> 11f83f856da6236a9e358e0e4353d4e77ef0ea58
 
   const { signUp, isLoaded } = useSignUp(); // Ensure you use both
   const handleSignUp = async (e: React.FormEvent) => {
@@ -234,188 +231,144 @@ export default function CreateAccountPage() {
   }, [mutAr.pictures.length]);
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-white">
-      {/* Left section */}
-      <div className="w-full lg:w-[45%] bg-white flex flex-col items-center justify-center p-6 sm:p-8 lg:p-12 overflow-y-auto">
-        <img
-          src={Logo}
-          alt="Logo"
-          className="h-16 mb-8 object-contain cursor-pointer"
-          onClick={() => navigate("/")}
-        />
+  <div className="flex flex-col lg:flex-row min-h-screen bg-white">
+    {/* Left section */}
+    <div className="w-full lg:w-[45%] bg-white flex flex-col items-center justify-center p-6 sm:p-8 lg:p-12 overflow-y-auto">
+      <img
+        src={Logo}
+        alt="Logo"
+        className="h-16 mb-8 object-contain cursor-pointer"
+        onClick={() => navigate("/")}
+      />
 
-        <h1 className="text-2xl sm:text-4xl font-bold mb-4 text-center text-gray-900">
-          Create account
-        </h1>
-        <p className="text-gray-600 text-center mb-8 max-w-md">
-          Please kindly enter your correct details below to sign up.
-        </p>
+      <h1 className="text-2xl sm:text-4xl font-bold mb-4 text-center text-gray-900">
+        Create account
+      </h1>
+      <p className="text-gray-600 text-center mb-8 max-w-md">
+        Please kindly enter your correct details below to sign up.
+      </p>
 
-        <form onSubmit={handleSignUp} className="w-full max-w-md space-y-4">
-          {error && (
-            <p className="text-red-500 text-sm text-center bg-red-50 p-2 rounded">
-              {error}
-            </p>
-          )}
-
-          <Entry
-            name="Full name"
-            placeholder="Enter your full name"
-            value={fullName}
-            onChange={setFullName}
-            required
-          />
-          <Entry
-            name="Email address"
-            placeholder="Enter your email address"
-            value={email}
-            onChange={setEmail}
-            required
-          />
-          <PhoneEntry />
-          <div>
-            <Entry
-              name="Password"
-              placeholder="Create password"
-              value={password}
-              onChange={(val) => {
-                setPassword(val);
-                // 4. Optional: clear the error once they fix the length
-                if (val.length >= 8) setShowPasswordError(false);
-              }}
-            />
-
-<<<<<<< HEAD
-  <Entry
-          name="Password"
-          placeholder="Create password"
-          value={password}
-          required
-          onChange={(val) => {
-            setPassword(val);
-            // 4. Optional: clear the error once they fix the length
-            if (val.length >= 8) setShowPasswordError(false);
-          }}
-        />
-  
-  {/* <p className={`text-xs mt-1 flex items-center gap-1 transition-colors duration-200 ${
-    password.length >= 8 ? 'text-green-500' : 'text-gray-500'
-  }`}>
-    {password.length < 8 && (
-  <p className="text-gray-500 text-xs mt-1 flex items-center gap-1 transition-opacity duration-200">
-    <img src={PassInfo} alt="info" className="w-3 h-3" />
-    Password must be at least 8 characters
-  </p>
-)}
-  </p> */}
-{showPasswordError && (
-          <p className="text-red-500 text-xs mt-1 flex items-center gap-1 transition-opacity duration-200">
-            <img src={PassInfo} alt="info" className="w-3 h-3" />
-            Password must be at least 8 characters
+      <form onSubmit={handleSignUp} className="w-full max-w-md space-y-4">
+        {error && (
+          <p className="text-red-500 text-sm text-center bg-red-50 p-2 rounded">
+            {error}
           </p>
         )}
-  
-  
 
-</div>
+        <Entry
+          name="Full name"
+          placeholder="Enter your full name"
+          value={fullName}
+          onChange={setFullName}
+          required
+        />
+        
+        <Entry
+          name="Email address"
+          placeholder="Enter your email address"
+          value={email}
+          onChange={setEmail}
+          required
+        />
 
-{/* <button
-        type="submit"
-        className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 rounded-md transition-colors mt-6 shadow-md active:scale-95"
-      >
-        Create account
+        <PhoneEntry />
 
-            <div className="min-h-[20px] mt-1">
-              {password.length > 0 && password.length < 8 ? (
-                <p className="text-red-500 text-xs flex items-center gap-1 transition-opacity duration-200">
-                  <img src={PassInfo} alt="info" className="w-3 h-3" />
-                  Password must be at least 8 characters
-                </p>
-              ) : password.length >= 8 ? (
-                <p className="text-green-600 text-xs flex items-center gap-1">
-                  ✓ Password strength: Good
-                </p>
-              ) : null}
-            </div>
-            </button> */}
-         
-=======
-            {showPasswordError && (
-              <p className="text-red-500 text-xs mt-1 flex items-center gap-1 transition-opacity duration-200">
+        <div className="space-y-1">
+          <Entry
+            name="Password"
+            type="password"
+            placeholder="Create password"
+            value={password}
+            required
+            onChange={(val) => {
+              setPassword(val);
+              if (val.length >= 8) setShowPasswordError(false);
+            }}
+          />
+          
+          {/* Password Validation Message */}
+          <div className="min-h-[20px]">
+            {showPasswordError ? (
+              <p className="text-red-500 text-xs flex items-center gap-1 transition-opacity duration-200">
                 <img src={PassInfo} alt="info" className="w-3 h-3" />
                 Password must be at least 8 characters
               </p>
-            )}
+            ) : password.length >= 8 ? (
+              <p className="text-green-600 text-xs flex items-center gap-1">
+                ✓ Password strength: Good
+              </p>
+            ) : null}
           </div>
->>>>>>> 11f83f856da6236a9e358e0e4353d4e77ef0ea58
-          <button
-            type="submit"
-            className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 rounded-md transition-colors mt-6 shadow-md active:scale-95"
-          >
-            Create account
-          </button>
-        </form>
-
-        <p className="text-center text-sm text-gray-600 mt-4">
-          Already have an account?{" "}
-          <span
-            onClick={() => navigate("/")}
-            className="text-green-500 hover:underline font-medium cursor-pointer"
-          >
-            Log in
-          </span>
-        </p>
-
-        {/* Social Login */}
-        <div className="flex items-center w-full max-w-md my-6">
-          <div className="flex-1 border-t border-gray-300"></div>
-          <span className="px-4 text-gray-500 text-sm">Or sign up with</span>
-          <div className="flex-1 border-t border-gray-300"></div>
         </div>
 
-        <div className="flex justify-center space-x-4">
-          <button onClick={() => signUpWith("oauth_apple")} className="...">
-            <img src={apple} alt="apple" />
-          </button>
-          <button onClick={() => signUpWith("oauth_google")} className="...">
-            <img src={google} alt="google" />
-          </button>
-          <button onClick={() => signUpWith("oauth_facebook")} className="...">
-            <img src={Facebook} alt="facebook" />
-          </button>
-        </div>
+        <button
+          type="submit"
+          className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 rounded-md transition-colors mt-6 shadow-md active:scale-95"
+        >
+          Create account
+        </button>
+      </form>
+
+      <p className="text-center text-sm text-gray-600 mt-4">
+        Already have an account?{" "}
+        <span
+          onClick={() => navigate("/")}
+          className="text-green-500 hover:underline font-medium cursor-pointer"
+        >
+          Log in
+        </span>
+      </p>
+
+      {/* Social Login */}
+      <div className="flex items-center w-full max-w-md my-6">
+        <div className="flex-1 border-t border-gray-300"></div>
+        <span className="px-4 text-gray-500 text-sm">Or sign up with</span>
+        <div className="flex-1 border-t border-gray-300"></div>
       </div>
 
-      {/* Right section (Carousel) */}
-      <div className="hidden lg:flex w-[55%] relative overflow-hidden bg-black">
-        <div
-          className="absolute inset-0 transition-all duration-1000 ease-in-out opacity-60"
-          style={{
-            backgroundImage: `url(${mutAr.pictures[indexval]})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+      <div className="flex justify-center space-x-6">
+        <button onClick={() => signUpWith("oauth_apple")} className="hover:opacity-80 transition-opacity">
+          <img src={apple} alt="apple" className="w-6 h-6" />
+        </button>
+        <button onClick={() => signUpWith("oauth_google")} className="hover:opacity-80 transition-opacity">
+          <img src={google} alt="google" className="w-6 h-6" />
+        </button>
+        <button onClick={() => signUpWith("oauth_facebook")} className="hover:opacity-80 transition-opacity">
+          <img src={Facebook} alt="facebook" className="w-6 h-6" />
+        </button>
+      </div>
+    </div>
 
-        <div className="absolute bottom-20 left-0 right-0 z-10 flex flex-col items-center text-white text-center p-12">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4 animate-pulse">
-            {mutAr.write[indexval]}
-          </h2>
-          <p className="text-lg opacity-90 max-w-md">{mutAr.Text[indexval]}</p>
+    {/* Right section (Carousel) */}
+    <div className="hidden lg:flex w-[55%] relative overflow-hidden bg-black">
+      <div
+        className="absolute inset-0 transition-all duration-1000 ease-in-out opacity-60"
+        style={{
+          backgroundImage: `url(${mutAr.pictures[indexval]})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
 
-          <div className="flex space-x-2 mt-8">
-            {mutAr.write.map((_, i) => (
-              <div
-                key={i}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  indexval === i ? "bg-green-500 w-8" : "bg-white/50"
-                }`}
-              />
-            ))}
-          </div>
+      <div className="absolute bottom-20 left-0 right-0 z-10 flex flex-col items-center text-white text-center p-12">
+        <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+          {mutAr.write[indexval]}
+        </h2>
+        <p className="text-lg opacity-90 max-w-md">{mutAr.Text[indexval]}</p>
+
+        <div className="flex space-x-2 mt-8">
+          {mutAr.write.map((_, i) => (
+            <div
+              key={i}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                indexval === i ? "bg-green-500 w-8" : "bg-white/50"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }
