@@ -80,6 +80,34 @@ function Entry({
 }
 
 function PhoneEntry() {
+  const [value, setValue] = useState("");
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 1. Remove all non-digits
+    const val = e.target.value.replace(/\D/g, "");
+
+    // 2. Validate first digit (7, 8, or 9)
+    if (val.length >= 1) {
+      const firstDigit = val[0];
+      if (!["7", "8", "9"].includes(firstDigit)) {
+        return; // Reject input if first digit isn't 7, 8, or 9
+      }
+    }
+
+    // 3. Validate second digit (0 or 1)
+    if (val.length >= 2) {
+      const secondDigit = val[1];
+      if (!["0", "1"].includes(secondDigit)) {
+        return; // Reject input if second digit isn't 0 or 1
+      }
+    }
+
+    // 4. Limit to 10 digits (Standard for +234 prefix)
+    // Note: If you want 11 digits (e.g. 080...), change to .slice(0, 11)
+    const finalVal = val.slice(0, 10);
+    setValue(finalVal);
+  };
+
   return (
     <div className="w-full">
       <p className="text-gray-700 text-sm mb-2">Phone number</p>
@@ -93,13 +121,21 @@ function PhoneEntry() {
         <input
           placeholder="8012345678"
           type="tel"
-          className="border border-gray-300 border-l-0 bg-gray-50 p-3 rounded-r-md flex-1 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
-          required/>
+          value={value}
+          className="border border-gray-300 border-l-0 bg-gray-50 p-3 rounded-r-md flex-1 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all"
+          onChange={handlePhoneChange}
+          required
+        />
       </div>
+      {/* Optional helper text to guide the user */}
+      {value.length > 0 && value.length < 10 && (
+        <p className="text-gray-400 text-[10px] mt-1">
+          Enter the remaining {10 - value.length} digits
+        </p>
+      )}
     </div>
   );
 }
-
 // --- Main Page ---
 
 export default function CreateAccountPage() {
@@ -111,8 +147,11 @@ export default function CreateAccountPage() {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [error, setError] = useState("");
+<<<<<<< HEAD
   
   
+=======
+>>>>>>> 11f83f856da6236a9e358e0e4353d4e77ef0ea58
 
   const { signUp, isLoaded } = useSignUp(); // Ensure you use both
   const handleSignUp = async (e: React.FormEvent) => {
@@ -124,7 +163,7 @@ export default function CreateAccountPage() {
     // Validation check
     if (password.length < 8) {
       setShowPasswordError(true);
-      return; 
+      return;
     }
 
     try {
@@ -141,17 +180,18 @@ export default function CreateAccountPage() {
 
       navigate("/otp1");
     } catch (err: unknown) {
-  console.error(err);
-  
-  // Cast the error to a type that matches Clerk's error structure
-  const clerkError = err as { errors?: { longMessage: string }[] };
-  
-  setError(
-    clerkError.errors?.[0]?.longMessage || "An error occurred. Please try again."
-  );
-}
+      console.error(err);
+
+      // Cast the error to a type that matches Clerk's error structure
+      const clerkError = err as { errors?: { longMessage: string }[] };
+
+      setError(
+        clerkError.errors?.[0]?.longMessage ||
+          "An error occurred. Please try again.",
+      );
+    }
   };
-    
+
   const signUpWith = (
     strategy: "oauth_google" | "oauth_facebook" | "oauth_apple",
   ) => {
@@ -192,43 +232,6 @@ export default function CreateAccountPage() {
     }, 3000);
     return () => clearInterval(interval);
   }, [mutAr.pictures.length]);
-
-  // Clerk Sign Up Logic
-  // const handleSignUp = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   if (!isLoaded || !signUp) return;
-
-  //   setError("");
-  //   // Validation check
-  //   if (password.length < 8) {
-  //     setShowPasswordError(true);
-  //     return; 
-  //   }
-
-  //   try {
-  //     // 1. Create the user in Clerk's "Pending" database
-  //     await signUp.create({
-  //       emailAddress: email,
-  //       password,
-  //       // Optional: Clerk usually stores firstName/lastName separately
-  //       firstName: fullName.split(" ")[0] || "",
-  //       lastName: fullName.split(" ").slice(1).join(" ") || "",
-  //     });
-
-  //     // 2. Start the verification process (This sends the email)
-  //     await signUp.prepareEmailAddressVerification({
-  //       strategy: "email_code",
-  //     });
-
-  //     // 3. Navigate to your OTP page
-  //     // IMPORTANT: The user is NOT fully "created" in your active users list
-  //     // until the OTP is verified on the next page.
-  //     navigate("/otp1");
-  //   } catch (err: any) {
-  //     console.error(err);
-  //     setError(err.errors?.[0]?.longMessage || "An error occurred");
-  //   }
-  // };
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-white">
@@ -271,26 +274,18 @@ export default function CreateAccountPage() {
           />
           <PhoneEntry />
           <div>
-            {/* <Entry
+            <Entry
               name="Password"
               placeholder="Create password"
               value={password}
-              onChange={setPassword}
-            /> */}
-            {/* <p className="text-gray-500 text-xs mt-1 flex items-center gap-1">
-              <img src={PassInfo} alt="info" className="w-3 h-3" />
-              Password must be at least 8 characters
-            </p> */}
-          </div> 
-          <div>
-  {/* <Entry
-    name="Password"
-    placeholder="Create password"
-    value={password}
-    onChange={setPassword}
-    type="password" // Ensure this is set for security!
-  /> */}
+              onChange={(val) => {
+                setPassword(val);
+                // 4. Optional: clear the error once they fix the length
+                if (val.length >= 8) setShowPasswordError(false);
+              }}
+            />
 
+<<<<<<< HEAD
   <Entry
           name="Password"
           placeholder="Create password"
@@ -344,6 +339,15 @@ export default function CreateAccountPage() {
             </div>
             </button> */}
          
+=======
+            {showPasswordError && (
+              <p className="text-red-500 text-xs mt-1 flex items-center gap-1 transition-opacity duration-200">
+                <img src={PassInfo} alt="info" className="w-3 h-3" />
+                Password must be at least 8 characters
+              </p>
+            )}
+          </div>
+>>>>>>> 11f83f856da6236a9e358e0e4353d4e77ef0ea58
           <button
             type="submit"
             className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 rounded-md transition-colors mt-6 shadow-md active:scale-95"
@@ -415,4 +419,3 @@ export default function CreateAccountPage() {
     </div>
   );
 }
-
