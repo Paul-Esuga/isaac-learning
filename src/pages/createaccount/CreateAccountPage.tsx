@@ -112,6 +112,7 @@ export default function CreateAccountPage() {
   const [fullName, setFullName] = useState("");
   const [error, setError] = useState("");
   
+  
 
   const { signUp, isLoaded } = useSignUp(); // Ensure you use both
   const handleSignUp = async (e: React.FormEvent) => {
@@ -259,12 +260,14 @@ export default function CreateAccountPage() {
             placeholder="Enter your full name"
             value={fullName}
             onChange={setFullName}
+            required
           />
           <Entry
             name="Email address"
             placeholder="Enter your email address"
             value={email}
             onChange={setEmail}
+            required
           />
           <PhoneEntry />
           <div>
@@ -292,6 +295,7 @@ export default function CreateAccountPage() {
           name="Password"
           placeholder="Create password"
           value={password}
+          required
           onChange={(val) => {
             setPassword(val);
             // 4. Optional: clear the error once they fix the length

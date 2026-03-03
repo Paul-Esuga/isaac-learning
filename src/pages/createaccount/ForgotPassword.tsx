@@ -51,7 +51,7 @@ export default function ForgotPassword() {
   className="flex flex-col w-full"
   onSubmit={(e) => {
     e.preventDefault(); // Prevents page reload
-    navigate("/reset-password");
+    navigate("/otp1"); // Navigate to OTP page on successful validation
   }}
 >
   <input
