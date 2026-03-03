@@ -268,16 +268,16 @@ export default function CreateAccountPage() {
           />
           <PhoneEntry />
           <div>
-            <Entry
+            {/* <Entry
               name="Password"
               placeholder="Create password"
               value={password}
               onChange={setPassword}
-            />
-            <p className="text-gray-500 text-xs mt-1 flex items-center gap-1">
+            /> */}
+            {/* <p className="text-gray-500 text-xs mt-1 flex items-center gap-1">
               <img src={PassInfo} alt="info" className="w-3 h-3" />
               Password must be at least 8 characters
-            </p>
+            </p> */}
           </div> 
           <div>
   {/* <Entry
@@ -320,7 +320,7 @@ export default function CreateAccountPage() {
 
 </div>
 
-<button
+{/* <button
         type="submit"
         className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 rounded-md transition-colors mt-6 shadow-md active:scale-95"
       >
@@ -338,7 +338,7 @@ export default function CreateAccountPage() {
                 </p>
               ) : null}
             </div>
-            </button>
+            </button> */}
          
           <button
             type="submit"
