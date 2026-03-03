@@ -60,6 +60,8 @@ import Login from "./pages/createaccount/login1";
 import ForgotPassword from "./pages/createaccount/ForgotPassword";
 import SuccessfulAccount from "./pages/createaccount/FP-successful";
 import ProgressTracker from "./pages/dashboard/ProgressTracker";
+import FpOtp1 from "./pages/createaccount/FP-Otp1";
+import ResetPassword from "./pages/createaccount/FP-Createacct";
 
 import { UseeffectLearn } from "./pages/createaccount/UseeffectLearn";
 import Foundational from "./pages/modules/Foundational";
@@ -93,6 +95,8 @@ function App() {
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/successful" element={<SuccessfulAccount />} />
               <Route path="/useeffect" element={<UseeffectLearn />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/fp-otp" element={<FpOtp1 />} />
               
 
               {/* Dashboard page and all its sub pages */}
