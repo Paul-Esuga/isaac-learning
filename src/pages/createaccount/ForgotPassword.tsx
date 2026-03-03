@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import Pass from "../../assets/images/createaccount-logo/password.png";
+import { useNavigate } from "react-router-dom";
 
 export default function ForgotPassword() {
+  const navigate = useNavigate();
   const mutAr = {
     pictures: ["/Learning-bg.png", "/building-bg.png", "/climbing-bg.png"],
     write: [
@@ -45,16 +47,27 @@ export default function ForgotPassword() {
             Enter your email address to proceed
           </p>
 
-          <div className="flex flex-col w-full">
-            <input
-              className="w-full rounded-lg bg-[#F3F4F6] px-6 py-4 text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-600 transition-all"
-              placeholder="Enter your email address"
-              type="email"
-            />
-            <button className="w-full mt-6 rounded-lg bg-green-700 px-10 py-4 text-white font-bold hover:bg-green-800 transition-colors shadow-lg">
-              Proceed
-            </button>
-          </div>
+          <form 
+  className="flex flex-col w-full"
+  onSubmit={(e) => {
+    e.preventDefault(); // Prevents page reload
+    navigate("/reset-password");
+  }}
+>
+  <input
+    className="w-full rounded-lg bg-[#F3F4F6] px-6 py-4 text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-600 transition-all"
+    placeholder="Enter your email address"
+    type="email"
+    required // This will now work!
+  />
+  
+  <button 
+    type="submit" // Triggers the form's onSubmit and validation
+    className="w-full mt-6 rounded-lg bg-green-700 px-10 py-4 text-white font-bold hover:bg-green-800 transition-colors shadow-lg"
+  >
+    Proceed
+  </button>
+</form>
         </div>
       </div>
 
