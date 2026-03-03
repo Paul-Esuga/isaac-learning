@@ -7,6 +7,7 @@ import google from "../../assets/images/createaccount-logo/Google.png";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useMemo } from "react";
 import { useSignUp } from "@clerk/clerk-react";
+import { Eye, EyeOff } from "lucide-react";
 
 // --- Sub-Components ---
 
@@ -19,32 +20,61 @@ import { useSignUp } from "@clerk/clerk-react";
 // Extend the standard HTML input attributes
 // --- Sub-Components ---
 
-interface EntryProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+interface EntryProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onChange"
+> {
   name: string;
   onChange: (value: string) => void;
 }
 
-function Entry({ name, placeholder, value, onChange, type, ...props }: EntryProps) {
-  // Determine input type dynamically if not explicitly provided
-  const inputType = type || (
-    name.toLowerCase().includes("password")
-      ? "password"
-      : name.toLowerCase().includes("email")
-        ? "email"
-        : "text"
-  );
+function Entry({
+  name,
+  placeholder,
+  value,
+  onChange,
+  type,
+  ...props
+}: EntryProps) {
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Determine if this is a password field
+  const isPasswordField = name.toLowerCase().includes("password");
+
+  // Determine input type dynamically
+  const inputType = isPasswordField
+    ? showPassword
+      ? "text"
+      : "password"
+    : type || (name.toLowerCase().includes("email") ? "email" : "text");
 
   return (
     <div className="w-full">
       <p className="text-gray-700 text-sm mb-2">{name}</p>
-      <input
-        {...props}
-        value={value}
-        type={inputType}
-        placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
-        className="border border-gray-300 bg-gray-50 p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all"
-      />
+      <div className="relative">
+        <input
+          {...props}
+          value={value}
+          type={inputType}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+          className="border border-gray-300 bg-gray-50 p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all pr-12"
+        />
+
+        {isPasswordField && (
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            {showPassword ? (
+              <EyeOff className="w-5 h-5" />
+            ) : (
+              <Eye className="w-5 h-5" />
+            )}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
@@ -95,8 +125,6 @@ export default function CreateAccountPage() {
       redirectUrlComplete: "/",
     });
   };
-
- 
 
   // Carousel Data - Wrapped in useMemo to fix ESLint warning
   const mutAr = useMemo(
@@ -196,39 +224,27 @@ export default function CreateAccountPage() {
             onChange={setEmail}
           />
           <PhoneEntry />
-
-          {/* <div className="relative">
+          <div>
             <Entry
               name="Password"
               placeholder="Create password"
               value={password}
               onChange={setPassword}
             />
-            <p className="text-gray-500 text-xs mt-1 flex items-center gap-1">
-              <img src={PassInfo} alt="info" className="w-3 h-3" />
-              Password must be at least 8 characters
-            </p>
-          </div> */}
-          <div>
-  <Entry
-    name="Password"
-    placeholder="Create password"
-    value={password}
-    onChange={setPassword}
-    type="password" // Ensure this is set for security!
-  />
-  
-  <p className={`text-xs mt-1 flex items-center gap-1 transition-colors duration-200 ${
-    password.length >= 8 ? 'text-green-500' : 'text-gray-500'
-  }`}>
-    {password.length < 8 && (
-  <p className="text-gray-500 text-xs mt-1 flex items-center gap-1 transition-opacity duration-200">
-    <img src={PassInfo} alt="info" className="w-3 h-3" />
-    Password must be at least 8 characters
-  </p>
-)}
-  </p>
-</div>
+
+            <div className="min-h-[20px] mt-1">
+              {password.length > 0 && password.length < 8 ? (
+                <p className="text-red-500 text-xs flex items-center gap-1 transition-opacity duration-200">
+                  <img src={PassInfo} alt="info" className="w-3 h-3" />
+                  Password must be at least 8 characters
+                </p>
+              ) : password.length >= 8 ? (
+                <p className="text-green-600 text-xs flex items-center gap-1">
+                  ✓ Password strength: Good
+                </p>
+              ) : null}
+            </div>
+          </div>
           <button
             type="submit"
             className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-3 rounded-md transition-colors mt-6 shadow-md active:scale-95"
@@ -300,4 +316,3 @@ export default function CreateAccountPage() {
     </div>
   );
 }
-

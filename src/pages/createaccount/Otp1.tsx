@@ -1,8 +1,16 @@
 import Logo from "../../assets/images/createaccount-logo/ils.png";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, CheckCircle2 } from "lucide-react"; // Added CheckCircle2 for toast
 import { useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSignUp } from "@clerk/clerk-react";
+
+// --- Type Safety Fix ---
+interface ClerkError {
+  errors: Array<{
+    longMessage: string;
+    code: string;
+  }>;
+}
 
 export default function Otp() {
   const { isLoaded, signUp } = useSignUp();
@@ -11,18 +19,58 @@ export default function Otp() {
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [showToast, setShowToast] = useState(false); // Toast State
+
+  const [timeLeft, setTimeLeft] = useState(60);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  // Timer Logic
+  useEffect(() => {
+    if (timeLeft <= 0) return;
+    const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  // Toast Auto-hide logic
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => setShowToast(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+  };
+
+  const handleResend = async () => {
+    if (!isLoaded || !signUp || timeLeft > 0) return;
+
+    setResendLoading(true);
+    setError("");
+
+    try {
+      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+      setTimeLeft(60);
+      setShowToast(true); // Trigger Toast
+    } catch (err: unknown) {
+      const clerkErr = err as ClerkError; // Fixed ESLint 'any' error
+      setError(clerkErr.errors?.[0]?.longMessage || "Failed to resend code.");
+    } finally {
+      setResendLoading(false);
+    }
+  };
 
   const handleChange = (element: HTMLInputElement, index: number) => {
     if (isNaN(Number(element.value))) return false;
-
     const newOtp = [...otp];
     newOtp[index] = element.value;
     setOtp(newOtp);
-
-    if (element.value !== "" && index < 5) {
+    if (element.value !== "" && index < 5)
       inputRefs.current[index + 1]?.focus();
-    }
   };
 
   const handleKeyDown = (
@@ -36,8 +84,7 @@ export default function Otp() {
 
   const handleVerify = async () => {
     if (!isLoaded || !signUp) return;
-
-    const otpCode = otp.join(""); // Convert array ["1","2"...] to string "123..."
+    const otpCode = otp.join("");
     if (otpCode.length < 6) {
       setError("Please enter the full 6-digit code");
       return;
@@ -50,16 +97,13 @@ export default function Otp() {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code: otpCode,
       });
-
       if (completeSignUp.status === "complete") {
-        // await setActive({ session: completeSignUp.createdSessionId });
         navigate("/");
       }
-    } catch (err: any) {
-      // Logic to extract Clerk error message safely
-      console.error("Verification Error", err);
+    } catch (err: unknown) {
+      const clerkErr = err as ClerkError; // Fixed ESLint 'any' error
       setError(
-        err.errors?.[0]?.longMessage || "Invalid code. Please try again.",
+        clerkErr.errors?.[0]?.longMessage || "Invalid code. Please try again.",
       );
     } finally {
       setLoading(false);
@@ -67,7 +111,17 @@ export default function Otp() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen bg-white">
+    <div className="flex flex-col lg:flex-row h-screen bg-white relative">
+      {/* --- TOAST NOTIFICATION --- */}
+      <div
+        className={`fixed top-10 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-green-600 text-white px-6 py-3 rounded-full shadow-2xl transition-all duration-500 ${showToast ? "translate-y-0 opacity-100" : "-translate-y-20 opacity-0"}`}
+      >
+        <CheckCircle2 className="w-5 h-5" />
+        <span className="font-medium text-sm">
+          Verification code resent successfully!
+        </span>
+      </div>
+
       <div className="w-full lg:w-[45%] flex flex-col items-center justify-center p-6 sm:p-8 lg:p-12">
         <img src={Logo} alt="Logo" className="h-16 mb-12 object-contain" />
 
@@ -83,7 +137,7 @@ export default function Otp() {
             Verify email address
           </h1>
           <p className="text-gray-500 mb-8">
-            Kindly enter the <b>6 digit code</b> we sent to your email address.
+            Kindly enter the <b>6 digit code</b> we sent to your email.
           </p>
 
           {error && (
@@ -110,27 +164,38 @@ export default function Otp() {
           </div>
 
           <div className="text-center space-y-2">
-            <p className="text-gray-600">
-              Code expires in{" "}
-              <span className="font-bold text-gray-800">2:59</span>
+            <p className="text-gray-600 text-sm">
+              {
+                timeLeft > 0 && (
+                  <>
+                    Resend code in{" "}
+                    <span className="font-bold text-gray-800">
+                      {formatTime(timeLeft)}
+                    </span>
+                  </>
+                )
+                // (
+                //   <span className="text-red-500 font-medium italic">
+
+                //   </span>
+                // )
+              }
             </p>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-sm">
               Didn't get code?{" "}
               <button
-                className="text-green-600 font-bold hover:underline"
+                className={`font-bold transition-all ${timeLeft === 0 ? "text-green-700 hover:underline scale-105" : "text-green-200 cursor-not-allowed"}`}
                 type="button"
+                onClick={handleResend}
+                disabled={timeLeft > 0 || resendLoading}
               >
-                Resend code
+                {resendLoading ? "Sending..." : "Resend code"}
               </button>
             </p>
           </div>
 
           <button
-            className={`w-full rounded-xl py-4 mt-8 text-white font-bold transition-all shadow-lg active:scale-95 ${
-              loading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-green-700 hover:bg-green-800"
-            }`}
+            className={`w-full rounded-xl py-4 mt-8 text-white font-bold transition-all shadow-lg active:scale-95 ${loading ? "bg-gray-400" : "bg-green-700 hover:bg-green-800"}`}
             onClick={handleVerify}
             disabled={loading}
           >
@@ -147,8 +212,7 @@ export default function Otp() {
             Your Gateway to Smarter Learning
           </h2>
           <p className="text-lg opacity-90 max-w-md">
-            Access a variety of curated courses across fields. Learn at your
-            pace, anytime, anywhere.
+            Access a variety of curated courses across fields.
           </p>
         </div>
       </div>
