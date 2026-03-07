@@ -119,8 +119,9 @@
 // export default Profile;
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
-import { useUser } from "@clerk/clerk-react"; // 1. Import Clerk hook
+import { useUser } from "@clerk/clerk-react";
 
+// Components
 import EditBioPopup from "./popup/EditBioPopup";
 import UploadPhotoPopup from "./popup/UploadPhotoPopup";
 
@@ -134,7 +135,7 @@ const Profile = () => {
   const [showEditBio, setShowEditBio] = useState(false);
   const [showUploadPhoto, setShowUploadPhoto] = useState(false);
 
-  // 2. Get the user data from Clerk
+  // 1. Get user data from Clerk
   const { isLoaded, isSignedIn, user } = useUser();
 
   useEffect(() => {
@@ -146,9 +147,7 @@ const Profile = () => {
 
   document.title = "profile - Isaac Learning";
 
-  // 3. Dynamic Name Logic
-  const fullName = isLoaded && isSignedIn ? user.fullName : "Loading...";
-
+  // 2. Helper to handle Navigation active states
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     `py-3 px-6 text-center text-nowrap transition-all font-semibold border-b-[3px] flex-shrink-0 ${
       isActive || (indexPath === "/dashboard/profile" && isActive)
@@ -156,18 +155,25 @@ const Profile = () => {
         : "text-gray-500 border-transparent hover:text-gray-700"
     }`;
 
+  // 3. Fallback logic for name and bio
+  const fullName = isLoaded && isSignedIn ? user.fullName : "User";
+  const userBio = (user?.unsafeMetadata?.bio as string) || 
+    "Aspiring HR professional, passionate about people, learning, and workplace impact. Exploring the future of HR one course at a time.";
+
+  if (!isLoaded) return <div className="p-10 text-center">Loading Profile...</div>;
+
   return (
     <section className="min-h-screen w-full bg-[#f8fcfc] pb-20">
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 lg:px-10 pt-6">
         <p className="font-bold mb-4 text-xl text-slate-gray">My Profile</p>
 
+        {/* Hero Header Section */}
         <div className="relative flex flex-col md:flex-row justify-between items-center md:items-end bg-gradient-to-r from-[#00a36c] to-[#003d28] p-6 md:p-10 rounded-2xl mb-8 min-h-[200px] gap-6">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-5 text-center md:text-left">
             
-            {/* 4. Profile Picture Logic */}
+            {/* Profile Picture */}
             <div className="relative flex-shrink-0">
               <img
-                // Use user.imageUrl if available, otherwise a fallback UI
                 src={user?.imageUrl}
                 className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-white/20 object-cover"
                 alt="profile"
@@ -180,20 +186,18 @@ const Profile = () => {
               />
             </div>
 
+            {/* Dynamic Name and Bio */}
             <div className="flex flex-col">
               <h3 className="font-bold text-white text-2xl md:text-4xl mb-2">
-                {/* 5. Dynamic Name */}
                 {fullName}
               </h3>
               <p className="max-w-[450px] text-white/90 text-sm md:text-base leading-relaxed">
-                {/* TIP: Bio can eventually be stored in user.publicMetadata */}
-                Aspiring HR professional, passionate about people, learning, and
-                workplace impact. Exploring the future of HR one course at a
-                time.
+                {userBio}
               </p>
             </div>
           </div>
 
+          {/* Edit Bio Button */}
           <button
             className="flex items-center justify-center gap-2 bg-white h-11 px-6 rounded-xl shadow-lg hover:bg-gray-50 transition-colors w-full md:w-auto"
             onClick={() => setShowEditBio(true)}
@@ -203,7 +207,7 @@ const Profile = () => {
           </button>
         </div>
 
-        {/* ... rest of your navigation and popups ... */}
+        {/* Navigation Tabs */}
         <div className="border-b border-gray-200">
           <nav className="flex overflow-x-auto no-scrollbar scroll-smooth">
             <NavLink to="progress-summary" className={navLinkClass}>Progress Summary</NavLink>
@@ -213,9 +217,11 @@ const Profile = () => {
           </nav>
         </div>
 
+        {/* Popups */}
         {showEditBio && <EditBioPopup setShowEditBio={removeEditBio} />}
         {showUploadPhoto && <UploadPhotoPopup setShowUploadPhoto={removeUploadPhoto} />}
 
+        {/* Sub-page Content */}
         <div className="pt-6">
           <Outlet />
         </div>
