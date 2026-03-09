@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import type { Entryprops } from "../../components/createaccount/EntryDetails";
 import { useSignIn, useAuth } from "@clerk/clerk-react";
+import supabase from "../../config/supabaseClient";
 
 // Move static data outside the component to fix ESLint dependency warnings
 const mutAr = {
@@ -128,6 +129,8 @@ export default function Login() {
       setError(msg); // Now setError exists!
     }
   };
+
+  console.log(supabase);
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-white">
