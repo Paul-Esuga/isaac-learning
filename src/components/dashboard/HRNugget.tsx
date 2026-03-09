@@ -1,34 +1,56 @@
-import QuizIcon from "../../assets/images/icons/dashboard-icons/quiz-icon-green.png";
-import HrVideoIcon from "../../assets/images/icons/dashboard-icons/video-icon.png";
-import CommunityIcon from "../../assets/images/icons/dashboard-icons/community-icon-blue.png";
-import MockExamIcon from "../../assets/images/icons/dashboard-icons/mock-icon-green.png";
+// import QuizIcon from "../../assets/images/icons/dashboard-icons/quiz-icon-green.png";
+// import HrVideoIcon from "../../assets/images/icons/dashboard-icons/video-icon.png";
+// import CommunityIcon from "../../assets/images/icons/dashboard-icons/community-icon-blue.png";
+// import MockExamIcon from "../../assets/images/icons/dashboard-icons/mock-icon-green.png";
 import IsaacILS from "../../assets/images/dashboard-images/dashboard-modal.png";
 import ShareInsightsImg from "../../assets/images/dashboard-images/share-insights.png";
 import Bookmark from "../../assets/images/icons/community-icons/bookmark-icon.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import supabase from "../../config/supabaseClient";
 // import DashboardModal from "../../components/Modal/DashboardModal";
 // import { ShareNuggetDetails } from "../../components/Modal/ShareNuggetDetails";
 
 function HRNugget() {
-  const options = [
-    {
-      img: QuizIcon,
-      text: "Take a Quiz",
-    },
-    {
-      img: HrVideoIcon,
-      text: "Watch HR pro tips",
-    },
-    {
-      img: CommunityIcon,
-      text: "Ask the Community",
-    },
-    {
-      img: MockExamIcon,
-      text: "Mock exam simulator",
-    },
-  ];
+  // const options = [
+  //   {
+  //     img: QuizIcon,
+  //     text: "Take a Quiz",
+  //   },
+  //   {
+  //     img: HrVideoIcon,
+  //     text: "Watch HR pro tips",
+  //   },
+  //   {
+  //     img: CommunityIcon,
+  //     text: "Ask the Community",
+  //   },
+  //   {
+  //     img: MockExamIcon,
+  //     text: "Mock exam simulator",
+  //   },
+  // ];
   const [isFormFilled, setIsFormFilled] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const [tips, setTips] = useState<any[] | null>(null);
+
+  useEffect(() => {
+    const fetchTips = async () => {
+      const { data, error } = await supabase.from("tips").select();
+
+      if (error) {
+        setFetchError("could not fetch tips");
+        setTips(null);
+        console.log(error);
+      }
+      if (data) {
+        setTips(data);
+        setFetchError(null);
+      }
+    };
+
+    fetchTips();
+  }, []);
+
   const tip =
     "Recognition is a powerful motivator. Research shows that employees who receive regular recognition are 5x more likely to stay at their company. Try implementing a peer recognition program where team members can acknowledge each other's contributions. \nThis practice can boost team morale and create a positive workplace culture where achievements are and valued.";
 
@@ -36,7 +58,15 @@ function HRNugget() {
     <div className="flex flex-col lg:flex-row gap-6 mt-8">
       {/* Options Grid: Responsive grid instead of fixed width wrap */}
       <div className="bg-[#5DADE2]/10 grid grid-cols-2  sm:grid-cols-2 gap-3 p-4 rounded-2xl w-full lg:w-[400px]">
-        {options.map((option, i) => (
+        {fetchError && <p>{fetchError}</p>}
+        {tips &&
+          tips.map((tip) => (
+            <div key={tip.id} className="bg-white rounded-xl p-3 flex gap-2">
+              <img src={tip.icon} alt="" className="w-6 h-6" />
+              <p>{tip.text}</p>
+            </div>
+          ))}
+        {/* {options.map((option, i) => (
           <div
             key={i}
             className="bg-white rounded-xl p-3 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 shadow-sm text-center sm:text-left h-[100px] sm:h-[80px]"
@@ -46,7 +76,7 @@ function HRNugget() {
               {option.text}
             </p>
           </div>
-        ))}
+        ))} */}
       </div>
 
       {/* Nugget Section: Fixes the overlap seen in your image */}
